@@ -230,34 +230,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p>
-<p>下载解压</p>
-<p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p>
-<p>点击启动文件启动项目</p>
-<p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p>
-<p>账号 密码 都是 sentinel</p>
-<p>修改服务消费者 consuner </p>
-<p>填加依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt; &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>修改配置文件</p>
-<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>​      config:<br>        # 服务配置中心<br>​        server-addr: 192.168.141.132:8848<br>    # 熔断限流<br>​    sentinel:<br>​      transport:<br>​        dashboard: localhost:8888</p>
-<h1 id="开启-Feign-对-Sentinel-的支持"><a href="#开启-Feign-对-Sentinel-的支持" class="headerlink" title="开启 Feign 对 Sentinel 的支持"></a>开启 Feign 对 Sentinel 的支持</h1><p>feign:<br>  sentinel:<br>    enabled: true<br>server:</p>
-<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p>
-<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”<br>test<br>    name: “dsz”</p>
-<p>创建一个熔断类</p>
-<p>继承service    当service无法请求到服务提供者时 将会执行这个方法的固定返回值</p>
-<p>@Component public class EchoServiceFallback implements EchoService {     @Override     public String echo(String string) {         return “echo fallback”;     }     @Override     public String lb() {         return “lb fallback”;     } } </p>
-<p>在service 的注解上添加 fallback 指向熔断类</p>
-<p>@FeignClient(value = “service-provider”, fallback = EchoServiceFallback.class) </p>
-<p>启动 consuner 关闭 provider</p>
-<p>访问 <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard1.png" alt="img"></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard2.png" alt="img"></p>
-
+          <p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p><p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p><p>点击启动文件启动项目</p><p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
