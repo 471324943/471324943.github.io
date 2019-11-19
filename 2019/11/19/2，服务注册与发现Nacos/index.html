@@ -46,22 +46,22 @@
   };
 </script>
 
-  <meta name="description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
+  <meta name="description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习部署操作步骤 Clone 项目 git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker  单机模式 docker-compose -f example&#x2F;standalone-mysql.yaml up -d">
 <meta name="keywords" content="微服务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5，sentinel服务熔断">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;index.html">
+<meta property="og:title" content="2，服务注册与发现Nacos">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
+<meta property="og:description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习部署操作步骤 Clone 项目 git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker  单机模式 docker-compose -f example&#x2F;standalone-mysql.yaml up -d">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard2.png">
-<meta property="og:updated_time" content="2019-11-19T01:59:12.232Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard2.png">
+<meta property="og:updated_time" content="2019-11-19T08:14:14.067Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+<link rel="canonical" href="http://yoursite.com/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>5，sentinel服务熔断 | DSZ</title>
+  <title>2，服务注册与发现Nacos | DSZ</title>
   
 
 
@@ -225,7 +225,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpeg">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          5，sentinel服务熔断
+          2，服务注册与发现Nacos
         </h1>
 
         <div class="post-meta">
@@ -247,16 +247,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-18 19:40:38" itemprop="dateCreated datePublished" datetime="2019-11-18T19:40:38+08:00">2019-11-18</time>
+              <time title="创建时间：2019-11-19 16:12:08 / 修改时间：16:14:14" itemprop="dateCreated datePublished" datetime="2019-11-19T16:12:08+08:00">2019-11-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-19 09:59:12" itemprop="dateModified" datetime="2019-11-19T09:59:12+08:00">2019-11-19</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -280,33 +274,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p><p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p><p>点击启动文件启动项目</p><p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
+        <p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p><p><strong>部署操作步骤</strong></p><ol>
+<li><strong>Clone 项目</strong></li>
+</ol><p>git clone <a href="https://github.com/nacos-group/nacos-docker.git" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-docker.git</a> cd nacos-docker </p><ol>
+<li><strong>单机模式</strong></li>
+</ol><p>docker-compose -f example/standalone-mysql.yaml up -d </p><a id="more"></a>
 
 
 
 
 
+<p><strong>3.查看日志</strong></p>
+<p>docker-compose -f example/standalone-mysql.yaml logs -f </p>
+<p><strong>4.Nacos 控制台</strong></p>
+<p>​         <a href="http://www.qfdmy.com/wp-content/themes/quanbaike/go.php?url=aHR0cDovLzE5Mi4xNjguMTQxLjEzMjo4ODQ4L25hY29z" target="_blank" rel="noopener">http://服务器地址:8848/nacos</a></p>
+<p>如果想以后再部署的同学可以使用我的nacos</p>
+<p>​        <a href="http://106.54.8.126:8848/nacos" target="_blank" rel="noopener">http://106.54.8.126:8848/nacos</a></p>
+<p>账号：nacos</p>
+<p>密码：nacos</p>
+<p><strong>服务注册与发现</strong></p>
+<p>新增模块  spring-cloud-demo-provider服务提供者</p>
+<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard.png" alt="img"></p>
+<p><strong>添加pom依赖</strong></p>
+<p>注：如遇maven报错请移步《maven报错解决》</p>
+<dependencies>
+    <!-- Spring Boot Begin -->
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-web</artifactid>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
+    </dependency>
+    <!-- Spring Boot End -->
+    <!-- Spring Cloud Begin -->
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
+    </dependency>
+    <!-- Spring Cloud End -->
+</dependencies>
 
 
-<p>填加依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt; &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-
-
-<p>修改配置文件</p>
-<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>​      config:<br>        # 服务配置中心<br>​        server-addr: 192.168.141.132:8848<br>    # 熔断限流<br>​    sentinel:<br>​      transport:<br>​        dashboard: localhost:8888</p>
-<h1 id="开启-Feign-对-Sentinel-的支持"><a href="#开启-Feign-对-Sentinel-的支持" class="headerlink" title="开启 Feign 对 Sentinel 的支持"></a>开启 Feign 对 Sentinel 的支持</h1><p>feign:<br>  sentinel:<br>    enabled: true<br>server:</p>
-<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p>
-<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”<br>test<br>    name: “dsz”</p>
-<p>创建一个熔断类</p>
-<p>继承service    当service无法请求到服务提供者时 将会执行这个方法的固定返回值</p>
-<p>@Component public class EchoServiceFallback implements EchoService {     @Override     public String echo(String string) {         return “echo fallback”;     }     @Override     public String lb() {         return “lb fallback”;     } } </p>
-<p>在service 的注解上添加 fallback 指向熔断类</p>
-<p>@FeignClient(value = “service-provider”, fallback = EchoServiceFallback.class) </p>
-<p>启动 consuner 关闭 provider</p>
-<p>访问 <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard1.png" alt="img"></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard2.png" alt="img"></p>
+<p><strong>项目结构</strong></p>
+<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard1.png" alt="img"></p>
+<ol>
+<li>创建启动类</li>
+</ol>
+<p>import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cloud.client.discovery.EnableDiscoveryClient;   @SpringBootApplication @EnableDiscoveryClient public class ProviderApplication {     public static void main(String[] args) {         SpringApplication.run(ProviderApplication.class, args);     } } </p>
+<p>2.创建controller</p>
+<p>@RestController public class EchoController {      @GetMapping(value = “/echo/{string}”)     public String echo(@PathVariable String string) {         return “hello “+string;     }     } </p>
+<p>3.创建application.yml</p>
+<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-provider<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 106.54.8.126:8848<br>server:</p>
+<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8071<br>management:</p>
+<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”</p>
+<p><strong>运行项目</strong></p>
+<p>访问 ： <a href="http://localhost:8070/echo/dsz" target="_blank" rel="noopener">http://localhost:8070/echo/dsz</a> </p>
+<p><strong>再登录nacos</strong></p>
+<p>前面有说如何登录</p>
+<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard2.png" alt="img"></p>
+<p>显示服务名即表示服务注册成功</p>
 
     </div>
 
@@ -323,13 +352,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="next" title="1，统一依赖管理">
+                  <i class="fa fa-chevron-left"></i> 1，统一依赖管理
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="prev" title="1，统一依赖管理">
-                  1，统一依赖管理 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/" rel="prev" title="3，Nacos Feign 客户端">
+                  3，Nacos Feign 客户端 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -370,7 +402,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开启-Feign-对-Sentinel-的支持"><span class="nav-number">1.</span> <span class="nav-text">开启 Feign 对 Sentinel 的支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端口"><span class="nav-number">2.</span> <span class="nav-text">服务端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端点检查（健康检查）"><span class="nav-number">3.</span> <span class="nav-text">端点检查（健康检查）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端口"><span class="nav-number">1.</span> <span class="nav-text">服务端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端点检查（健康检查）"><span class="nav-number">2.</span> <span class="nav-text">端点检查（健康检查）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -500,7 +532,7 @@
       repo: '',
       owner: '',
       admin: [''],
-      id: '976312f8905aa5f71d5881abd6657f03',
+      id: 'dd92c61b32e1c26bfc3ad8c4b799dfe7',
         language: 'zh-CN',
       distractionFreeMode: 'true'
     });
