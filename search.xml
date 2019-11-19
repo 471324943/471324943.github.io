@@ -235,6 +235,9 @@
       <categories>
         <category>Spring-Cloud-Alibaba</category>
       </categories>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
   </entry>
   <entry>
     <title>5，sentinel服务熔断</title>
@@ -270,5 +273,8 @@
       <categories>
         <category>Spring-Cloud-Alibaba</category>
       </categories>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
   </entry>
 </search>
