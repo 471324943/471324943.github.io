@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>4，Nacos分布式配置中心</title>
+    <url>/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</url>
+    <content><![CDATA[<p><strong>以服务消费者service-consumer为例</strong></p><ol>
+<li>添加pom依赖</li>
+</ol><p><dependency>     <groupid>org.springframework.cloud</groupid>     <artifactid>spring-cloud-starter-alibaba-nacos-config</artifactid> </dependency> </p><p>2.打开nacos 打开 服务配置列表 点击新增配置</p><p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard.png" alt="img"></p><p>3.添加服务</p><p>Data ID 必须是唯一的  </p><a id="more"></a>
+
+
+
+
+
+
+<p>以.yaml结尾</p>
+<p>并选中配置格式 .yaml</p>
+<p>否则系统将默认为.properties文件</p>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard1.png" alt="img"></p>
+<p>4.把consumer项目的application.yml 配置复制到</p>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard2.png" alt="img"></p>
+<p>后面增加一个节点用于测试</p>
+<p>test:     name: “dsz” </p>
+<pre><code>5.在controller </code></pre><ul>
+<li>添加注解@RefreshScope</li>
+</ul>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard3.png" alt="img"></p>
+<ul>
+<li>注入测试节点</li>
+</ul>
+<p>@Value(“${test.name}”) private String name; </p>
+<ul>
+<li>新增测试方法</li>
+</ul>
+<p>@GetMapping(“name”) public String getName() {     return name; } </p>
+<p>6.修改application.yml </p>
+<ul>
+<li><p>删除 application.yml </p>
+</li>
+<li><p>添加bootstrap.properties</p>
+<p>bootstrap.properties配置内容</p>
+</li>
+</ul>
+<p>#配置的Data ID spring.application.name=service-consumer-config # nacos 的地址 spring.cloud.nacos.config.server-addr= 106.54.8.126:8848  #配置的文件格式 spring.cloud.nacos.config.file-extension=yaml </p>
+<p>附：</p>
+<p>spring-boot配置文件加载顺序</p>
+<p>spring-boot会默认按照如下顺序加载  有时候 application加载不到就是因为 加载顺序的原因</p>
+<p>bootstrap.properties-&gt;bootstrap.yml-&gt;application.properties-&gt;application.yml </p>
+<p>7.运行测试</p>
+<p>访问<a href="http://localhost:8080/name" target="_blank" rel="noopener">http://localhost:8080/name</a></p>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard4.png" alt="img"></p>
+<p>修改配置</p>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard5.png" alt="img"></p>
+<p>刷新</p>
+<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard6.png" alt="img"></p>
+<p>成功！</p>
+]]></content>
+      <categories>
+        <category>Spring-Cloud-Alibaba</category>
+      </categories>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>3，Nacos Feign 客户端</title>
     <url>/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
     <content><![CDATA[<p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol>
