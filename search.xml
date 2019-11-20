@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Spring-security</title>
+    <title>Spring security oAth2(1)</title>
     <url>/2019/11/20/Spring-security/</url>
-    <content><![CDATA[<p>title: Spring security oAth2<br>date: 2019-11-20 11:37:09<br>tags:<br>    - 安全框架<br>    - spring全家桶<br>category: 主流框架</p><h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p><a id="more"></a>
+    <content><![CDATA[<h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p><p>​            认证：判断该用户是否有权限登录该系统</p><p>​            授权：判断该用户是否有权限访问该功能</p><a id="more"></a>
 
-<p>​            认证：判断该用户是否有权限登录该系统</p>
-<p>​            授权：判断该用户是否有权限访问该功能</p>
+
 <p>spring security的所有的架构也是基于这两个核心功能去实现的。</p>
 <h3 id="2、框架原理"><a href="#2、框架原理" class="headerlink" title="2、框架原理"></a>2、框架原理</h3><p>​     众所周知 想要对对Web资源进行保护，最好的办法莫过于Filter，要想对方法调用进行保护，最好的办法莫过于AOP。所以springSecurity在我们进行用户认证以及授予权限的时候，通过各种各样的拦截器来控制权限的访问，从而实现安全。</p>
 <h5 id="关于-oAth2"><a href="#关于-oAth2" class="headerlink" title="关于 oAth2"></a>关于 oAth2</h5><p>​    oAth2不是一种技术，而是一种安全协议</p>
@@ -142,6 +141,13 @@
 
 
 ]]></content>
+      <categories>
+        <category>主流框架</category>
+      </categories>
+      <tags>
+        <tag>安全框架</tag>
+        <tag>spring全家桶</tag>
+      </tags>
   </entry>
   <entry>
     <title>gateway网关</title>
