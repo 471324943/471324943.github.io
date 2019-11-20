@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>gateway网关</title>
+    <url>/2019/11/20/gateway%E7%BD%91%E5%85%B3/</url>
+    <content><![CDATA[<p><strong>实现思想</strong></p><p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p><p><strong>功能特征</strong></p><ul>
+<li>基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0</li>
+<li>动态路由</li>
+<li>Predicates 和 Filters 作用于特定路由</li>
+<li>集成 Hystrix 断路器</li>
+<li>集成 Spring Cloud DiscoveryClient</li>
+<li>易于编写的 Predicates 和 Filters</li>
+<li>限流</li>
+<li>路径重写</li>
+</ul><a id="more"></a>
+
+
+
+<p><strong>具体拦截与分配代码</strong></p>
+<h1 id="采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）"><a href="#采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）" class="headerlink" title="采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）"></a>采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：<a href="https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）" target="_blank" rel="noopener">https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）</a></h1><ul>
+<li>id: BUSINESS-OAUTH2<h1 id="采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名"><a href="#采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名" class="headerlink" title="采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名"></a>采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名</h1>uri: lb://business-oauth2<h1 id="Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"><a href="#Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法" class="headerlink" title="Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"></a>Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法</h1>predicates:<h1 id="路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置"><a href="#路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置" class="headerlink" title="路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置"></a>路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置</h1><ul>
+<li>Path=/api/user/**<br>filters:<h1 id="前缀过滤，默认配置下，我们的请求路径是-http-localhost-8888-business-oauth2-这时会路由到指定的服务"><a href="#前缀过滤，默认配置下，我们的请求路径是-http-localhost-8888-business-oauth2-这时会路由到指定的服务" class="headerlink" title="前缀过滤，默认配置下，我们的请求路径是 http://localhost:8888/business-oauth2/** 这时会路由到指定的服务"></a>前缀过滤，默认配置下，我们的请求路径是 <a href="http://localhost:8888/business-oauth2/" target="_blank" rel="noopener">http://localhost:8888/business-oauth2/</a>** 这时会路由到指定的服务</h1><h1 id="此处配置去掉-1-个路径前缀，再配置上面的-Path-api-，就能按照-http-localhost-8888-api-的方式访问了"><a href="#此处配置去掉-1-个路径前缀，再配置上面的-Path-api-，就能按照-http-localhost-8888-api-的方式访问了" class="headerlink" title="此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/，就能按照 http://localhost:8888/api/ 的方式访问了"></a>此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/<strong>，就能按照 <a href="http://localhost:8888/api/" target="_blank" rel="noopener">http://localhost:8888/api/</a></strong> 的方式访问了</h1></li>
+<li>StripPrefix=1</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码实现</strong></p>
+<p>创建一个项目名为<strong>gateway</strong></p>
+<ol>
+<li>添加pom依赖</li>
+</ol>
+<dependencies>
+    <!-- Spring Boot Begin -->
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-test</artifactid>
+        <scope>test</scope>
+    </dependency>
+    <!-- Spring Boot End -->
+    <!-- Spring Cloud Begin -->
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
+        <version>0.9.0.RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-gateway</artifactid>
+    </dependency>
+    <!-- Spring Cloud End -->
+    <!-- Commons Begin -->
+    <dependency>
+        <groupid>javax.servlet</groupid>
+        <artifactid>javax.servlet-api</artifactid>
+    </dependency>
+    <!-- Commons Begin -->
+</dependencies>
+
+<pre><code>2.application.yml</code></pre><p>base:<br>  config:<br>    nacos:<br>      hostname: 106.54.8.126<br>      port: 8848<br>spring:<br>  application:<br>    # 应用名称<br>​    name: gateway<br>  main:<br>​    allow-bean-definition-overriding: true<br>  cloud:<br>    # 使用 Nacos 作为服务注册发现<br>​    nacos:<br>​      discovery:<br>​        server-addr: ${base.config.nacos.hostname}:${base.config.nacos.port}<br>    # 路由网关配置<br>​    gateway:<br>      # 设置与服务注册发现组件结合，这样可以采用服务名的路由策略<br>​      discovery:<br>​        locator:<br>​          enabled: true<br>      # 配置路由规则<br>​      routes:<br>        # 采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：<a href="https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）" target="_blank" rel="noopener">https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）</a><br>        - id: BUSINESS-OAUTH2<br>          # 采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名<br>          uri: lb://business-oauth2<br>          # Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法<br>          predicates:<br>            # 路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置<br>            - Path=/api/user/**<br>          filters:<br>            # 前缀过滤，默认配置下，我们的请求路径是 <a href="http://localhost:8888/business-oauth2/" target="_blank" rel="noopener">http://localhost:8888/business-oauth2/</a>** 这时会路由到指定的服务<br>            # 此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/<strong>，就能按照 <a href="http://localhost:8888/api/" target="_blank" rel="noopener">http://localhost:8888/api/</a></strong> 的方式访问了<br>            - StripPrefix=1<br>                - id: BUSINESS-PROFILE<br>          uri: lb://business-profile<br>          predicates:<br>            - Path=/api/profile/**<br>          filters:<br>            - StripPrefix=1<br>server:<br>      port: 8888</p>
+<h1 id="配置日志级别，方别调试"><a href="#配置日志级别，方别调试" class="headerlink" title="配置日志级别，方别调试"></a>配置日志级别，方别调试</h1><p>logging:<br>  level:<br>    org.springframework.cloud.gateway: debug</p>
+<p>3.GatewayApplication</p>
+<p>import org.springframework.boot.SpringApplication;<br>import org.springframework.boot.autoconfigure.SpringBootApplication;<br>import org.springframework.cloud.client.discovery.DiscoveryClient;<br>import org.springframework.cloud.client.discovery.EnableDiscoveryClient;<br>import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;<br>import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;<br>import org.springframework.cloud.gateway.route.RouteDefinitionLocator;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.http.HttpHeaders;<br>import org.springframework.http.HttpMethod;<br>import org.springframework.http.HttpStatus;<br>import org.springframework.http.codec.ServerCodecConfigurer;<br>import org.springframework.http.codec.support.DefaultServerCodecConfigurer;<br>import org.springframework.http.server.reactive.ServerHttpRequest;<br>import org.springframework.http.server.reactive.ServerHttpResponse;<br>import org.springframework.web.cors.reactive.CorsUtils;<br>import org.springframework.web.server.ServerWebExchange;<br>import org.springframework.web.server.WebFilter;<br>import org.springframework.web.server.WebFilterChain;<br>import reactor.core.publisher.Mono;<br>/**</p>
+<ul>
+<li>Spring Cloud Gateway</li>
+<li><p></p></li>
+<li>Description:</li>
+<li><p></p></li>
+<li></li>
+<li>@author Lusifer</li>
+<li>@version v1.0.0</li>
+<li>@date 2019-08-01 11:14:35</li>
+<li>@see</li>
+<li>/<br>@SpringBootApplication<br>@EnableDiscoveryClient<br>public class GatewayApplication {<br>  // —————————– 解决跨域 Begin —————————–<br>  private static final String ALL = “*”;<br>  private static final String MAX_AGE = “3600L”;<br>  @Bean<br>  public RouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {<pre><code>return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);</code></pre>  }<br>  @Bean<br>  public ServerCodecConfigurer serverCodecConfigurer() {<pre><code>return new DefaultServerCodecConfigurer();</code></pre>  }<br>  @Bean<br>  public WebFilter corsFilter() {<pre><code>return (ServerWebExchange ctx, WebFilterChain chain) -&gt; {
+    ServerHttpRequest request = ctx.getRequest();
+    if (!CorsUtils.isCorsRequest(request)) {
+        return chain.filter(ctx);
+    }
+    HttpHeaders requestHeaders = request.getHeaders();
+    ServerHttpResponse response = ctx.getResponse();
+    HttpMethod requestMethod = requestHeaders.getAccessControlRequestMethod();
+    HttpHeaders headers = response.getHeaders();
+    headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, requestHeaders.getOrigin());
+    headers.addAll(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, requestHeaders.getAccessControlRequestHeaders());
+    if (requestMethod != null) {
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, requestMethod.name());
+    }
+    headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, &quot;true&quot;);
+    headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, ALL);
+    headers.add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, MAX_AGE);
+    if (request.getMethod() == HttpMethod.OPTIONS) {
+        response.setStatusCode(HttpStatus.OK);
+        return Mono.empty();
+    }
+    return chain.filter(ctx);
+};</code></pre>  }<br>  // —————————– 解决跨域 End —————————–<br>  public static void main(String[] args) {<pre><code>SpringApplication.run(GatewayApplication.class, args);</code></pre>  }<br>}</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Spring-Cloud-Alibaba</category>
+      </categories>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nodejs设置全局路径后npm报错解决</title>
     <url>/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</url>
     <content><![CDATA[<p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img src="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp" alt="大大大"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>]]></content>
