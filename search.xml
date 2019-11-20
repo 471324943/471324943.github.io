@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>nodejs设置全局路径后npm报错解决</title>
+    <url>/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img src="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp" alt="大大大"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>]]></content>
+      <categories>
+        <category>bug记录</category>
+      </categories>
+      <tags>
+        <tag>nodejs</tag>
+        <tag>bug记录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>4，Nacos分布式配置中心</title>
     <url>/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</url>
     <content><![CDATA[<p><strong>以服务消费者service-consumer为例</strong></p><ol>
