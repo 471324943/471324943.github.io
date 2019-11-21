@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2019/11/21/redis-spring-data-redis-%25E7%259A%2584%25E7%25AE%2580%25E5%258D%2595%25E4%25BD%25BF%25E7%2594%25A8/</loc>
+    
+    <lastmod>2019-11-21T09:55:27.535Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2019/11/21/mybatis-plus-%25E4%25BD%25BF%25E7%2594%25A8/</loc>
     
     <lastmod>2019-11-21T03:11:27.440Z</lastmod>
