@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="概述​                MyBatisPlus是一个Mybatis的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。它主要通过启动时自动注入基本CURD，达到简化操作的目的。使用 pom依赖 12345678910111213141516171819&amp;lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;com.baom">
+<meta name="keywords" content="插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis-plus 使用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;21&#x2F;mybatis-plus-%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="概述​                MyBatisPlus是一个Mybatis的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。它主要通过启动时自动注入基本CURD，达到简化操作的目的。使用 pom依赖 12345678910111213141516171819&amp;lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;com.baom">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-21T03:11:27.440Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>mybatis-plus 使用 | DSZ</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpeg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mybatis-plus 使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-21 09:15:14 / 修改时间：11:11:27" itemprop="dateCreated datePublished" datetime="2019-11-21T09:15:14+08:00">2019-11-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">主流框架</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​                MyBatisPlus是一个Mybatis的增强工具，在 Mybatis 的基础上只做增强不做改变，为简化开发、提高效率而生。它主要通过启动时自动注入基本CURD，达到简化操作的目的。</p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>pom依赖</li>
+</ul><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0-beta<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- mybatis-plus begin --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0-beta<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- mybatis-plus end --&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- Spring Boot Mybatis 依赖 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+<ul>
+<li>application.yml配置文件</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">   <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/test1</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line"><span class="comment"># 可省略，SpringBoot自动推断</span></span><br><span class="line">        <span class="attr">driverClassName:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">  <span class="comment">#外部化xml配置</span></span><br><span class="line">  <span class="comment">#config-location: classpath:mybatis-config.xml</span></span><br><span class="line">  <span class="comment">#指定外部化 MyBatis Properties 配置，通过该配置可以抽离配置，实现不同环境的配置部署</span></span><br><span class="line">  <span class="comment">#configuration-properties: classpath:mybatis/config.properties</span></span><br><span class="line">  <span class="comment">#xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath*:/mapper/*.xml</span></span><br><span class="line">  <span class="comment">#MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名</span></span><br><span class="line">  <span class="attr">type-aliases-package:</span> <span class="string">net.xinhuamm.noah.api.model.entity,net.xinhuamm.noah.api.model.dto</span></span><br><span class="line">  <span class="comment">#如果配置了该属性，则仅仅会扫描路径下以该类作为父类的域对象</span></span><br><span class="line">  <span class="comment">#type-aliases-super-type: java.lang.Object</span></span><br><span class="line">  <span class="comment">#枚举类 扫描路径，如果配置了该属性，会将路径下的枚举类进行注入，让实体类字段能够简单快捷的使用枚举属性</span></span><br><span class="line">  <span class="comment">#type-enums-package: com.baomidou.mybatisplus.samples.quickstart.enums</span></span><br><span class="line">  <span class="comment">#项目启动会检查xml配置存在(只在开发时候打开)</span></span><br><span class="line">  <span class="attr">check-config-location:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#SIMPLE：该执行器类型不做特殊的事情，为每个语句的执行创建一个新的预处理语句,REUSE：该执行器类型会复用预处理语句,BATCH：该执行器类型会批量执行所有的更新语句</span></span><br><span class="line">  <span class="attr">default-executor-type:</span> <span class="string">REUSE</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="comment"># 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射</span></span><br><span class="line">    <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment"># 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true</span></span><br><span class="line">    <span class="attr">cache-enabled:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">#懒加载</span></span><br><span class="line">    <span class="comment">#aggressive-lazy-loading: true</span></span><br><span class="line">    <span class="comment">#NONE：不启用自动映射 PARTIAL：只对非嵌套的 resultMap 进行自动映射 FULL：对所有的 resultMap 都进行自动映射</span></span><br><span class="line">    <span class="comment">#auto-mapping-behavior: partial</span></span><br><span class="line">    <span class="comment">#NONE：不做任何处理 (默认值)WARNING：以日志的形式打印相关警告信息 FAILING：当作映射失败处理，并抛出异常和详细信息</span></span><br><span class="line">    <span class="comment">#auto-mapping-unknown-column-behavior: none</span></span><br><span class="line">    <span class="comment">#如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段</span></span><br><span class="line">    <span class="attr">call-setters-on-nulls:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 这个配置会将执行的sql打印出来，在开发或测试的时候可以用</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span></span><br><span class="line">  <span class="attr">global-config:</span></span><br><span class="line">    <span class="attr">db-config:</span></span><br><span class="line">      <span class="comment">#表名下划线命名默认true</span></span><br><span class="line">      <span class="attr">table-underline:</span> <span class="literal">true</span></span><br><span class="line">      <span class="comment">#id类型</span></span><br><span class="line">      <span class="attr">id-type:</span> <span class="string">auto</span></span><br><span class="line">      <span class="comment">#是否开启大写命名，默认不开启</span></span><br><span class="line">      <span class="comment">#capital-mode: false</span></span><br><span class="line">      <span class="comment">#逻辑已删除值,(逻辑删除下有效) 需要注入逻辑策略LogicSqlInjector 以@Bean方式注入</span></span><br><span class="line">      <span class="attr">logic-not-delete-value:</span> <span class="number">0</span></span><br><span class="line">      <span class="comment">#逻辑未删除值,(逻辑删除下有效)</span></span><br><span class="line">      <span class="attr">logic-delete-value:</span> <span class="number">1</span></span><br><span class="line">      <span class="comment">#数据库类型</span></span><br><span class="line">      <span class="attr">db-type:</span> <span class="string">sql_server</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="简单CRUD"><a href="#简单CRUD" class="headerlink" title="简单CRUD"></a>简单CRUD</h3><ul>
+<li>增加</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">User u  = <span class="keyword">new</span> User();</span><br><span class="line">      u.setUsername(<span class="string">"Dsz"</span>);</span><br><span class="line">      u.setPassword(<span class="string">"1111"</span>);</span><br><span class="line">      service.insert(u);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过id删除</span></span><br><span class="line">service.deleteById(u.getUid());</span><br><span class="line"><span class="comment">//条件删除</span></span><br><span class="line">service.delete(<span class="keyword">new</span> QueryWrapper&lt;User&gt;().eq(<span class="string">"username"</span>,u.getUsername()));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更新</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过id更新</span></span><br><span class="line">service.updateById(u);</span><br><span class="line"><span class="comment">//通过条件更新</span></span><br><span class="line">service.update(u,<span class="keyword">new</span> QueryWrapper&lt;&gt;());</span><br><span class="line"><span class="comment">//更新 如果不存在则插入</span></span><br><span class="line">service.insertOrUpdate(u);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//条件查询单个</span></span><br><span class="line">service.selectOne(<span class="keyword">new</span> QueryWrapper&lt;&gt;());</span><br><span class="line"><span class="comment">//条件查询多个</span></span><br><span class="line">service.selectList(<span class="keyword">new</span> QueryWrapper&lt;&gt;());</span><br><span class="line"><span class="comment">//通过id查询</span></span><br><span class="line">service.selectById(u.getUid());</span><br><span class="line"><span class="comment">//查询有多少条记录</span></span><br><span class="line">service.selectCount(<span class="keyword">new</span> QueryWrapper&lt;&gt;());</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="附：条件参数说明"><a href="#附：条件参数说明" class="headerlink" title="附：条件参数说明"></a>附：条件参数说明</h3><p>查询方式            说明<br>setSqlSelect    设置 SELECT 查询字段<br>where    WHERE 语句，拼接 + WHERE 条件<br>and    AND 语句，拼接 + AND 字段=值<br>andNew    AND 语句，拼接 + AND (字段=值)<br>or    OR 语句，拼接 + OR 字段=值<br>orNew    OR 语句，拼接 + OR (字段=值)<br>eq    等于=<br>allEq    基于 map 内容等于=<br>ne    不等于&lt;&gt;<br>gt    大于&gt;<br>ge    大于等于&gt;=<br>lt    小于&lt;<br>le    小于等于&lt;=<br>like    模糊查询 LIKE<br>notLike    模糊查询 NOT LIKE<br>in    IN 查询<br>notIn    NOT IN 查询<br>isNull    NULL 值查询<br>isNotNull    IS NOT NULL<br>groupBy    分组 GROUP BY<br>having    HAVING 关键词<br>orderBy    排序 ORDER BY<br>orderAsc    ASC 排序 ORDER BY<br>orderDesc    DESC 排序 ORDER BY<br>exists    EXISTS 条件语句<br>notExists    NOT EXISTS 条件语句<br>between    BETWEEN 条件语句<br>notBetween    NOT BETWEEN 条件语句<br>addFilter    自由拼接 SQL<br>last    拼接在最后，例如：last(“LIMIT 1”)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag"># 插件</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/20/Spring-security-oAth2-%E5%AE%9E%E6%88%98-3/" rel="next" title="Spring security oAth2-实战(3)">
+                  <i class="fa fa-chevron-left"></i> Spring security oAth2-实战(3)
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单CRUD"><span class="nav-number">2.1.</span> <span class="nav-text">简单CRUD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附：条件参数说明"><span class="nav-number">2.2.</span> <span class="nav-text">附：条件参数说明</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpeg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-DSZ"></i>
+  </span>
+ 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: 'a13299e3387fb3e0864f91ad8008935d',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
