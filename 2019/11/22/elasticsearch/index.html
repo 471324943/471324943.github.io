@@ -46,22 +46,25 @@
   };
 </script>
 
-  <meta name="description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
-<meta name="keywords" content="微服务">
+  <meta name="description" content="1. ES 基础一网打尽1.1 ES定义ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5，sentinel服务熔断">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;index.html">
+<meta property="og:title" content="elasticsearch">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
+<meta property="og:description" content="1. ES 基础一网打尽1.1 ES定义ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard2.png">
-<meta property="og:updated_time" content="2019-11-19T01:59:12.232Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1526464220142.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1526464283575.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1537966923164.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1537967155637.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1537967358260.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1537967445115.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1537967398979.png">
+<meta property="og:updated_time" content="2019-11-22T11:48:54.453Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;elasticsearch&#x2F;Users&#x2F;dsz&#x2F;Desktop&#x2F;03_ElasticSearch&#x2F;%E7%AC%94%E8%AE%B0&#x2F;assets&#x2F;1526464220142.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+<link rel="canonical" href="http://yoursite.com/2019/11/22/elasticsearch/">
 
 
 <script id="page-configurations">
@@ -75,7 +78,7 @@
   };
 </script>
 
-  <title>5，sentinel服务熔断 | DSZ</title>
+  <title>elasticsearch | DSZ</title>
   
 
 
@@ -220,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/22/elasticsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpeg">
@@ -233,7 +236,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          5，sentinel服务熔断
+          elasticsearch
         </h1>
 
         <div class="post-meta">
@@ -242,26 +245,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-18 19:40:38" itemprop="dateCreated datePublished" datetime="2019-11-18T19:40:38+08:00">2019-11-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-19 09:59:12" itemprop="dateModified" datetime="2019-11-19T09:59:12+08:00">2019-11-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud-Alibaba/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring-Cloud-Alibaba</span>
-                  </a>
-                </span>
+              <time title="创建时间：2019-11-22 08:30:05 / 修改时间：19:48:54" itemprop="dateCreated datePublished" datetime="2019-11-22T08:30:05+08:00">2019-11-22</time>
             </span>
 
           
@@ -275,33 +261,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p><p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p><p>点击启动文件启动项目</p><p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
+        <h1 id="1-ES-基础一网打尽"><a href="#1-ES-基础一网打尽" class="headerlink" title="1. ES 基础一网打尽"></a>1. ES 基础一网打尽</h1><h2 id="1-1-ES定义"><a href="#1-1-ES定义" class="headerlink" title="1.1 ES定义"></a>1.1 ES定义</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单。</p><a id="more"></a>
+<h2 id="1-2-Lucene与ES关系？"><a href="#1-2-Lucene与ES关系？" class="headerlink" title="1.2 Lucene与ES关系？"></a>1.2 Lucene与ES关系？</h2><p>1）Lucene只是一个库。想要使用它，你必须使用Java来作为开发语言并将其直接集成到你的应用中，更糟糕的是，Lucene非常复杂，你需要深入了解检索的相关知识来理解它是如何工作的。</p>
+<p>2）Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单。</p>
+<h2 id="1-3-ES主要解决问题："><a href="#1-3-ES主要解决问题：" class="headerlink" title="1.3 ES主要解决问题："></a>1.3 ES主要解决问题：</h2><p>1）检索相关数据；<br>2）返回统计结果；<br>3）速度要快。</p>
+<h1 id="2-ES的安装"><a href="#2-ES的安装" class="headerlink" title="2.ES的安装"></a>2.ES的安装</h1><p>Elastic有一条完整的产品线：Elasticsearch、Kibana、Logstash等，前面说的三个就是大家常说的ELK技术栈。</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1526464220142.png" alt="1526464220142"></p>
+<h3 id><a href="#" class="headerlink" title></a></h3><p>Elasticsearch官网：<a href="https://www.elastic.co/cn/products/elasticsearch" target="_blank" rel="noopener">https://www.elastic.co/cn/products/elasticsearch</a></p>
+<p><img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1526464283575.png" alt="1526464283575"></p>
+<p>下载地址：<a href="https://www.elastic.co/downloads/past-releases" target="_blank" rel="noopener">https://www.elastic.co/downloads/past-releases</a></p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537966923164.png" alt="1537966923164"></p>
+<p>elasticsearch无需安装，解压即用。</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967155637.png" alt="1537967155637"></p>
+<p>es：浏览器访问：9200</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">代码访问：9300</span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-<p>填加依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt; &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>修改配置文件</p>
-<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>​      config:<br>        # 服务配置中心<br>​        server-addr: 192.168.141.132:8848<br>    # 熔断限流<br>​    sentinel:<br>​      transport:<br>​        dashboard: localhost:8888</p>
-<h1 id="开启-Feign-对-Sentinel-的支持"><a href="#开启-Feign-对-Sentinel-的支持" class="headerlink" title="开启 Feign 对 Sentinel 的支持"></a>开启 Feign 对 Sentinel 的支持</h1><p>feign:<br>  sentinel:<br>    enabled: true<br>server:</p>
-<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p>
-<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”<br>test<br>    name: “dsz”</p>
-<p>创建一个熔断类</p>
-<p>继承service    当service无法请求到服务提供者时 将会执行这个方法的固定返回值</p>
-<p>@Component public class EchoServiceFallback implements EchoService {     @Override     public String echo(String string) {         return “echo fallback”;     }     @Override     public String lb() {         return “lb fallback”;     } } </p>
-<p>在service 的注解上添加 fallback 指向熔断类</p>
-<p>@FeignClient(value = “service-provider”, fallback = EchoServiceFallback.class) </p>
-<p>启动 consuner 关闭 provider</p>
-<p>访问 <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard1.png" alt="img"></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard2.png" alt="img"></p>
+<h2 id="1-3-运行"><a href="#1-3-运行" class="headerlink" title="1.3.运行"></a>1.3.运行</h2><p>进入elasticsearch/bin目录，可以看到下面的执行文件：</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967358260.png" alt="1537967358260"></p>
+<p>双击运行</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967445115.png" alt="1537967445115"></p>
+<p>可以看到绑定了两个端口:</p>
+<ul>
+<li>9300：java程序访问的端口</li>
+<li>9200：浏览器、postman访问接口</li>
+</ul>
+<p>我们在浏览器中访问：<a href="http://127.0.0.1:9200" target="_blank" rel="noopener">http://127.0.0.1:9200</a></p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967398979.png" alt="1537967398979"></p>
 
     </div>
 
@@ -310,22 +295,19 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/21/redis-spring-data-redis-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" rel="next" title="redis+spring-data-redis 的简单使用">
+                  <i class="fa fa-chevron-left"></i> redis+spring-data-redis 的简单使用
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="prev" title="1，统一依赖管理">
-                  1，统一依赖管理 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -365,7 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开启-Feign-对-Sentinel-的支持"><span class="nav-number">1.</span> <span class="nav-text">开启 Feign 对 Sentinel 的支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端口"><span class="nav-number">2.</span> <span class="nav-text">服务端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端点检查（健康检查）"><span class="nav-number">3.</span> <span class="nav-text">端点检查（健康检查）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-ES-基础一网打尽"><span class="nav-number">1.</span> <span class="nav-text">1. ES 基础一网打尽</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-ES定义"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 ES定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Lucene与ES关系？"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Lucene与ES关系？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-ES主要解决问题："><span class="nav-number">1.3.</span> <span class="nav-text">1.3 ES主要解决问题：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-ES的安装"><span class="nav-number">2.</span> <span class="nav-text">2.ES的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">2.0.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-运行"><span class="nav-number">2.1.</span> <span class="nav-text">1.3.运行</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -495,7 +477,7 @@
       repo: '',
       owner: '',
       admin: [''],
-      id: '976312f8905aa5f71d5881abd6657f03',
+      id: '494c288b1ad65783254ae01bd7e4acb3',
         language: 'zh-CN',
       distractionFreeMode: 'true'
     });

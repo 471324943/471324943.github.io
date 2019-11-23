@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>elasticsearch</title>
+    <url>/2019/11/22/elasticsearch/</url>
+    <content><![CDATA[<h1 id="1-ES-基础一网打尽"><a href="#1-ES-基础一网打尽" class="headerlink" title="1. ES 基础一网打尽"></a>1. ES 基础一网打尽</h1><h2 id="1-1-ES定义"><a href="#1-1-ES定义" class="headerlink" title="1.1 ES定义"></a>1.1 ES定义</h2><p>ES=elaticsearch简写， Elasticsearch是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上百台服务器，处理PB级别的数据。<br>Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单。</p><a id="more"></a>
+<h2 id="1-2-Lucene与ES关系？"><a href="#1-2-Lucene与ES关系？" class="headerlink" title="1.2 Lucene与ES关系？"></a>1.2 Lucene与ES关系？</h2><p>1）Lucene只是一个库。想要使用它，你必须使用Java来作为开发语言并将其直接集成到你的应用中，更糟糕的是，Lucene非常复杂，你需要深入了解检索的相关知识来理解它是如何工作的。</p>
+<p>2）Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的RESTful API来隐藏Lucene的复杂性，从而让全文搜索变得简单。</p>
+<h2 id="1-3-ES主要解决问题："><a href="#1-3-ES主要解决问题：" class="headerlink" title="1.3 ES主要解决问题："></a>1.3 ES主要解决问题：</h2><p>1）检索相关数据；<br>2）返回统计结果；<br>3）速度要快。</p>
+<h1 id="2-ES的安装"><a href="#2-ES的安装" class="headerlink" title="2.ES的安装"></a>2.ES的安装</h1><p>Elastic有一条完整的产品线：Elasticsearch、Kibana、Logstash等，前面说的三个就是大家常说的ELK技术栈。</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1526464220142.png" alt="1526464220142"></p>
+<h3 id><a href="#" class="headerlink" title></a></h3><p>Elasticsearch官网：<a href="https://www.elastic.co/cn/products/elasticsearch" target="_blank" rel="noopener">https://www.elastic.co/cn/products/elasticsearch</a></p>
+<p><img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1526464283575.png" alt="1526464283575"></p>
+<p>下载地址：<a href="https://www.elastic.co/downloads/past-releases" target="_blank" rel="noopener">https://www.elastic.co/downloads/past-releases</a></p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537966923164.png" alt="1537966923164"></p>
+<p>elasticsearch无需安装，解压即用。</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967155637.png" alt="1537967155637"></p>
+<p>es：浏览器访问：9200</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">代码访问：9300</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-运行"><a href="#1-3-运行" class="headerlink" title="1.3.运行"></a>1.3.运行</h2><p>进入elasticsearch/bin目录，可以看到下面的执行文件：</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967358260.png" alt="1537967358260"></p>
+<p>双击运行</p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967445115.png" alt="1537967445115"></p>
+<p>可以看到绑定了两个端口:</p>
+<ul>
+<li>9300：java程序访问的端口</li>
+<li>9200：浏览器、postman访问接口</li>
+</ul>
+<p>我们在浏览器中访问：<a href="http://127.0.0.1:9200" target="_blank" rel="noopener">http://127.0.0.1:9200</a></p>
+<p> <img src="/2019/11/22/elasticsearch/Users/dsz/Desktop/03_ElasticSearch/%E7%AC%94%E8%AE%B0/assets/1537967398979.png" alt="1537967398979"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>redis+spring-data-redis 的简单使用</title>
     <url>/2019/11/21/redis-spring-data-redis-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h3 id="一、为什么使用"><a href="#一、为什么使用" class="headerlink" title="一、为什么使用"></a>一、为什么使用</h3><ol>
