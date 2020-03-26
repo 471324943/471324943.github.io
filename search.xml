@@ -1,6 +1,365 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spring-data-jpa入门</title>
+    <url>/2020/03/26/spring-data-jpa%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<blockquote>
+<p>SpringData JPA是spring基于ORM框架、JPA规范的基础上封装的一套JPA应用框架，可以使开发者使用极简的代码实现对数据库的访问和操作。它提供了包括增删改查等在内的基本功能，且易于扩展。</p>
+</blockquote><h3 id="1-springdata-jpa、jpa和hibernate三者关系"><a href="#1-springdata-jpa、jpa和hibernate三者关系" class="headerlink" title="1 springdata jpa、jpa和hibernate三者关系"></a>1 springdata jpa、jpa和hibernate三者关系</h3><p>通俗来讲springdata jpa是对jpa规范的一层封装，hibernate实现了jpa规范。spring data jpa 内部封装了hibernate 是使用hibernate进行数据库交互的。</p><a id="more"></a>
+
+<h3 id="2-编写spring配置文件"><a href="#2-编写spring配置文件" class="headerlink" title="2 编写spring配置文件"></a>2 编写spring配置文件</h3><ul>
+<li>配置spring相关</li>
+<li>数据源信息</li>
+<li>jpa的实现方式</li>
+<li>配置要用到的实体类</li>
+<li>配置jpa实现方的配置信息</li>
+<li>配置事务管理器</li>
+<li>声明式事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:jpa=&quot;http://www.springframework.org/schema/data/jpa&quot;</span><br><span class="line">       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--spring--&gt;</span><br><span class="line">    &lt;!--配置spring的注解扫描--&gt;</span><br><span class="line">    &lt;context:component-scan base-package=&quot;com.lxf&quot;/&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;!--spring data jpa--&gt;</span><br><span class="line">    &lt;!--整合spring data jpa--&gt;</span><br><span class="line">    &lt;jpa:repositories base-package=&quot;com.lxf.dao&quot; entity-manager-factory-ref=&quot;entityManagerFactory&quot; transaction-manager-ref=&quot;transactionManager&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--创建实体管理器工厂,交给spring管理--&gt;</span><br><span class="line">    &lt;bean id=&quot;entityManagerFactory&quot; class=&quot;org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean&quot;&gt;</span><br><span class="line">        &lt;!--配置数据源--&gt;</span><br><span class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</span><br><span class="line">        &lt;!--配置要扫描的包，实体所在包--&gt;</span><br><span class="line">        &lt;property name=&quot;packagesToScan&quot; value=&quot;com.lxf.entity&quot;/&gt;</span><br><span class="line">        &lt;!--配置jpa的实现方--&gt;</span><br><span class="line">        &lt;property name=&quot;persistenceProvider&quot;&gt;</span><br><span class="line">            &lt;bean class=&quot;org.hibernate.jpa.HibernatePersistenceProvider&quot;/&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--jpa的实现方的配置--&gt;</span><br><span class="line">        &lt;property name=&quot;jpaVendorAdapter&quot;&gt;</span><br><span class="line">            &lt;bean class=&quot;org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter&quot;&gt;</span><br><span class="line">                &lt;!--数据库类型--&gt;</span><br><span class="line">                &lt;property name=&quot;database&quot; value=&quot;MYSQL&quot;/&gt;</span><br><span class="line">                &lt;!--控制台显示sql语句--&gt;</span><br><span class="line">                &lt;property name=&quot;showSql&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">                &lt;!--是否自动创建数据库表--&gt;</span><br><span class="line">                &lt;property name=&quot;generateDdl&quot; value=&quot;true&quot;/&gt;</span><br><span class="line">                &lt;!--数据库方言--&gt;</span><br><span class="line">                &lt;property name=&quot;databasePlatform&quot; value=&quot;org.hibernate.dialect.MySQLDialect&quot;/&gt;</span><br><span class="line">            &lt;/bean&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!--jpa方言:高级特性--&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--数据源--&gt;</span><br><span class="line">    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;jdbcUrl&quot; value=&quot;jdbc:mysql://localhost:3306/study?serverTimezone=GMT&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;user&quot; value=&quot;root&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;crystal1024&quot;/&gt;</span><br><span class="line">        &lt;property name=&quot;driverClass&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--配置事务管理器--&gt;</span><br><span class="line">    &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.orm.jpa.JpaTransactionManager&quot;&gt;</span><br><span class="line">        &lt;property name=&quot;entityManagerFactory&quot; ref=&quot;entityManagerFactory&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--声明式事务--&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-实体关系映射（ORM）"><a href="#3-实体关系映射（ORM）" class="headerlink" title="3 实体关系映射（ORM）"></a>3 实体关系映射（ORM）</h3><h4 id="3-1-ID生成策略"><a href="#3-1-ID生成策略" class="headerlink" title="3.1 ID生成策略"></a>3.1 ID生成策略</h4><p>ID对应数据库表的主键，是保证唯一性的重要属性。JPA提供了以下几种ID生成策略</p>
+<ol>
+<li><p>GeneratorType.AUTO ，由JPA自动生成</p>
+</li>
+<li><p>GenerationType.IDENTITY，使用数据库的自增长字段，需要数据库的支持（如SQL Server、MySQL、DB2、Derby等）</p>
+</li>
+<li><p>GenerationType.SEQUENCE，使用数据库的序列号，需要数据库的支持（如Oracle）</p>
+</li>
+<li><p>GenerationType.TABLE，使用指定的数据库表记录ID的增长 需要定义一个TableGenerator，在@GeneratedValue中引用。例如：</p>
+<p>@TableGenerator( name=”myGenerator”, table=”GENERATORTABLE”, pkColumnName = “ENTITYNAME”, pkColumnValue=”MyEntity”, valueColumnName = “PKVALUE”, allocationSize=1 )</p>
+<p>@GeneratedValue(strategy = GenerationType.TABLE,generator=”myGenerator”)</p>
+</li>
+</ol>
+<h4 id="3-2-关联关系"><a href="#3-2-关联关系" class="headerlink" title="3.2 关联关系"></a>3.2 关联关系</h4><p>JPA定义了one-to-one、one-to-many、many-to-one、many-to-many 4种关系。</p>
+<p>对于数据库来说，通常在一个表中记录对另一个表的外键关联；对应到实体对象，持有关联数据的一方称为owning-side，另一方称为inverse-side。</p>
+<p>为了编程的方便，我们经常会希望在inverse-side也能引用到owning-side的对象，此时就构建了双向关联关系。 在双向关联中，需要在inverse-side定义mappedBy属性，以指明在owning-side是哪一个属性持有的关联数据。</p>
+<p>对关联关系映射的要点如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">关系类型</th>
+<th align="center">Owning-Side</th>
+<th align="center">Inverse-Side</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">one-to-one</td>
+<td align="center">@OneToOne</td>
+<td align="center">@OneToOne(mappedBy=”othersideName”)</td>
+</tr>
+<tr>
+<td align="center">one-to-many / many-to-one</td>
+<td align="center">@ManyToOne</td>
+<td align="center">@OneToMany(mappedBy=”xxx”)</td>
+</tr>
+<tr>
+<td align="center">many-to-many</td>
+<td align="center">@ManyToMany</td>
+<td align="center">@ManyToMany(mappedBy =”xxx”)</td>
+</tr>
+</tbody></table>
+<p>其中 many-to-many关系的owning-side可以使用@JoinTable声明自定义关联表，比如Book和Author之间的关联表：</p>
+<p>@JoinTable(name = “BOOKAUTHOR”, joinColumns = { @JoinColumn(name = “BOOKID”, referencedColumnName = “id”) }, inverseJoinColumns = { @JoinColumn(name = “AUTHORID”, referencedColumnName = “id”) })</p>
+<p>关联关系还可以定制延迟加载和级联操作的行为（owning-side和inverse-side可以分别设置）：</p>
+<p>通过设置fetch=FetchType.LAZY 或 fetch=FetchType.EAGER来决定关联对象是延迟加载或立即加载。</p>
+<p>通过设置cascade={options}可以设置级联操作的行为，其中options可以是以下组合：</p>
+<ul>
+<li>CascadeType.MERGE 级联更新</li>
+<li>CascadeType.PERSIST 级联保存</li>
+<li>CascadeType.REFRESH 级联刷新</li>
+<li>CascadeType.REMOVE 级联删除</li>
+<li>CascadeType.ALL 级联上述4种操作</li>
+</ul>
+<h4 id="3-5-继承关系"><a href="#3-5-继承关系" class="headerlink" title="3.5 继承关系"></a>3.5 继承关系</h4><p>JPA通过在父类增加@Inheritance(strategy=InheritanceType.xxx)来声明继承关系。A支持3种继承策略：</p>
+<ol>
+<li>单表继承（InheritanceType.SINGLETABLE），所有继承树上的类共用一张表，在父类指定（@DiscriminatorColumn）声明并在每个类指定@DiscriminatorValue来区分类型。</li>
+<li>类表继承（InheritanceType.JOINED），父子类共同的部分公用一张表，其余部分保存到各自的表，通过join进行关联。</li>
+<li>具体表继承（InheritanceType.TABLEPERCLASS)，每个具体类映射到自己的表。</li>
+</ol>
+<p>其中1和2能够支持多态，但是1需要允许字段为NULL，2需要多个JOIN关系；3最适合关系数据库，对多态支持不好。具体应用时根据需要取舍。</p>
+<h6 id="实战示例"><a href="#实战示例" class="headerlink" title="实战示例"></a>实战示例</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package cn.itcast.om.cms.heima.domain;</span><br><span class="line"></span><br><span class="line">import java.io.Serializable;</span><br><span class="line">import java.text.SimpleDateFormat;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">import javax.persistence.CascadeType;</span><br><span class="line">import javax.persistence.Column;</span><br><span class="line">import javax.persistence.Entity;</span><br><span class="line">import javax.persistence.Id;</span><br><span class="line">import javax.persistence.JoinColumn;</span><br><span class="line">import javax.persistence.Lob;</span><br><span class="line">import javax.persistence.ManyToOne;</span><br><span class="line">import javax.persistence.Temporal;</span><br><span class="line">import javax.persistence.TemporalType;</span><br><span class="line">import javax.persistence.Transient;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 资讯内容</span><br><span class="line"> */</span><br><span class="line">@Entity</span><br><span class="line">public class News implements Serializable &#123;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	private static final long serialVersionUID = -2383334094869003498L;</span><br><span class="line">	/*主键*/</span><br><span class="line">	private String uuid;</span><br><span class="line">	/* 是否推荐 */</span><br><span class="line">    private boolean commend = false;</span><br><span class="line">    /* 审核状态,true为审核通过，false为未通过 */</span><br><span class="line">    private Boolean checkstate = false;</span><br><span class="line">    /* 点击统计*/</span><br><span class="line">    private Integer hitcount =1;</span><br><span class="line">    /* 搜索关键词 */</span><br><span class="line">    private String googlekey;</span><br><span class="line">    /* 信息标题*/</span><br><span class="line">    private String title;</span><br><span class="line">    /* 创建日期*/</span><br><span class="line">    private Date createdate = new Date();</span><br><span class="line">    /* 信息内容*/</span><br><span class="line">    private String description;</span><br><span class="line">    /* 该条信息是否可以进行评论*/</span><br><span class="line">    private boolean commentswitch =true;</span><br><span class="line">    /* 信息来源 */</span><br><span class="line">    private String source;</span><br><span class="line">    /* 导语  */</span><br><span class="line">    private String lead;</span><br><span class="line">    /* 配图  */</span><br><span class="line">    private String iconpath;</span><br><span class="line">    public static final String ICONVIRDIR = &quot;/images/news/icon&quot;;</span><br><span class="line">    /* 所属目录*/</span><br><span class="line">    private Information information;</span><br><span class="line">	/* 可以为单独某篇新闻指定模版 */</span><br><span class="line">	private InformationTemplate informationTemplate;</span><br><span class="line"></span><br><span class="line">	@Column(name=&quot;username&quot;)</span><br><span class="line">	private String username;</span><br><span class="line">	@Column(name=&quot;realname&quot;)</span><br><span class="line">	private String realname;</span><br><span class="line">	</span><br><span class="line">    public News() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    public News(String uuid) &#123;</span><br><span class="line">        this.uuid = uuid;</span><br><span class="line">    &#125;</span><br><span class="line">    public News(String uuid, String _title) &#123;</span><br><span class="line">    	this.uuid = uuid;</span><br><span class="line">    	this.title = _title;</span><br><span class="line">    &#125;</span><br><span class="line">    @Column(nullable=false)</span><br><span class="line">    public Boolean getCheckstate() &#123;</span><br><span class="line">		return checkstate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setCheckstate(Boolean checkstate) &#123;</span><br><span class="line">		this.checkstate = checkstate;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//对应longtext</span><br><span class="line">	@Lob</span><br><span class="line">    public String getLead() &#123;</span><br><span class="line">		return lead;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setLead(String lead) &#123;</span><br><span class="line">		this.lead = lead;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getIconpath() &#123;</span><br><span class="line">		return iconpath;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setIconpath(String iconpath) &#123;</span><br><span class="line">		this.iconpath = iconpath;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">     * 获取资讯文件web路径</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Transient</span><br><span class="line">    public String getVirPath()&#123;</span><br><span class="line">    	if(this.uuid!=null)&#123;</span><br><span class="line">    		SimpleDateFormat sf = new SimpleDateFormat(&quot;yyyyMMdd&quot;);</span><br><span class="line">    		SimpleDateFormat sf2 = new SimpleDateFormat(&quot;HHmmss&quot;);</span><br><span class="line">    		String format = sf.format(this.createdate);</span><br><span class="line">    		String format2 = sf2.format(this.createdate);</span><br><span class="line">    		return &quot;/news/&quot;+format+&quot;/&quot;+ format2+ &quot;.html&quot;;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">	/**</span><br><span class="line">     * 获取配图文件web路径</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    @Transient</span><br><span class="line">    public String getVirIconPath()&#123;</span><br><span class="line">    	if(this.iconpath!=null)&#123;</span><br><span class="line">    		return ICONVIRDIR+ &quot;/&quot;+ iconpath;</span><br><span class="line">    	&#125;</span><br><span class="line">    	return null;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //标明主键</span><br><span class="line">    @Id @Column(length=36)</span><br><span class="line">    public String getUuid() &#123;</span><br><span class="line">		return uuid;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setUuid(String uuid) &#123;</span><br><span class="line">		this.uuid = uuid;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//外键表关联 一对多查询</span><br><span class="line">    @ManyToOne(cascade=CascadeType.REFRESH, optional=true)</span><br><span class="line">    @JoinColumn(name=&quot;informationtemplate_id&quot;)</span><br><span class="line">	public InformationTemplate getInformationTemplate() &#123;</span><br><span class="line">		return informationTemplate;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setInformationTemplate(InformationTemplate informationTemplate) &#123;</span><br><span class="line">		this.informationTemplate = informationTemplate;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    @Column(length=50)</span><br><span class="line">    public String getGooglekey() &#123;</span><br><span class="line">		return googlekey;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setGooglekey(String googlekey) &#123;</span><br><span class="line">		this.googlekey = googlekey;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Column(nullable=false)</span><br><span class="line">    public boolean getCommend() &#123;</span><br><span class="line">        return commend;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCommend(boolean _commend) &#123;</span><br><span class="line">        this.commend = _commend;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Column(nullable=false)</span><br><span class="line">    public Integer getHitcount() &#123;</span><br><span class="line">        return hitcount;</span><br><span class="line">    &#125;</span><br><span class="line">    public void setHitcount(Integer _hitcount) &#123;</span><br><span class="line">        this.hitcount = _hitcount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Column(nullable=false,length=100)</span><br><span class="line">    public String getTitle() &#123;</span><br><span class="line">        return title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setTitle(String _title) &#123;</span><br><span class="line">        this.title = _title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	//时间类型格式化</span><br><span class="line">    @Temporal(value=TemporalType.TIMESTAMP)</span><br><span class="line">    public Date getCreatedate() &#123;</span><br><span class="line">        return createdate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCreatedate(Date _createdate) &#123;</span><br><span class="line">        this.createdate = _createdate;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Lob</span><br><span class="line">	public String getDescription() &#123;</span><br><span class="line">		return description;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setDescription(String description) &#123;</span><br><span class="line">		this.description = description;</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">    @Column(nullable=false)</span><br><span class="line">    public boolean getCommentswitch() &#123;</span><br><span class="line">        return commentswitch;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCommentswitch(boolean commentswitch) &#123;</span><br><span class="line">        this.commentswitch = commentswitch;</span><br><span class="line">    &#125;</span><br><span class="line">    @Column(length=100)</span><br><span class="line">    public String getSource() &#123;</span><br><span class="line">		return source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setSource(String source) &#123;</span><br><span class="line">		this.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@ManyToOne(cascade=&#123;CascadeType.REFRESH&#125;,optional=true)</span><br><span class="line">    @JoinColumn(name = &quot;information_id&quot;)     </span><br><span class="line">    public Information getInformation() &#123;</span><br><span class="line">        return information;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setInformation(Information information) &#123;</span><br><span class="line">        this.information = information;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int hashCode() &#123;</span><br><span class="line">        int hash = 0;</span><br><span class="line">        hash += (this.uuid != null ? this.uuid.hashCode() : 0);</span><br><span class="line">        return hash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean equals(Object object) &#123;</span><br><span class="line">        if (!(object instanceof News)) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        News other = (News)object;</span><br><span class="line">        if (this.uuid != other.uuid &amp;&amp; (this.uuid == null || !this.uuid.equals(other.uuid))) return false;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public String toString() &#123;</span><br><span class="line">		return &quot;News [uuid=&quot; + uuid + &quot;, googlekey=&quot; + googlekey + &quot;, title=&quot;</span><br><span class="line">				+ title + &quot;, description=&quot; + description + &quot;, source=&quot; + source</span><br><span class="line">				+ &quot;]&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getUsername() &#123;</span><br><span class="line">		return username;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setUsername(String username) &#123;</span><br><span class="line">		this.username = username;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getRealname() &#123;</span><br><span class="line">		return realname;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void setRealname(String realname) &#123;</span><br><span class="line">		this.realname = realname;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-编写dao层接口"><a href="#4-编写dao层接口" class="headerlink" title="4 编写dao层接口"></a>4 编写dao层接口</h3><ul>
+<li><p>需要继承两个接口</p>
+<ul>
+<li>JpaRepository：封装了增删改查分页排序等基本操作，具体可以看JpaRepository的父类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TB</span><br><span class="line">A[Repository] --&gt;B(CrudRepository)</span><br><span class="line">B --&gt; C(PagingAndSortingRepository)</span><br><span class="line">C --&gt;D(JpaRepository)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>JpaSpecificationExecutor：封装了标准查询</li>
+</ul>
+</li>
+<li><p>提供相应的泛型</p>
+<ul>
+<li>JpaRepository <ul>
+<li>操作的实体类型</li>
+<li>实体中主键类型</li>
+</ul>
+</li>
+<li>JpaSpecificationExecutor <ul>
+<li>操作的实体类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface UserDao extends JpaRepository&lt;User,Integer&gt;, JpaSpecificationExecutor&lt;User&gt; &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>会通过动态代理自动生成相应方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Integer</span>&gt;, <span class="title">JpaSpecificationExecutor</span>&lt;<span class="title">User</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">//参数插入的几种格式</span></span><br><span class="line">    <span class="meta">@Query</span>(value = <span class="string">"select * from user where name = :name and age = :age"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserByName</span><span class="params">(@Param(<span class="string">"name"</span>)</span> String userName,@<span class="title">Param</span><span class="params">(<span class="string">"age"</span>)</span> <span class="keyword">int</span> age)</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Query</span>(value = <span class="string">"select * from user where name = ? and age = ?"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserByName1</span><span class="params">( String userName, <span class="keyword">int</span> age)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Query</span>(value = <span class="string">"select * from user where name = ?1 and age = ?2"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findUserByName1</span><span class="params">( String userName, <span class="keyword">int</span> age)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//数据更新或者增加</span></span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">	<span class="meta">@Modifying</span>(clearAutomatically = <span class="keyword">true</span>)</span><br><span class="line">	<span class="meta">@Query</span>(value = <span class="string">"update information set title = ?1 , description = ?2 , keywords = ?3     WHERE uuid = ?4"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span>  <span class="title">updataInformation</span> <span class="params">(String title,String description,String keywords,String     uuid)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="语句操作"><a href="#语句操作" class="headerlink" title="语句操作"></a>语句操作</h5><p>除了调用spring data jpa内置的api，我们也可以在dao接口中定义我们自己的方法，通过@Query声明jpql或sql语句。</p>
+<ul>
+<li>@Query <ul>
+<li>value：数据库操作语句</li>
+<li>nativeQuery：是否是原生查询，默认false，即默认使用jpql查询</li>
+</ul>
+</li>
+<li>@Modifying：声明当前是一个更新操作，需要修改数据库数据。 <ul>
+<li>只能用于void或int/Integer的返回类型</li>
+<li>因为需要修改数据库数据，未防止修改失败造成未知后果，需要搭配事务管理来是使用</li>
+</ul>
+</li>
+<li>@Transactional：添加事务管理支持 <ul>
+<li>一般需要设置rollbackFor或者noRollbackFor，来表示什么情况下进行事务回滚</li>
+</ul>
+</li>
+<li>@Rollback：是否可以回滚，默认true</li>
+</ul>
+<h5 id="约定规则查询"><a href="#约定规则查询" class="headerlink" title="约定规则查询"></a>约定规则查询</h5><p>spring data jpa制定了一些约定，如果按照这些约定来定义方法名，则会自动解析出sql语句。</p>
+<blockquote>
+<p>findBy + 属性名 + 查询方式 + （And|Or） + 属性名 + 查询方式…</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>查询方式</th>
+<th>方法命名</th>
+<th>sql where字句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>And</td>
+<td>findByNameAndPwd</td>
+<td>where name= ? and pwd =?</td>
+</tr>
+<tr>
+<td>Or</td>
+<td>findByNameOrSex</td>
+<td>where name= ? or sex=?</td>
+</tr>
+<tr>
+<td>Is,Equals</td>
+<td>findById,findByIdEquals</td>
+<td>where id= ?</td>
+</tr>
+<tr>
+<td>Between</td>
+<td>findByIdBetween</td>
+<td>where id between ? and ?</td>
+</tr>
+<tr>
+<td>LessThan</td>
+<td>findByIdLessThan</td>
+<td>where id &lt; ?</td>
+</tr>
+<tr>
+<td>LessThanEquals</td>
+<td>findByIdLessThanEquals</td>
+<td>where id &lt;= ?</td>
+</tr>
+<tr>
+<td>GreaterThan</td>
+<td>findByIdGreaterThan</td>
+<td>where id &gt; ?</td>
+</tr>
+<tr>
+<td>GreaterThanEquals</td>
+<td>findByIdGreaterThanEquals</td>
+<td>where id &gt; = ?</td>
+</tr>
+<tr>
+<td>After</td>
+<td>findByIdAfter</td>
+<td>where id &gt; ?</td>
+</tr>
+<tr>
+<td>Before</td>
+<td>findByIdBefore</td>
+<td>where id &lt; ?</td>
+</tr>
+<tr>
+<td>IsNull</td>
+<td>findByNameIsNull</td>
+<td>where name is null</td>
+</tr>
+<tr>
+<td>isNotNull,NotNull</td>
+<td>findByNameNotNull</td>
+<td>where name is not null</td>
+</tr>
+<tr>
+<td>Like</td>
+<td>findByNameLike</td>
+<td>where name like ?</td>
+</tr>
+<tr>
+<td>NotLike</td>
+<td>findByNameNotLike</td>
+<td>where name not like ?</td>
+</tr>
+<tr>
+<td>StartingWith</td>
+<td>findByNameStartingWith</td>
+<td>where name like ‘?%’</td>
+</tr>
+<tr>
+<td>EndingWith</td>
+<td>findByNameEndingWith</td>
+<td>where name like ‘%?’</td>
+</tr>
+<tr>
+<td>Containing</td>
+<td>findByNameContaining</td>
+<td>where name like ‘%?%’</td>
+</tr>
+<tr>
+<td>OrderBy</td>
+<td>findByIdOrderByXDesc</td>
+<td>where id=? order by x desc</td>
+</tr>
+<tr>
+<td>Not</td>
+<td>findByNameNot</td>
+<td>where name &lt;&gt; ?</td>
+</tr>
+<tr>
+<td>In</td>
+<td>findByIdIn(Collection&lt;?&gt; c)</td>
+<td>where id in (?)</td>
+</tr>
+<tr>
+<td>NotIn</td>
+<td>findByIdNotIn(Collection&lt;?&gt; c)</td>
+<td>where id not  in (?)</td>
+</tr>
+<tr>
+<td>True</td>
+<td>findByAaaTue</td>
+<td>where aaa = true</td>
+</tr>
+<tr>
+<td>False</td>
+<td>findByAaaFalse</td>
+<td>where aaa = false</td>
+</tr>
+<tr>
+<td>IgnoreCase</td>
+<td>findByNameIgnoreCase</td>
+<td>where UPPER(name)=UPPER(?)</td>
+</tr>
+</tbody></table>
+<p>简单挑几个示例：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface UserDao extends JpaRepository&lt;User, Integer&gt;, JpaSpecificationExecutor&lt;User&gt; &#123;</span><br><span class="line">    public User findByName(String name);</span><br><span class="line"></span><br><span class="line">    public User findByNameLike(String name);</span><br><span class="line"></span><br><span class="line">    public User findByNameLikeAndAge(String name, int age);</span><br><span class="line"></span><br><span class="line">    public List&lt;User&gt; findByIdBetween(int idMin, int idMax);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-标准查询（Specification）"><a href="#5-标准查询（Specification）" class="headerlink" title="5 标准查询（Specification）"></a>5 标准查询（Specification）</h3><p>我们上面提到过，springdata jpa的dao层一般继承2个接口JpaRepository和JpaSpecificationExecutor。JpaRepository封装了crud、统计、排序、分页的常见操作，而JpaSpecificationExecutor基于JPA的criteria查询封装了另一种查询方式，我们之前一直在使用JpaRepositoru中的方法，下面来看下JpaSpecificationExecutor接口，它里面只提供了5个方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public interface JpaSpecificationExecutor&lt;T&gt; &#123;</span><br><span class="line">    //查询一个</span><br><span class="line">    Optional&lt;T&gt; findOne(@Nullable Specification&lt;T&gt; spec);</span><br><span class="line">    //查询全部</span><br><span class="line">    List&lt;T&gt; findAll(@Nullable Specification&lt;T&gt; spec);</span><br><span class="line">    //查询全部  提供分页功能</span><br><span class="line">    Page&lt;T&gt; findAll(@Nullable Specification&lt;T&gt; spec, Pageable pageable);</span><br><span class="line">    //查询全部，提供排序功能</span><br><span class="line">    List&lt;T&gt; findAll(@Nullable Specification&lt;T&gt; spec, Sort sort);</span><br><span class="line">    //统计</span><br><span class="line">    long count(@Nullable Specification&lt;T&gt; spec);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这5个方法有个共同点，接收一个Specification参数。</p>
+<h5 id="Specification"><a href="#Specification" class="headerlink" title="Specification"></a>Specification</h5><p>Specification是对JPA规范中Root、CriteriaQuery、CriteriaBuilder的一层封装，用于构建过滤条件。实例化Specification需要实现它的toPerdicate方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//参数含义在我的另一文JPA规范中有介绍，简单说来Root用于获得查询属性，CriteriaBuilder用于构建过滤条件，CriteriaQuery用于指定最终查询语句，这里一般不会使用，默认为where语句。</span><br><span class="line">Predicate toPredicate(Root&lt;T&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder criteriaBuilder);</span><br></pre></td></tr></table></figure>
+
+<p>注意这里创建出来的是where查询语句。</p>
+<p>来个简单示例，查询表中年龄大于等于18的所有河南人：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void test()&#123;</span><br><span class="line">    Specification&lt;User&gt; specification = new Specification&lt;User&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public Predicate toPredicate(Root&lt;User&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder criteriaBuilder) &#123;</span><br><span class="line">            //分别构造各个单属性的过滤条件</span><br><span class="line">            Predicate namePredicate = criteriaBuilder.like(root.get(&quot;address&quot;), &quot;河南%&quot;);</span><br><span class="line">            Predicate agePredicate = criteriaBuilder.ge(root.get(&quot;age&quot;), 18);//大于等于</span><br><span class="line"></span><br><span class="line">            //组合成最终的过滤条件</span><br><span class="line">            Predicate predicate = criteriaBuilder.and(namePredicate, agePredicate);</span><br><span class="line">            return predicate;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    //查询</span><br><span class="line">    List&lt;User&gt; users = userDao.findAll(specification);</span><br><span class="line">    users.forEach(new Consumer&lt;User&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void accept(User user) &#123;</span><br><span class="line">            System.out.println(user);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要添加排序和分页，可以使用Sort和Pageable。</p>
+<ul>
+<li>Sort：排序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sort sort = new Sort(Sort.Direction.DESC,&quot;id&quot;);//排序属性可以设置多个</span><br><span class="line">List&lt;User&gt; users = userDao.findAll(specification,sort);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Pageable：分页，是一个接口，可以通过PageRequest构建实例。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sort sort = new Sort(Sort.Direction.DESC,&quot;id&quot;);</span><br><span class="line">//Pageable pageable = PageRequest.of(0,10);//pageIndex，pageSize</span><br><span class="line">Pageable pageable = PageRequest.of(0,10,sort);</span><br><span class="line">Page&lt;User&gt; users = userDao.findAll(specification, pageable);</span><br><span class="line">users.forEach(new Consumer&lt;User&gt;() &#123;</span><br><span class="line">   @Override</span><br><span class="line">   public void accept(User user) &#123;</span><br><span class="line">      System.out.println(user);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>主流框架</category>
+      </categories>
+      <tags>
+        <tag>spring全家桶</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sql 高级</title>
+    <url>/2020/03/26/sql-%E9%AB%98%E7%BA%A7/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>并发编程-线程共享与协作</title>
+    <url>/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。</p><h3 id="CPU时间片轮转机制"><a href="#CPU时间片轮转机制" class="headerlink" title="CPU时间片轮转机制"></a>CPU时间片轮转机制</h3><p>在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。</p><a id="more"></a>
+
+<h3 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h3><p>进程是程序运行分配的最小单位，一个进程内有多个线程，一起共享这个进程的资源，多个进程之间基本互不干扰，要进行通信的话要通过操作系统。</p>
+<p>线程是CPU调度的最小单位，一个进程至少拥有一个线程</p>
+<h3 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h3><p>   并行：系统可以同时处理的请求数</p>
+<p>   并发：系统在一段时间内处理的请求数</p>
+<h3 id="高并发编程的意义"><a href="#高并发编程的意义" class="headerlink" title="高并发编程的意义"></a>高并发编程的意义</h3><p>多个线程同时使用CPU，充实CPU使用率，提高程序性能，不过内存使用过高可能出现内存耗尽的情况，导致机器宕机</p>
+<h2 id="认识java里的线程"><a href="#认识java里的线程" class="headerlink" title="认识java里的线程"></a>认识java里的线程</h2><h3 id="获取当前进程运行中的所有线程"><a href="#获取当前进程运行中的所有线程" class="headerlink" title="获取当前进程运行中的所有线程"></a>获取当前进程运行中的所有线程</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">           System.out.println(threadInfo.getThreadName());</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个main方法运行会产生以下线程</p>
+<p><strong>Attach Listener</strong>：获取但前程序运行相关信息<br><strong>Signal Dispatcher</strong>：分发处理给虚拟机的线程<br><strong>Finalizer</strong>：结束运行时执行清理垃圾，但并不保证每次都会正常运行<br><strong>Reference Handler</strong>：负责清除引用<br><strong>main</strong>：当前线程</p>
+<p><strong><code>Java程序天生就是多线程的</code></strong></p>
+<h3 id="有几种开启新线程的方法？"><a href="#有几种开启新线程的方法？" class="headerlink" title="有几种开启新线程的方法？"></a>有几种开启新线程的方法？</h3><ol>
+<li><p>直接继承类Thread重写run 方法 </p>
+</li>
+<li><p>实现Runnable重写run 方法并创建实现类对象，传递给Thread的构造</p>
+</li>
+<li><p>实现callable接口重写call方法并创建实现类对象，传递给FutureTask类构造，由于FutureTask实现了Runnable所以可以直接做为参数传递给Thread类开启线程。FutureTask类的get方法可以获取call方法的对应返回值。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Thread创建线程</span></span><br><span class="line">      ThreadTest threadTest = <span class="keyword">new</span> ThreadTest();</span><br><span class="line">      threadTest.start();</span><br><span class="line">   </span><br><span class="line">      <span class="comment">//Runnable创建线程</span></span><br><span class="line">      RunnableTest runnableTest = <span class="keyword">new</span> RunnableTest();</span><br><span class="line">      <span class="keyword">new</span> Thread(runnableTest).start();</span><br><span class="line">   </span><br><span class="line">      <span class="comment">//Callable创建线程</span></span><br><span class="line">      CallableTest callableTest = <span class="keyword">new</span> CallableTest();</span><br><span class="line">      FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> FutureTask&lt;String&gt;(callableTest);</span><br><span class="line">      <span class="keyword">new</span> Thread(futureTask).start();</span><br><span class="line">      System.out.println(futureTask.get());</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="线程的安全停止"><a href="#线程的安全停止" class="headerlink" title="线程的安全停止"></a>线程的安全停止</h3><ol>
+<li>自然执行完毕停止</li>
+<li>出现异常，意外终止线程</li>
+<li>stop()方法停止线程(无法保证线程资源正常释放可能导致未知问题)，resume()继续线程,suspend()暂停线程(都已过时因为可能导致死锁) </li>
+<li>interrupt()中断一个线程，并不是强制停止一个线程，而是标注但前线程中断标注位为true</li>
+<li>isInterrupt()判断但前线程是否属于中断 </li>
+<li>静态的interrupt()也是判断一个线程是否属于中断状态 他会标注中断标志为false</li>
+<li>Java线程是协作式的，因为要让线程完成自己的中止操作</li>
+<li>调用一个线程的interrupt() 方法中断一个线程，并不是强行关闭这个线程，只是跟这个线程打个招呼，将线程的中断标志位置为true，线程是否中断，由线程本身决定。</li>
+</ol>
+<h3 id="线程常用方法和线程的状态"><a href="#线程常用方法和线程的状态" class="headerlink" title="线程常用方法和线程的状态"></a>线程常用方法和线程的状态</h3><p>线程有  创建-&gt;就绪-&gt;运行-&gt;阻塞-&gt;死亡 五种状态</p>
+<p>run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
+<p>yield() ：让出cpu的执行权，将线程从运行转到可运行状态，但是下个时间片，该线程依然有可能被再次选中运行。</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>线程的级别有1-10级 1为最高  默认省缺值是5</p>
+<p>线程的优先级因系统而异 有些系统可能直接会把所有的优先级默认成5。</p>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>守护线程一旦执行，只有主线程关闭才会关闭。</p>
+<p>一般用于辅助主线程进行正常工作。</p>
+<p><strong>使用</strong></p>
+<p>​        需要在start方法<strong>前</strong>设置</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">threadTest.setDaemon(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行</p>
+<h3 id="synchronized内置锁"><a href="#synchronized内置锁" class="headerlink" title="synchronized内置锁"></a>synchronized内置锁</h3><p>用处：限制访问 各个线程之间去抢夺synchronized的标志位，谁吧标志位指向了自己  那么谁就获得了运行权</p>
+<p>对象锁：在方法上加锁 或者在方法中加锁 限制但前对象只能排队进行访问</p>
+<p>类锁：在类上定义，锁定但前类的class文件，对所有创建出来的对象进行限制。</p>
+<h3 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h3><p> 轻量效率高的同步机制，但是线程不安全 不能保证原子性</p>
+<p>适用环境：只有一个线程写多个线程读的时候</p>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>Thread local 包装成员变量能保证每一个线程只使用自己的那一份数据，每个线程之间互不干扰。</p>
+<p>注意：由于每个线程都要开辟出来一个自己的内存空间，如果设置的类型占用内存大的话，可能会导致Thread local 占用内存太大</p>
+]]></content>
+  </entry>
+  <entry>
     <title>spring-cloud-Netflix 基本配置</title>
     <url>/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><strong>pom</strong></p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>

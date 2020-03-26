@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2020/03/26/spring-data-jpa%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-03-26</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/03/26/sql-%E9%AB%98%E7%BA%A7/</loc>
+    <lastmod>2020-03-26</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/</loc>
+    <lastmod>2020-01-09</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2019-12-16</lastmod>
   </url>  <url>
