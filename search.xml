@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>redis学习与提升</title>
+    <url>/2020/04/24/redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87/</url>
+    <content><![CDATA[<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset</p><p>​        <strong>sorted_set</strong>:   –》treemap</p><a id="more"></a>
+
+
+
+
+<h3 id="string类型的基本操作"><a href="#string类型的基本操作" class="headerlink" title="string类型的基本操作"></a>string类型的基本操作</h3><p>​        get key //根据key获取value</p>
+<p>​        set key value  //写入一对数据</p>
+<p>​        del key //删除但前key对应数据</p>
+<p>​        mset key1 value1 key2 value2 //批量添加数据</p>
+<p>​        mget key1 key2 //获取多个数据</p>
+<p>​        strlen key //获取value长度</p>
+<p>​        append key value //追加信息如果该key存在就追加不存在就新建</p>
+<p>​        incr key //对该key的value进行+1</p>
+<p>​        incrby key increment //对该key 的value进行增加指定的值</p>
+<p>​        incrbyfloat key increment //对该key 的value进行增加指定的小数值</p>
+<p>​        decr key  //对该key的value进行-1</p>
+<p>​        decrby key increment //对该key 的value进行减少指定的值</p>
+<p>​        setex key seconds value //设置生命周期存活周期 时间单位为秒</p>
+<p>​        psetex key milliseconds value //设置生命周期存活周期 时间单位为毫秒</p>
+<h3 id="hash类型的基本操作"><a href="#hash类型的基本操作" class="headerlink" title="hash类型的基本操作"></a>hash类型的基本操作</h3><p>​        hget key  field //根据key获取value</p>
+<p>​        hset key field  value  //写入一对数据</p>
+<p>​        hdel key  field  //删除但前key对应数据</p>
+<p>​        hgetall key //获取但前key下所有数据</p>
+<p>​        hmset key1 field1 value1 field2 value2 //批量添加数据</p>
+<p>​        hmget key1 field1 field2 //获取多个数据</p>
+<p>​        hlen key //获取哈希表中字段的数量</p>
+<p>​        hexists key  field //获取哈希表中是否存在该字段</p>
+<p>​        hkeys key //获取当前哈希表中所有字段名</p>
+<p>​        hvalue key //获取当前哈希表中所有字段值</p>
+<p>​        hincrby key field increment //设置指定字段增加范围内的值</p>
+<p>​        hincrbyfloat key field increment //增加指定范围内的小数值</p>
+<p>​        hsetnx key field value //判断是否存在 存在则放弃 不存在则添加</p>
+<h3 id="list类型的基本操作"><a href="#list类型的基本操作" class="headerlink" title="list类型的基本操作"></a>list类型的基本操作</h3><p>​        lpush key value1 value2 //从左边添加数据</p>
+<p>​        rpush key value1 value2 //从右边添加数据</p>
+<p>​        lrange key start stop //获取数据从第几位获取到第几位</p>
+<p>​        lindex key index //获取但前索引位数据</p>
+<p>​        llen key //获取当前list的长度</p>
+<p>​        lpop key // 从左边移除数据</p>
+<p>​        rpop key // 从右边移除数据</p>
+<p>​        blpop key1 key2 timeout //从左边获取当前key1值 如果获取不到会等待timeout秒</p>
+<p>​        brpop key1 key2 timeout //从右边获取当前key1值 如果获取不到会等待timeout秒</p>
+<p>​        lrem key count value  //移除指定数据  count 移除多少个</p>
+<h3 id="set类型的基本操作"><a href="#set类型的基本操作" class="headerlink" title="set类型的基本操作"></a>set类型的基本操作</h3><p>​        sadd key member1 member2//增加数据</p>
+<p>​        smembers key //查看当前key 下所有数据</p>
+<p>​        srem key member1 member2 //删除数据</p>
+<p>​        scard key //获取集合大小</p>
+<p>​        sismember key member //判断set中是否存在指定数据</p>
+<p>​        srandmember key count //随机获取指定个数数据</p>
+<p>​        spop key //随机获取集合中的某个数据然后进行移除</p>
+<p>​        sinter key1 key2 //获取两个集合的交集  也就是重复那部分数据</p>
+<p>​        sunion key1 key2 //获取俩个集合的并集 也就是类似于连个集合去重</p>
+<p>​        sdiff key1 key2 //获取key1 对key2的差值 也就是key1中有key2 中没有</p>
+<p>​        sinterstore destination key1 key2 //获取交集并赋值到某个集合</p>
+<p>​        sunionstore destination key1 key2 //获取并集并赋值到某个集合</p>
+<p>​        sdiffstore destination key1 key2 //获取差集并赋值到某个集合</p>
+<p>​        smove source destination member //将数据从source 移动到member 中</p>
+<h3 id="sorted-set类型的基本操作"><a href="#sorted-set类型的基本操作" class="headerlink" title="sorted_set类型的基本操作"></a>sorted_set类型的基本操作</h3><p>​        zadd key score1 member1 // 增加数据 score 需要排序的行</p>
+<p>​        zrange key start stop withscores //获取一段数据 加with scores 则显示member1</p>
+<p>​        zrevrange key start stop withscores //获取一段数据反转并反转展示</p>
+<p>​        zrem key member member //删除数据 根据key 与member</p>
+<p>​        zrangebyscore key min max withscores limit  //获取数据 数据大小在min 和max之间</p>
+<p>​        zrevrangebyscore key max min //获取数据并反转</p>
+<p>​        zremrangebyrank key start stop //删除数据 从多少位到多少位</p>
+<p>​        zremrangebyscore key min max //删除数据数据大小为 min 到max</p>
+<p>​        zcard key  //获取数据总量</p>
+<p>​        zcount key min max //获取数据总量按数据大小</p>
+<p>​        zinterstore destination numkeys key key //获取交集并赋值给destination </p>
+<p>​        zunionstore destination   numkeys  key key  //获取数据并集并赋值给destination   </p>
+<p>​    </p>
+]]></content>
+  </entry>
+  <entry>
     <title>HashMap底层学习</title>
     <url>/2020/04/21/HashMap%E5%BA%95%E5%B1%82%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p><p><strong>数组：</strong></p><p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p><p><strong>线性链表：</strong></p><p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p><a id="more"></a>
@@ -383,7 +457,7 @@
 <p>​        需要在start方法<strong>前</strong>设置</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">threadTest.setDaemon(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行</p>
+<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行，一旦主线程停止守护线程也会跟随立即停止  不会最后运行finally</p>
 <h3 id="synchronized内置锁"><a href="#synchronized内置锁" class="headerlink" title="synchronized内置锁"></a>synchronized内置锁</h3><p>用处：限制访问 各个线程之间去抢夺synchronized的标志位，谁吧标志位指向了自己  那么谁就获得了运行权</p>
 <p>对象锁：在方法上加锁 或者在方法中加锁 限制但前对象只能排队进行访问</p>
 <p>类锁：在类上定义，锁定但前类的class文件，对所有创建出来的对象进行限制。</p>
@@ -391,6 +465,7 @@
 <p>适用环境：只有一个线程写多个线程读的时候</p>
 <h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>Thread local 包装成员变量能保证每一个线程只使用自己的那一份数据，每个线程之间互不干扰。</p>
 <p>注意：由于每个线程都要开辟出来一个自己的内存空间，如果设置的类型占用内存大的话，可能会导致Thread local 占用内存太大</p>
+<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a><strong>ReentrantLock</strong></h3><p>与synchronized一样是可重入锁，Synchronized是依赖于JVM实现的；而ReentrantLock是依赖于JDK实现的，是API层面的，需要Lock()和unLock()方法配合try/finally语句块来完成。ReentrantLock比Synchronized多了三项功能：等待可中断，可实现公平锁，可实现选择性通知（锁可绑定多个条件）。<br>关于上述三项功能的解释：<br>等待可中断是指线程可以选择放弃等待，改为处理其他事情，ReenTrantLock通过lock.lockInterruptibly()来实现的。<br>Synchronized只能是非公平锁。ReenTrantLock默认情况是非公平的，可以通过 ReentrantLock(boolean fair)构造方法来指定是公平锁还是非公平锁。<br>Synchronized关键字与wait()和notify/notifyAll()方法相结合可以实现等待/通知机制，但被通知的线程是由JVM随机选择。Synchronized相当于整个Lock对象中只有一个单一的condition对象，所有的线程都注册在它一个对象身上。线程开始notifyAll()时，需要通知所有等待的线程，没有选择权，会造成很大的效率问题。而ReenTrantLock可以借助Condition对象实现选择性通知，具有更好的灵活性。比如：可以在一个Lock对象里创建多个Condition实例（即对象监视器），线程对像可以注册在指定的Condition中，从而可以有选择的进行线程通知，即使使用signalAll()方法也只会唤醒注册在该Condition实例中所有等待的线程。</p>
 ]]></content>
   </entry>
   <entry>

@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="什么是线程？​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。CPU时间片轮转机制在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-09T11:34:11.139Z">
+<meta property="og:updated_time" content="2020-04-23T01:58:32.495Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/">
@@ -254,7 +254,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-09 19:34:11" itemprop="dateModified" datetime="2020-01-09T19:34:11+08:00">2020-01-09</time>
+                <time title="修改时间：2020-04-23 09:58:32" itemprop="dateModified" datetime="2020-04-23T09:58:32+08:00">2020-04-23</time>
               </span>
 
           
@@ -313,7 +313,7 @@
 <p>​        需要在start方法<strong>前</strong>设置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">threadTest.setDaemon(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行</p>
+<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行，一旦主线程停止守护线程也会跟随立即停止  不会最后运行finally</p>
 <h3 id="synchronized内置锁"><a href="#synchronized内置锁" class="headerlink" title="synchronized内置锁"></a>synchronized内置锁</h3><p>用处：限制访问 各个线程之间去抢夺synchronized的标志位，谁吧标志位指向了自己  那么谁就获得了运行权</p>
 <p>对象锁：在方法上加锁 或者在方法中加锁 限制但前对象只能排队进行访问</p>
 <p>类锁：在类上定义，锁定但前类的class文件，对所有创建出来的对象进行限制。</p>
@@ -321,6 +321,7 @@
 <p>适用环境：只有一个线程写多个线程读的时候</p>
 <h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>Thread local 包装成员变量能保证每一个线程只使用自己的那一份数据，每个线程之间互不干扰。</p>
 <p>注意：由于每个线程都要开辟出来一个自己的内存空间，如果设置的类型占用内存大的话，可能会导致Thread local 占用内存太大</p>
+<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a><strong>ReentrantLock</strong></h3><p>与synchronized一样是可重入锁，Synchronized是依赖于JVM实现的；而ReentrantLock是依赖于JDK实现的，是API层面的，需要Lock()和unLock()方法配合try/finally语句块来完成。ReentrantLock比Synchronized多了三项功能：等待可中断，可实现公平锁，可实现选择性通知（锁可绑定多个条件）。<br>关于上述三项功能的解释：<br>等待可中断是指线程可以选择放弃等待，改为处理其他事情，ReenTrantLock通过lock.lockInterruptibly()来实现的。<br>Synchronized只能是非公平锁。ReenTrantLock默认情况是非公平的，可以通过 ReentrantLock(boolean fair)构造方法来指定是公平锁还是非公平锁。<br>Synchronized关键字与wait()和notify/notifyAll()方法相结合可以实现等待/通知机制，但被通知的线程是由JVM随机选择。Synchronized相当于整个Lock对象中只有一个单一的condition对象，所有的线程都注册在它一个对象身上。线程开始notifyAll()时，需要通知所有等待的线程，没有选择权，会造成很大的效率问题。而ReenTrantLock可以借助Condition对象实现选择性通知，具有更好的灵活性。比如：可以在一个Lock对象里创建多个Condition实例（即对象监视器），线程对像可以注册在指定的Condition中，从而可以有选择的进行线程通知，即使使用signalAll()方法也只会唤醒注册在该Condition实例中所有等待的线程。</p>
 
     </div>
 
@@ -384,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程？"><span class="nav-number">1.</span> <span class="nav-text">什么是线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU时间片轮转机制"><span class="nav-number">2.</span> <span class="nav-text">CPU时间片轮转机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">3.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行与并发"><span class="nav-number">4.</span> <span class="nav-text">并行与并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高并发编程的意义"><span class="nav-number">5.</span> <span class="nav-text">高并发编程的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认识java里的线程"><span class="nav-number"></span> <span class="nav-text">认识java里的线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前进程运行中的所有线程"><span class="nav-number">1.</span> <span class="nav-text">获取当前进程运行中的所有线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有几种开启新线程的方法？"><span class="nav-number">2.</span> <span class="nav-text">有几种开启新线程的方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的安全停止"><span class="nav-number">3.</span> <span class="nav-text">线程的安全停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程常用方法和线程的状态"><span class="nav-number">4.</span> <span class="nav-text">线程常用方法和线程的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优先级"><span class="nav-number">5.</span> <span class="nav-text">线程优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程"><span class="nav-number">6.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized内置锁"><span class="nav-number">7.</span> <span class="nav-text">synchronized内置锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile关键字"><span class="nav-number">8.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">9.</span> <span class="nav-text">ThreadLocal</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程？"><span class="nav-number">1.</span> <span class="nav-text">什么是线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU时间片轮转机制"><span class="nav-number">2.</span> <span class="nav-text">CPU时间片轮转机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">3.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行与并发"><span class="nav-number">4.</span> <span class="nav-text">并行与并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高并发编程的意义"><span class="nav-number">5.</span> <span class="nav-text">高并发编程的意义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认识java里的线程"><span class="nav-number"></span> <span class="nav-text">认识java里的线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前进程运行中的所有线程"><span class="nav-number">1.</span> <span class="nav-text">获取当前进程运行中的所有线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有几种开启新线程的方法？"><span class="nav-number">2.</span> <span class="nav-text">有几种开启新线程的方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的安全停止"><span class="nav-number">3.</span> <span class="nav-text">线程的安全停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程常用方法和线程的状态"><span class="nav-number">4.</span> <span class="nav-text">线程常用方法和线程的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优先级"><span class="nav-number">5.</span> <span class="nav-text">线程优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程"><span class="nav-number">6.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized内置锁"><span class="nav-number">7.</span> <span class="nav-text">synchronized内置锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile关键字"><span class="nav-number">8.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">9.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock"><span class="nav-number">10.</span> <span class="nav-text">ReentrantLock</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -400,7 +401,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

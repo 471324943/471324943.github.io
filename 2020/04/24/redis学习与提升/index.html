@@ -46,22 +46,17 @@
   };
 </script>
 
-  <meta name="description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
-<meta name="keywords" content="微服务">
+  <meta name="description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string​        hash:对应hash表类型  –》hashmap​        list:对应有序列表类型 –》 linkedlist​        set:对应不可重复类型–》hashset​        sorted_set:   –》treemap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5，sentinel服务熔断">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;index.html">
+<meta property="og:title" content="redis学习与提升">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;24&#x2F;redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="sentinel是阿里巴巴开源，应对高并发场景的解决方案下载解压链接：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1LxdagBPi45ImssNFxIlgmA 密码：t9so 点击启动文件启动项目访问http:&#x2F;&#x2F;localhost:9527账号 密码 都是 sentinel修改服务消费者 consuner">
+<meta property="og:description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string​        hash:对应hash表类型  –》hashmap​        list:对应有序列表类型 –》 linkedlist​        set:对应不可重复类型–》hashset​        sorted_set:   –》treemap">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard2.png">
-<meta property="og:updated_time" content="2019-11-19T01:59:12.232Z">
+<meta property="og:updated_time" content="2020-04-24T10:28:37.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;18&#x2F;%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD&#x2F;clipboard.png">
 
-<link rel="canonical" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+<link rel="canonical" href="http://yoursite.com/2020/04/24/redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87/">
 
 
 <script id="page-configurations">
@@ -75,7 +70,7 @@
   };
 </script>
 
-  <title>5，sentinel服务熔断 | DSZ</title>
+  <title>redis学习与提升 | DSZ</title>
   
 
 
@@ -229,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/24/redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpeg">
@@ -242,7 +237,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          5，sentinel服务熔断
+          redis学习与提升
         </h1>
 
         <div class="post-meta">
@@ -251,26 +246,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-18 19:40:38" itemprop="dateCreated datePublished" datetime="2019-11-18T19:40:38+08:00">2019-11-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-19 09:59:12" itemprop="dateModified" datetime="2019-11-19T09:59:12+08:00">2019-11-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-Cloud-Alibaba/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring-Cloud-Alibaba</span>
-                  </a>
-                </span>
+              <time title="创建时间：2020-04-24 11:38:04 / 修改时间：18:28:37" itemprop="dateCreated datePublished" datetime="2020-04-24T11:38:04+08:00">2020-04-24</time>
             </span>
 
           
@@ -284,33 +262,75 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p><p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p><p>点击启动文件启动项目</p><p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
+        <h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset</p><p>​        <strong>sorted_set</strong>:   –》treemap</p><a id="more"></a>
 
 
 
 
-
-
-
-<p>填加依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt; &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>修改配置文件</p>
-<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>​      config:<br>        # 服务配置中心<br>​        server-addr: 192.168.141.132:8848<br>    # 熔断限流<br>​    sentinel:<br>​      transport:<br>​        dashboard: localhost:8888</p>
-<h1 id="开启-Feign-对-Sentinel-的支持"><a href="#开启-Feign-对-Sentinel-的支持" class="headerlink" title="开启 Feign 对 Sentinel 的支持"></a>开启 Feign 对 Sentinel 的支持</h1><p>feign:<br>  sentinel:<br>    enabled: true<br>server:</p>
-<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p>
-<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”<br>test<br>    name: “dsz”</p>
-<p>创建一个熔断类</p>
-<p>继承service    当service无法请求到服务提供者时 将会执行这个方法的固定返回值</p>
-<p>@Component public class EchoServiceFallback implements EchoService {     @Override     public String echo(String string) {         return “echo fallback”;     }     @Override     public String lb() {         return “lb fallback”;     } } </p>
-<p>在service 的注解上添加 fallback 指向熔断类</p>
-<p>@FeignClient(value = “service-provider”, fallback = EchoServiceFallback.class) </p>
-<p>启动 consuner 关闭 provider</p>
-<p>访问 <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard1.png" alt="img"></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard2.png" alt="img"></p>
+<h3 id="string类型的基本操作"><a href="#string类型的基本操作" class="headerlink" title="string类型的基本操作"></a>string类型的基本操作</h3><p>​        get key //根据key获取value</p>
+<p>​        set key value  //写入一对数据</p>
+<p>​        del key //删除但前key对应数据</p>
+<p>​        mset key1 value1 key2 value2 //批量添加数据</p>
+<p>​        mget key1 key2 //获取多个数据</p>
+<p>​        strlen key //获取value长度</p>
+<p>​        append key value //追加信息如果该key存在就追加不存在就新建</p>
+<p>​        incr key //对该key的value进行+1</p>
+<p>​        incrby key increment //对该key 的value进行增加指定的值</p>
+<p>​        incrbyfloat key increment //对该key 的value进行增加指定的小数值</p>
+<p>​        decr key  //对该key的value进行-1</p>
+<p>​        decrby key increment //对该key 的value进行减少指定的值</p>
+<p>​        setex key seconds value //设置生命周期存活周期 时间单位为秒</p>
+<p>​        psetex key milliseconds value //设置生命周期存活周期 时间单位为毫秒</p>
+<h3 id="hash类型的基本操作"><a href="#hash类型的基本操作" class="headerlink" title="hash类型的基本操作"></a>hash类型的基本操作</h3><p>​        hget key  field //根据key获取value</p>
+<p>​        hset key field  value  //写入一对数据</p>
+<p>​        hdel key  field  //删除但前key对应数据</p>
+<p>​        hgetall key //获取但前key下所有数据</p>
+<p>​        hmset key1 field1 value1 field2 value2 //批量添加数据</p>
+<p>​        hmget key1 field1 field2 //获取多个数据</p>
+<p>​        hlen key //获取哈希表中字段的数量</p>
+<p>​        hexists key  field //获取哈希表中是否存在该字段</p>
+<p>​        hkeys key //获取当前哈希表中所有字段名</p>
+<p>​        hvalue key //获取当前哈希表中所有字段值</p>
+<p>​        hincrby key field increment //设置指定字段增加范围内的值</p>
+<p>​        hincrbyfloat key field increment //增加指定范围内的小数值</p>
+<p>​        hsetnx key field value //判断是否存在 存在则放弃 不存在则添加</p>
+<h3 id="list类型的基本操作"><a href="#list类型的基本操作" class="headerlink" title="list类型的基本操作"></a>list类型的基本操作</h3><p>​        lpush key value1 value2 //从左边添加数据</p>
+<p>​        rpush key value1 value2 //从右边添加数据</p>
+<p>​        lrange key start stop //获取数据从第几位获取到第几位</p>
+<p>​        lindex key index //获取但前索引位数据</p>
+<p>​        llen key //获取当前list的长度</p>
+<p>​        lpop key // 从左边移除数据</p>
+<p>​        rpop key // 从右边移除数据</p>
+<p>​        blpop key1 key2 timeout //从左边获取当前key1值 如果获取不到会等待timeout秒</p>
+<p>​        brpop key1 key2 timeout //从右边获取当前key1值 如果获取不到会等待timeout秒</p>
+<p>​        lrem key count value  //移除指定数据  count 移除多少个</p>
+<h3 id="set类型的基本操作"><a href="#set类型的基本操作" class="headerlink" title="set类型的基本操作"></a>set类型的基本操作</h3><p>​        sadd key member1 member2//增加数据</p>
+<p>​        smembers key //查看当前key 下所有数据</p>
+<p>​        srem key member1 member2 //删除数据</p>
+<p>​        scard key //获取集合大小</p>
+<p>​        sismember key member //判断set中是否存在指定数据</p>
+<p>​        srandmember key count //随机获取指定个数数据</p>
+<p>​        spop key //随机获取集合中的某个数据然后进行移除</p>
+<p>​        sinter key1 key2 //获取两个集合的交集  也就是重复那部分数据</p>
+<p>​        sunion key1 key2 //获取俩个集合的并集 也就是类似于连个集合去重</p>
+<p>​        sdiff key1 key2 //获取key1 对key2的差值 也就是key1中有key2 中没有</p>
+<p>​        sinterstore destination key1 key2 //获取交集并赋值到某个集合</p>
+<p>​        sunionstore destination key1 key2 //获取并集并赋值到某个集合</p>
+<p>​        sdiffstore destination key1 key2 //获取差集并赋值到某个集合</p>
+<p>​        smove source destination member //将数据从source 移动到member 中</p>
+<h3 id="sorted-set类型的基本操作"><a href="#sorted-set类型的基本操作" class="headerlink" title="sorted_set类型的基本操作"></a>sorted_set类型的基本操作</h3><p>​        zadd key score1 member1 // 增加数据 score 需要排序的行</p>
+<p>​        zrange key start stop withscores //获取一段数据 加with scores 则显示member1</p>
+<p>​        zrevrange key start stop withscores //获取一段数据反转并反转展示</p>
+<p>​        zrem key member member //删除数据 根据key 与member</p>
+<p>​        zrangebyscore key min max withscores limit  //获取数据 数据大小在min 和max之间</p>
+<p>​        zrevrangebyscore key max min //获取数据并反转</p>
+<p>​        zremrangebyrank key start stop //删除数据 从多少位到多少位</p>
+<p>​        zremrangebyscore key min max //删除数据数据大小为 min 到max</p>
+<p>​        zcard key  //获取数据总量</p>
+<p>​        zcount key min max //获取数据总量按数据大小</p>
+<p>​        zinterstore destination numkeys key key //获取交集并赋值给destination </p>
+<p>​        zunionstore destination   numkeys  key key  //获取数据并集并赋值给destination   </p>
+<p>​    </p>
 
     </div>
 
@@ -319,22 +339,19 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/21/HashMap%E5%BA%95%E5%B1%82%E5%AD%A6%E4%B9%A0/" rel="next" title="HashMap底层学习">
+                  <i class="fa fa-chevron-left"></i> HashMap底层学习
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" rel="prev" title="1，统一依赖管理">
-                  1，统一依赖管理 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -374,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开启-Feign-对-Sentinel-的支持"><span class="nav-number">1.</span> <span class="nav-text">开启 Feign 对 Sentinel 的支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端口"><span class="nav-number">2.</span> <span class="nav-text">服务端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端点检查（健康检查）"><span class="nav-number">3.</span> <span class="nav-text">端点检查（健康检查）</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#五种常用的基本数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">五种常用的基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string类型的基本操作"><span class="nav-number">1.2.</span> <span class="nav-text">string类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型的基本操作"><span class="nav-number">1.3.</span> <span class="nav-text">hash类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list类型的基本操作"><span class="nav-number">1.4.</span> <span class="nav-text">list类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set类型的基本操作"><span class="nav-number">1.5.</span> <span class="nav-text">set类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sorted-set类型的基本操作"><span class="nav-number">1.6.</span> <span class="nav-text">sorted_set类型的基本操作</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -504,7 +521,7 @@
       repo: '',
       owner: '',
       admin: [''],
-      id: '976312f8905aa5f71d5881abd6657f03',
+      id: '9b744266d7486dd1412273fbda4adbf2',
         language: 'zh-CN',
       distractionFreeMode: 'true'
     });
