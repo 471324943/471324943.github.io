@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="安装Elastic Stack准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡） 准备docker环境 安装docker环境12&#x2F;&#x2F; 安装docker yum install -y docker安装Docker Compose123456&#x2F;&#x2F; 输入命令行 sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.">
+<meta name="keywords" content="主流框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elastic-Stack相关">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;15&#x2F;Elastic-Stack%E7%9B%B8%E5%85%B3&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="安装Elastic Stack准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡） 准备docker环境 安装docker环境12&#x2F;&#x2F; 安装docker yum install -y docker安装Docker Compose123456&#x2F;&#x2F; 输入命令行 sudo curl -L &quot;https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-fb183f33f4842212.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1016&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-7cf1bd97a12f22bf.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;958&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-cae0d20a3f36dcc2.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;736&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-31dd538b79de5ff0.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1200&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-c5661d4469e8778d.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;775&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-284ac77da8c13a51.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1200&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-b9c70493991730d9.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1200&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-eadf581f70b2612c.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1200&#x2F;format&#x2F;webp">
+<meta property="og:updated_time" content="2020-05-19T10:56:00.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;14387783-fb183f33f4842212.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1016&#x2F;format&#x2F;webp">
+
+<link rel="canonical" href="http://yoursite.com/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Elastic-Stack相关 | DSZ</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpeg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Elastic-Stack相关
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-15 10:56:06" itemprop="dateCreated datePublished" datetime="2020-05-15T10:56:06+08:00">2020-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 18:56:00" itemprop="dateModified" datetime="2020-05-19T18:56:00+08:00">2020-05-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="安装Elastic-Stack"><a href="#安装Elastic-Stack" class="headerlink" title="安装Elastic Stack"></a>安装Elastic Stack</h1><p>准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡）</p><ol>
+<li>准备docker环境</li>
+</ol><h6 id="安装docker环境"><a href="#安装docker环境" class="headerlink" title="安装docker环境"></a>安装docker环境</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装docker </span></span><br><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure><h6 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 输入命令行 </span><br><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 配置权限</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 查看版本</span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+
+
+
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-fb183f33f4842212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1016/format/webp" alt="img"></p>
+<p>01.png</p>
+<ol>
+<li>配置运行时需要的变量</li>
+</ol>
+<h6 id="创建容器间交互的-桥接式网络-elk-demo-network"><a href="#创建容器间交互的-桥接式网络-elk-demo-network" class="headerlink" title="创建容器间交互的 桥接式网络 elk_demo_network"></a>创建容器间交互的 桥接式网络 elk_demo_network</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create elk_demo_network</span><br></pre></td></tr></table></figure>
+
+<p>创建网络 异常 Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?<br> 使用sudo启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure>
+
+<p>查看网络创建情况</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network <span class="built_in">list</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-7cf1bd97a12f22bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/958/format/webp" alt="img"></p>
+<p>02.png</p>
+<h6 id="配置es需要的-变量-避免es异常"><a href="#配置es需要的-变量-避免es异常" class="headerlink" title="配置es需要的 变量 避免es异常"></a>配置es需要的 变量 避免es异常</h6><p>es 异常 exit code 78 解决方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -w vm.max_map_count=524288</span><br></pre></td></tr></table></figure>
+
+<p>es需要的内存很大 ，可以通过 修改环境变量 获取配置 虚拟机内存处理</p>
+<ol>
+<li>配置基本完成 配置docker-compose （PS：注意文件目录问题 此处文件放在 /root/elk_demo）</li>
+</ol>
+<p>创建docker-compose.yml<br> 进入到目录 /root/elk_demo</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">vi</span> <span class="selector-tag">docker-compose</span><span class="selector-class">.yml</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">'2.2'</span></span><br><span class="line">services:</span><br><span class="line"><span class="comment"># nginx -- start</span></span><br><span class="line">  nginx01:</span><br><span class="line">    image: nginx</span><br><span class="line">    container_name: nginx01</span><br><span class="line">    privileged: <span class="literal">true</span></span><br><span class="line">    ports:</span><br><span class="line">      - <span class="string">"80:80"</span></span><br><span class="line">    environment:</span><br><span class="line">      - NGINX_HOST=foobar.com</span><br><span class="line">      - NGINX_PORT=80</span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line">    volumes:</span><br><span class="line"><span class="comment">#      - /root/elk_demo/nginx/mysite.template:/etc/nginx/conf.d/mysite.template </span></span><br><span class="line">      - /root/elk_demo/nginx/logs/:/var/<span class="built_in">log</span>/nginx/  </span><br><span class="line">      - /root/elk_demo/nginx/configs/:/etc/nginx/conf.d/   <span class="comment"># if would open this setting, you should put a 'default.conf' file in your configs dir. </span></span><br><span class="line"><span class="comment"># nginx -- end</span></span><br><span class="line"><span class="comment"># elasticsearch cluster -- start </span></span><br><span class="line">  es01:</span><br><span class="line">    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0</span><br><span class="line">    container_name: es01</span><br><span class="line">    environment:</span><br><span class="line">      - node.name=es01</span><br><span class="line">      - discovery.seed_hosts=es02</span><br><span class="line">      - cluster.initial_master_nodes=es01,es02</span><br><span class="line">      - cluster.name=docker-cluster</span><br><span class="line">      - bootstrap.memory_lock=<span class="literal">true</span></span><br><span class="line">      - <span class="string">"ES_JAVA_OPTS=-Xms128m -Xmx128m"</span></span><br><span class="line">    ulimits:</span><br><span class="line">      memlock:</span><br><span class="line">        soft: -1</span><br><span class="line">        hard: -1</span><br><span class="line">    volumes:</span><br><span class="line">      - esdata01:/usr/share/elasticsearch/data</span><br><span class="line">    ports:</span><br><span class="line">      - 9200:9200</span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line">  es02:</span><br><span class="line">    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0</span><br><span class="line">    container_name: es02</span><br><span class="line">    environment:</span><br><span class="line">      - node.name=es02</span><br><span class="line">      - discovery.seed_hosts=es01</span><br><span class="line">      - cluster.initial_master_nodes=es01,es02</span><br><span class="line">      - cluster.name=docker-cluster</span><br><span class="line">      - bootstrap.memory_lock=<span class="literal">true</span></span><br><span class="line">      - <span class="string">"ES_JAVA_OPTS=-Xms128m -Xmx128m"</span></span><br><span class="line">    ulimits:</span><br><span class="line">      memlock:</span><br><span class="line">        soft: -1</span><br><span class="line">        hard: -1</span><br><span class="line">    volumes:</span><br><span class="line">      - esdata02:/usr/share/elasticsearch/data</span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line"><span class="comment"># elasticsearch cluster -- end</span></span><br><span class="line"><span class="comment"># kibana -- start</span></span><br><span class="line">  kibana01:</span><br><span class="line">    image: docker.elastic.co/kibana/kibana:7.4.0</span><br><span class="line">    container_name: kibana01</span><br><span class="line">    privileged: <span class="literal">true</span></span><br><span class="line">    ports:</span><br><span class="line">      - 5601:5601</span><br><span class="line"><span class="comment">#    environment:</span></span><br><span class="line"><span class="comment">#          - ELASTICSEARCH_HOSTS=http://es01:9200</span></span><br><span class="line"><span class="comment">#          - I18N_LOCALE=zh-CN</span></span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line">    volumes:</span><br><span class="line">      - /root/elk_demo/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml</span><br><span class="line">    depends_on:</span><br><span class="line">      - es01</span><br><span class="line"><span class="comment"># kibana -- end</span></span><br><span class="line"><span class="comment"># filebeat -- start</span></span><br><span class="line">  filebeat01:</span><br><span class="line">    image: docker.elastic.co/beats/filebeat:7.4.0</span><br><span class="line">    container_name: filebeat01</span><br><span class="line">    privileged: <span class="literal">true</span></span><br><span class="line"><span class="comment">#    environment:</span></span><br><span class="line"><span class="comment">#    #      - ES_HOST=es01</span></span><br><span class="line"><span class="comment">#    #      - ES_PORT=9200</span></span><br><span class="line"><span class="comment">#    #      - KIBANA_HOST=kibana</span></span><br><span class="line"><span class="comment">#    #      - KIBANA_PORT=5601</span></span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line">    volumes:</span><br><span class="line">      - /root/elk_demo/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml</span><br><span class="line">      - /root/elk_demo/nginx/logs:/var/<span class="built_in">log</span>/</span><br><span class="line">      - /root/elk_demo/filebeat/modules.d/:/usr/share/filebeat/modules.d/</span><br><span class="line">    depends_on:</span><br><span class="line">      - es01</span><br><span class="line">      - kibana01</span><br><span class="line"><span class="comment"># filebeat -- end</span></span><br><span class="line"><span class="comment"># metricbeat -- start</span></span><br><span class="line">  metricbeat02:</span><br><span class="line">    image: docker.elastic.co/beats/metricbeat:7.4.0</span><br><span class="line">    container_name: metricbeat02</span><br><span class="line">    privileged: <span class="literal">true</span></span><br><span class="line"><span class="comment">#    environment:</span></span><br><span class="line"><span class="comment">#      - ES_HOST=es01</span></span><br><span class="line"><span class="comment">#      - ES_PORT=9200</span></span><br><span class="line"><span class="comment">#      - KIBANA_HOST=kibana</span></span><br><span class="line"><span class="comment">#      - KIBANA_PORT=5601</span></span><br><span class="line">    networks:</span><br><span class="line">      - esnet</span><br><span class="line">    volumes:</span><br><span class="line">      - /root/elk_demo/metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml</span><br><span class="line">      - /var/run/docker.sock:/var/run/docker.sock:ro</span><br><span class="line">      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro</span><br><span class="line">      - /proc:/hostfs/proc:ro</span><br><span class="line">      - /:/hostfs:ro</span><br><span class="line">      - /root/elk_demo/metricbeat/modules.d/:/usr/share/metricbeat/modules.d/</span><br><span class="line">    depends_on:</span><br><span class="line">      - es01</span><br><span class="line">      - kibana01</span><br><span class="line"><span class="comment"># metricbeat -- end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">volumes:</span><br><span class="line">  esdata01:</span><br><span class="line">    driver: <span class="built_in">local</span></span><br><span class="line">  esdata02:</span><br><span class="line">    driver: <span class="built_in">local</span></span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  esnet:</span><br><span class="line">    external:</span><br><span class="line">      name: elk_demo_network</span><br></pre></td></tr></table></figure>
+
+<p>创建docker-compose.yml 之后。开始处理相关的配置文件 。这边试验对象 是nginx 所以需要配置nginx 的相关配置</p>
+<h6 id="nginx-相关配置"><a href="#nginx-相关配置" class="headerlink" title="nginx 相关配置"></a>nginx 相关配置</h6><p>根据 docker-compose.yml 可以看出 nginx 的配置环境变量的目录 在 /root/elk_demo/nginx/configs/。其实此处可以不配置 ，也可以使用，配置的目的是为了更好的操作配置文件，另一个就是为了 下面的 metribeat做实验铺垫</p>
+<p>进入到 目录 /root/elk_demo/nginx/configs<br> 创建文件 metricbeat.conf</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">vi</span> <span class="selector-tag">metricbeat</span><span class="selector-class">.conf</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">80</span>;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#charset koi8-r;</span></span><br><span class="line">    <span class="meta">#access_log  /var/log/nginx/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /nginx-status &#123;</span><br><span class="line">        stub_status <span class="keyword">on</span>;</span><br><span class="line">    access_log off;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#error_page  404              /404.html;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta"># redirect server <span class="meta-keyword">error</span> pages to the static page /50x.html</span></span><br><span class="line">    <span class="meta">#</span></span><br><span class="line">    error_page   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /<span class="number">50</span>x.html;</span><br><span class="line">    location = /<span class="number">50</span>x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="Kibana-相关配置"><a href="#Kibana-相关配置" class="headerlink" title="Kibana 相关配置"></a>Kibana 相关配置</h6><p>同上 在目录</p>
+<p>vi /root/elk_demo/kibana/kibana.yml</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">i18n</span><span class="selector-class">.locale</span>: <span class="selector-tag">zh-CN</span> </span><br><span class="line"><span class="selector-tag">server</span><span class="selector-class">.name</span>: <span class="selector-tag">kibana</span></span><br><span class="line"><span class="selector-tag">server</span><span class="selector-class">.host</span>: "0"</span><br><span class="line"><span class="selector-tag">elasticsearch</span><span class="selector-class">.hosts</span>: <span class="selector-attr">[ "http://es01:9200" ]</span></span><br><span class="line"><span class="selector-tag">xpack</span><span class="selector-class">.monitoring</span><span class="selector-class">.ui</span><span class="selector-class">.container</span><span class="selector-class">.elasticsearch</span><span class="selector-class">.enabled</span>: <span class="selector-tag">true</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="filebeat-相关配置"><a href="#filebeat-相关配置" class="headerlink" title="filebeat 相关配置"></a>filebeat 相关配置</h6><p>vi /root/elk_demo/filebeat/filebeat.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">output:</span><br><span class="line">  elasticsearch:</span><br><span class="line">    hosts: [<span class="string">"es01:9200"</span>] </span><br><span class="line"></span><br><span class="line">filebeat.config.modules:</span><br><span class="line">  path: <span class="variable">$&#123;path.config&#125;</span>/modules.d/*.yml</span><br><span class="line">  reload.enabled: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setup.template.settings:</span><br><span class="line">   index.number_of_shards: 3</span><br><span class="line"></span><br><span class="line">setup.kibana:</span><br><span class="line">  host: <span class="string">"kibana01:5601"</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，为了配置 nginx 仪表盘 所以还需要配置 nginx的配置文件<br> 创建目录 /root/elk_demo/filebeat/modules.d</p>
+<p>vi  /root/elk_demo/filebeat/modules.d/nginx.yml</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- <span class="keyword">module</span>: nginx</span><br><span class="line">  access:</span><br><span class="line">    enabled: <span class="keyword">true</span></span><br><span class="line">    <span class="keyword">var</span>.paths: [<span class="string">"/var/log/access.log*"</span>]</span><br><span class="line"></span><br><span class="line">  error:</span><br><span class="line">    enabled: <span class="keyword">true</span></span><br><span class="line">    <span class="keyword">var</span>.paths: [<span class="string">"/var/log/error.log*"</span>]</span><br></pre></td></tr></table></figure>
+
+<h6 id="metricbeat-相关配置"><a href="#metricbeat-相关配置" class="headerlink" title="metricbeat 相关配置"></a>metricbeat 相关配置</h6><p>vi /root/elk_demo/metricbeat/metricbeat.yml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">output.elasticsearch:</span><br><span class="line">  <span class="comment"># Array of hosts to connect to.</span></span><br><span class="line">    hosts: [<span class="string">"es01:9200"</span>]</span><br><span class="line"></span><br><span class="line">setup.kibana:</span><br><span class="line">  host: <span class="string">"kibana01:5601"</span></span><br><span class="line"></span><br><span class="line">metricbeat.config.modules:</span><br><span class="line">  path: <span class="variable">$&#123;path.config&#125;</span>/modules.d/*.yml</span><br></pre></td></tr></table></figure>
+
+<p>同上 配置 Nginx 仪表盘</p>
+<p>vi  /root/elk_demo/metricbeat/modules.d/nginx.yml</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Module: nginx</span></span><br><span class="line"><span class="meta"># Docs: https://www.elastic.co/guide/en/beats/metricbeat/7.4/metricbeat-module-nginx.html</span></span><br><span class="line"></span><br><span class="line">- module: nginx</span><br><span class="line">  <span class="meta">#metricsets:</span></span><br><span class="line">  <span class="meta">#  - stubstatus</span></span><br><span class="line">  period: <span class="number">10</span>s</span><br><span class="line"></span><br><span class="line">  <span class="meta"># Nginx hosts</span></span><br><span class="line">  hosts: [<span class="string">"nginx01:80"</span>]</span><br><span class="line"></span><br><span class="line">  <span class="meta"># Path to server status. Default server-status</span></span><br><span class="line">  server_status_path: <span class="string">"nginx-status"</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">#username: <span class="meta-string">"user"</span></span></span><br><span class="line">  <span class="meta">#password: <span class="meta-string">"secret"</span></span></span><br></pre></td></tr></table></figure>
+
+<p>vi  /root/elk_demo/metricbeat/modules.d/system.yml</p>
+<p>配置 system 仪表盘</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Module: system</span></span><br><span class="line"><span class="comment"># Docs: https://www.elastic.co/guide/en/beats/metricbeat/7.4/metricbeat-module-system.html</span></span><br><span class="line"></span><br><span class="line">- <span class="class"><span class="keyword">module</span>: <span class="title">system</span></span></span><br><span class="line">  <span class="symbol">period:</span> <span class="number">10</span>s</span><br><span class="line">  <span class="symbol">metricsets:</span></span><br><span class="line">    - cpu</span><br><span class="line">    - load</span><br><span class="line">    - memory</span><br><span class="line">    - network</span><br><span class="line">    - process</span><br><span class="line">    - process_summary</span><br><span class="line">    - socket_summary</span><br><span class="line">    <span class="comment">#- entropy</span></span><br><span class="line">    <span class="comment">#- core</span></span><br><span class="line">    <span class="comment">#- diskio</span></span><br><span class="line">    <span class="comment">#- socket</span></span><br><span class="line">  process.<span class="symbol">include_top_n:</span></span><br><span class="line">    <span class="symbol">by_cpu:</span> <span class="number">5</span>      <span class="comment"># include top 5 processes by CPU</span></span><br><span class="line">    <span class="symbol">by_memory:</span> <span class="number">5</span>   <span class="comment"># include top 5 processes by memory</span></span><br><span class="line"></span><br><span class="line">- <span class="class"><span class="keyword">module</span>: <span class="title">system</span></span></span><br><span class="line">  <span class="symbol">period:</span> <span class="number">1</span>m</span><br><span class="line">  <span class="symbol">metricsets:</span></span><br><span class="line">    - filesystem</span><br><span class="line">    - fsstat</span><br><span class="line">  <span class="symbol">processors:</span></span><br><span class="line">  - drop_event.<span class="keyword">when</span>.<span class="symbol">regexp:</span></span><br><span class="line">      system.filesystem.<span class="symbol">mount_point:</span> <span class="string">'^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'</span></span><br><span class="line"></span><br><span class="line">- <span class="class"><span class="keyword">module</span>: <span class="title">system</span></span></span><br><span class="line">  <span class="symbol">period:</span> <span class="number">15</span>m</span><br><span class="line">  <span class="symbol">metricsets:</span></span><br><span class="line">    - uptime</span><br><span class="line"></span><br><span class="line"><span class="comment">#- module: system</span></span><br><span class="line"><span class="comment">#  period: 5m</span></span><br><span class="line"><span class="comment">#  metricsets:</span></span><br><span class="line"><span class="comment">#    - raid</span></span><br><span class="line"><span class="comment">#  raid.mount_point: '/'</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="各项准备完成-开始最终步骤-启动"><a href="#各项准备完成-开始最终步骤-启动" class="headerlink" title="各项准备完成 开始最终步骤 启动"></a>各项准备完成 开始最终步骤 启动</h6><p>进入 /root/elk_demo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//删除kibana索引</span><br><span class="line">curl -XDELETE http://localhost:9200/.kibana*</span><br><span class="line">//运行</span><br><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-cae0d20a3f36dcc2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp" alt="img"></p>
+<p>03.png</p>
+<hr>
+<p>测试</p>
+<p>访问：<a href="http://192.168.62.144/" target="_blank" rel="noopener">http://192.168.62.144/</a> 验证nginx<br> 访问：<a href="https://links.jianshu.com/go?to=http%3A%2F%2F192.168.62.144%2Fnginx-status" target="_blank" rel="noopener">http://192.168.62.144/nginx-status</a> 验证nginx 心跳<br> 访问：<a href="http://192.168.62.144:5601" target="_blank" rel="noopener">http://192.168.62.144:5601</a> 验证kibana</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-31dd538b79de5ff0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>05.png</p>
+<h6 id="安装Nginx-仪表盘"><a href="#安装Nginx-仪表盘" class="headerlink" title="安装Nginx 仪表盘"></a>安装Nginx 仪表盘</h6><p>确认之前的 beats 配置是否生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看容器信息</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看模块配置信息</span></span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./filebeat modules list</span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./metricbeat modules list</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装仪表盘</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./filebeat setup --dashboards</span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./metricbeat setup --dashboards</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-c5661d4469e8778d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp" alt="img"></p>
+<p>配置仪表盘</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-284ac77da8c13a51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>01</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-b9c70493991730d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>08.png</p>
+<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-eadf581f70b2612c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>10.png</p>
+<p>以上就完成了使用 Beats+ES+Kibana 完成 Nginx 运行监控</p>
+<h1 id="kibana简单使用"><a href="#kibana简单使用" class="headerlink" title="kibana简单使用"></a>kibana简单使用</h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/" rel="tag"># 主流框架</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/" rel="next" title="RabbitMQ的入门">
+                  <i class="fa fa-chevron-left"></i> RabbitMQ的入门
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/" rel="prev" title="sql优化相关之如何写出一条好sql">
+                  sql优化相关之如何写出一条好sql <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Elastic-Stack"><span class="nav-number">1.</span> <span class="nav-text">安装Elastic Stack</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#安装docker环境"><span class="nav-number">1.0.0.0.0.1.</span> <span class="nav-text">安装docker环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Docker-Compose"><span class="nav-number">1.0.0.0.0.2.</span> <span class="nav-text">安装Docker Compose</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#创建容器间交互的-桥接式网络-elk-demo-network"><span class="nav-number">1.0.0.0.0.3.</span> <span class="nav-text">创建容器间交互的 桥接式网络 elk_demo_network</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#配置es需要的-变量-避免es异常"><span class="nav-number">1.0.0.0.0.4.</span> <span class="nav-text">配置es需要的 变量 避免es异常</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#nginx-相关配置"><span class="nav-number">1.0.0.0.0.5.</span> <span class="nav-text">nginx 相关配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Kibana-相关配置"><span class="nav-number">1.0.0.0.0.6.</span> <span class="nav-text">Kibana 相关配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#filebeat-相关配置"><span class="nav-number">1.0.0.0.0.7.</span> <span class="nav-text">filebeat 相关配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#metricbeat-相关配置"><span class="nav-number">1.0.0.0.0.8.</span> <span class="nav-text">metricbeat 相关配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#各项准备完成-开始最终步骤-启动"><span class="nav-number">1.0.0.0.0.9.</span> <span class="nav-text">各项准备完成 开始最终步骤 启动</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Nginx-仪表盘"><span class="nav-number">1.0.0.0.0.10.</span> <span class="nav-text">安装Nginx 仪表盘</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kibana简单使用"><span class="nav-number">2.</span> <span class="nav-text">kibana简单使用</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpeg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-DSZ"></i>
+  </span>
+ 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: '19c9c6175d3cce380ee332746d7d22b3',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>

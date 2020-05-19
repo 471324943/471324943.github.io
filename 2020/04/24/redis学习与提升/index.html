@@ -46,14 +46,14 @@
   };
 </script>
 
-  <meta name="description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string​        hash:对应hash表类型  –》hashmap​        list:对应有序列表类型 –》 linkedlist​        set:对应不可重复类型–》hashset​        sorted_set:   –》treemap">
+  <meta name="description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string   基本数据​        hash:对应hash表类型  –》hashmap  对象​        list:对应有序列表类型 –》 linkedlist  列表​        set:对应不可重复类型–》hashset 去重">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis学习与提升">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;24&#x2F;redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string​        hash:对应hash表类型  –》hashmap​        list:对应有序列表类型 –》 linkedlist​        set:对应不可重复类型–》hashset​        sorted_set:   –》treemap">
+<meta property="og:description" content="基本数据类型五种常用的基本数据类型​        string:字符串类型  –》string   基本数据​        hash:对应hash表类型  –》hashmap  对象​        list:对应有序列表类型 –》 linkedlist  列表​        set:对应不可重复类型–》hashset 去重">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-24T10:28:37.989Z">
+<meta property="og:updated_time" content="2020-04-28T10:11:19.481Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/04/24/redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87/">
@@ -246,10 +246,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-24 11:38:04 / 修改时间：18:28:37" itemprop="dateCreated datePublished" datetime="2020-04-24T11:38:04+08:00">2020-04-24</time>
+              <time title="创建时间：2020-04-24 11:38:04" itemprop="dateCreated datePublished" datetime="2020-04-24T11:38:04+08:00">2020-04-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-28 18:11:19" itemprop="dateModified" datetime="2020-04-28T18:11:19+08:00">2020-04-28</time>
+              </span>
 
           
 
@@ -262,11 +268,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset</p><p>​        <strong>sorted_set</strong>:   –》treemap</p><a id="more"></a>
+        <h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string   基本数据</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap  对象</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist  列表</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset 去重 </p><a id="more"></a>
 
 
 
-
+<p>​        <strong>sorted_set</strong>:排序列表   –》treemap 排序</p>
 <h3 id="string类型的基本操作"><a href="#string类型的基本操作" class="headerlink" title="string类型的基本操作"></a>string类型的基本操作</h3><p>​        get key //根据key获取value</p>
 <p>​        set key value  //写入一对数据</p>
 <p>​        del key //删除但前key对应数据</p>
@@ -331,6 +337,71 @@
 <p>​        zinterstore destination numkeys key key //获取交集并赋值给destination </p>
 <p>​        zunionstore destination   numkeys  key key  //获取数据并集并赋值给destination   </p>
 <p>​    </p>
+<h3 id="通用操作指令"><a href="#通用操作指令" class="headerlink" title="通用操作指令"></a>通用操作指令</h3><p>expire key secods //为key设置有效期 秒值</p>
+<p>pexpire key milliseconds //为key设置有效期 毫秒值</p>
+<p>ttl key //获取key的有效时间</p>
+<p>type key // 获取key 的类型</p>
+<p>persist key //转换key为永久存活</p>
+<p>keys pattern//搜索存在的key * 代表所有 ？代表单个字符</p>
+<p>rename key newkey //改名</p>
+<p>renamenx key newkey//不存在则改名</p>
+<p> sort //对集合数据进行排序 但是不动元数据</p>
+<h3 id="数据库通用指令"><a href="#数据库通用指令" class="headerlink" title="数据库通用指令"></a>数据库通用指令</h3><p>redis 为了避免数据重复一共把数据库分为了16个</p>
+<p>select index //切换数据库  索引为0-15</p>
+<p>move key db //移动数据到其他数据库</p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p>概念：持久化顾名思义就是把数据从内存中永久保存到硬盘中，然后每一次使用再从硬盘中读取到内存中。</p>
+<h4 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h4><p>使用RDB持久化语句</p>
+<p>​         <strong>save</strong> </p>
+<p>每执行一次就会保存一次快照信息</p>
+<p>因为redis 是单线程的执行任务是一条条执行的，使用save</p>
+<p>的时候可以会因为数据量过大而造成线程阻塞，所以线上环境不建议使用</p>
+<p>所以这时候就要使用</p>
+<p>​        <strong>bgsave</strong> </p>
+<p>后台保存指令 他还调用fork函数生成一个子进程去生成快照文件</p>
+<p>在配置文件中配置自动保存 </p>
+<p><strong>save 多少秒时间 多少个发生变化</strong> </p>
+<p>也就是说在一段时间内 如果有设定多少个线程发生了变化则会自动保存</p>
+<h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4><p>aof存储与rdb的不同之处在于rdb记录数据快照，而AOF记录操作的步骤</p>
+<p>需要数据恢复时只需要执行一遍指令即可恢复</p>
+<p>always（每次存储一次）</p>
+<p>​    数据没有误差，但是性能差</p>
+<p>everysec(每秒存储)</p>
+<p>​    每隔一秒对缓冲区的指令进行保存一次</p>
+<p>no(系统控制)</p>
+<p>​    又操作系统控制  不可控</p>
+<p><strong>配置</strong></p>
+<p>appendonly   yes|no  //是否开启</p>
+<p>appendfsync  always|everysec|no  //持久化策略</p>
+<p><strong>AOF重写</strong> </p>
+<p>在很多时候AOF保存的操作中可能会有重复内容出现 从而对数据量大的情况下不太好维护</p>
+<p>所以可以使用AOF重写的方式去优化语句 使得语句更加简便 AOF文件也会更加小巧</p>
+<p>bgrewriteaof  //手动重写</p>
+<p>auto-aof-rewrite-min-size size  //自动重写</p>
+<p>auto-aof-rewrite-percentage  percentage  //自动重写</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>multi  //事务开始  </p>
+<p>exec //事务结束</p>
+<p>discard //取消事务</p>
+<p>作用： 在执行了multi后执行语句就不再执行 而是往一个队列里面添加 在使用了exec后才一同执行</p>
+<p>事务锁 ：</p>
+<p>​    为了保护数据在并发操作上不会出错，</p>
+<p>​        watch //监控数据 必须定义在开启事务之前</p>
+<p>​        unwatch //取消监控数据</p>
+<p>​    如果监控的数据发生变化 则立即取消事务  </p>
+<p>分布式锁：</p>
+<p>​    setnx lock-key value</p>
+<p>​    如果有线程在使用时其他线程不能使用</p>
+<p>​    操作完成后可以通过del来释放锁 可以使用定时数据有效时间来摧毁锁</p>
+<h3 id="删除策略"><a href="#删除策略" class="headerlink" title="删除策略"></a>删除策略</h3><p><strong>定时删除</strong></p>
+<p>​    设置一个定时器 监控expire中的元素如果有元素到达过期时间就会立马删除掉</p>
+<p>​    优点节约服务器内存 缺点因为会占用队列 所以会影响cpu性能 </p>
+<p><strong>惰性删除</strong></p>
+<p>就是在一个元素达到过期时间时如果但是服务器压力过高那么服务器则不会去立马删除</p>
+<p>等到下次去获取这个元素时再对数据进行删除 </p>
+<p>优点节约cpu性能 缺点会多占用内存空间</p>
+<p><strong>定期删除</strong></p>
+<p>每隔一段时间对内存中的数据进行一次随机抽查 如果抽查到25%的数据都已过期则再重新抽查一遍</p>
+<p>把抽查到的过期数据进行删除</p>
+<p>是一个比较居中的方案 不是很吃cpu也不是很吃内存</p>
 
     </div>
 
@@ -352,6 +423,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/" rel="prev" title="RabbitMQ的入门">
+                  RabbitMQ的入门 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -391,7 +465,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#五种常用的基本数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">五种常用的基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string类型的基本操作"><span class="nav-number">1.2.</span> <span class="nav-text">string类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型的基本操作"><span class="nav-number">1.3.</span> <span class="nav-text">hash类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list类型的基本操作"><span class="nav-number">1.4.</span> <span class="nav-text">list类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set类型的基本操作"><span class="nav-number">1.5.</span> <span class="nav-text">set类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sorted-set类型的基本操作"><span class="nav-number">1.6.</span> <span class="nav-text">sorted_set类型的基本操作</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#五种常用的基本数据类型"><span class="nav-number">1.1.</span> <span class="nav-text">五种常用的基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string类型的基本操作"><span class="nav-number">1.2.</span> <span class="nav-text">string类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash类型的基本操作"><span class="nav-number">1.3.</span> <span class="nav-text">hash类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list类型的基本操作"><span class="nav-number">1.4.</span> <span class="nav-text">list类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set类型的基本操作"><span class="nav-number">1.5.</span> <span class="nav-text">set类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sorted-set类型的基本操作"><span class="nav-number">1.6.</span> <span class="nav-text">sorted_set类型的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用操作指令"><span class="nav-number">1.7.</span> <span class="nav-text">通用操作指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库通用指令"><span class="nav-number">1.8.</span> <span class="nav-text">数据库通用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持久化"><span class="nav-number">1.9.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB"><span class="nav-number">1.9.1.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF"><span class="nav-number">1.9.2.</span> <span class="nav-text">AOF</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务"><span class="nav-number">1.10.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除策略"><span class="nav-number">1.11.</span> <span class="nav-text">删除策略</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -407,20 +481,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
