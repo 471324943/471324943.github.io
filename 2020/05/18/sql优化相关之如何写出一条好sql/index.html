@@ -55,29 +55,28 @@
 <meta property="og:description" content="sql架构与存储引擎Qps与Tps​                TPS: 指服务器每秒处理的事务数 ，支持事务的存储引擎特有的一个性能指标 TPS = (事务提交+事务回滚）&#x2F;运行时间​                QPS:执行sql等待返回结果之间的等待时间QPS=查询个数&#x2F;运行时间mysqlslap">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589769109015.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589770015142.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589770451852.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589773241899.png">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image002.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image002.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image004.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image002.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image004.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image006.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image002.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589872072524.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589872083937.png">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image002.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image004.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image006.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image008.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image010.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image012.jpg">
-<meta property="og:image" content="file:&#x2F;&#x2F;&#x2F;C:&#x2F;Users&#x2F;dsz&#x2F;AppData&#x2F;Local&#x2F;Temp&#x2F;msohtmlclip1&#x2F;01&#x2F;clip_image014.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589883497088.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589883858311.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589884184701.png">
-<meta property="og:updated_time" content="2020-05-22T08:37:49.779Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589770015142.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589770451852.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589773241899.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;2.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;3.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;4.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;5.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;6.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;7.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589872072524.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589872083937.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;8.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;9.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;10.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;11.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;12.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;13.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;14.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589883497088.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589883858311.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;%5C1589884184701.png">
+<meta property="og:updated_time" content="2020-05-22T08:53:46.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589769109015.png">
 
@@ -279,7 +278,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-22 16:37:49" itemprop="dateModified" datetime="2020-05-22T16:37:49+08:00">2020-05-22</time>
+                <time title="修改时间：2020-05-22 16:53:46" itemprop="dateModified" datetime="2020-05-22T16:53:46+08:00">2020-05-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -317,13 +316,13 @@
 <p>1，如果是查询语句select，首先会查询缓存是否已经有对应的结果，有返回结果 没有的话进行下一步 </p>
 <p>2，解析查询，创建一个内部数据结构这个解析树用于解析SQL语法</p>
 <p>3，优化sql语句，列如重写查询，决定表的读写顺序以及选择需要的查询等，这一阶段用户是可以查询的，用户可以针对的进行一个调优</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589770015142.png" alt="1589770015142"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589770015142.png" alt="1589770015142"></p>
 <p><strong>sql缓存</strong></p>
 <p>show variables like ‘%query_cache_type%’ </p>
 <p>查询数据库缓存是否开启</p>
 <p><strong>sql转换器</strong></p>
 <p>将传输进来的sql语句转换成MySQL能看得懂的样子</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589770451852.png" alt="1589770451852"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589770451852.png" alt="1589770451852"></p>
 <p><strong>sql优化器</strong></p>
 <p>能够优化一些MySQL中很明显得一些冗余代码 （列如 1=1），使得代码变得更加简单</p>
 <h3 id="mylsam存储引擎"><a href="#mylsam存储引擎" class="headerlink" title="mylsam存储引擎"></a>mylsam存储引擎</h3><p><strong>文件结构</strong></p>
@@ -355,7 +354,7 @@
 <li>独立表空间可以同时向多个文件刷新数据</li>
 </ul>
 <p>（列如一张表有100w条数据占用磁盘内存 100000kb 当你把表中数据清除时 他在磁盘的占用内存还是 100000kb 无法收缩文件大小）</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589773241899.png" alt="1589773241899"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589773241899.png" alt="1589773241899"></p>
 <p><strong>适用场景</strong>：</p>
 <p>修改较多，事务操作较多的场景</p>
 <h3 id="CSV存储引擎"><a href="#CSV存储引擎" class="headerlink" title="CSV存储引擎"></a>CSV存储引擎</h3><p>​    <strong>结构</strong></p>
@@ -499,7 +498,6 @@
 <li>还原点 savepoint</li>
 </ul>
 <p><strong>总结</strong></p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"></p>
 <p><strong>事务隔离级别为可重复读时，如果有索引（包括主键索引）的时候，以索引列为条件更新数据，会存在间隙锁间、行锁、页锁的问题，从而锁住一些行；如果没有索引，更新数据时会锁住整张表</strong></p>
 <p><strong>事务隔离级别为串行化时，读写数据都会锁住整张表</strong></p>
 <p><strong>隔离级别越高，越能保证数据的完整性和一致性，但是对并发性能的影响也越大，对于多数应用程序，可以优先考虑把数据库系统的隔离级别设为Read Committed**</strong>，它能够避免脏读取，而且具有较好的并发性能。**</p>
@@ -507,19 +505,19 @@
 <p>数据库表中的所有字段都只具有单一属性</p>
 <p>单一属性的列是由基本数据类型所构成的</p>
 <p>设计出来的表都是简单的二维表</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"> </p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/2.jpg" alt="img"> </p>
 <p>name-age列具有两个属性，一个name,一个 age不符合第一范式，把它拆分成两列</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/3.jpg" alt="img"></p>
 <p><strong>第二范式</strong></p>
 <p>要求表中只具有一个业务主键，也就是说符合第二范式的表不能存在非主键列只对部分主键的依赖关系</p>
 <p>有两张表：订单表，产品表</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"></p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/4.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/5.jpg" alt="img"></p>
 <p>一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/6.jpg" alt="img"></p>
 <p><strong>第三范式</strong></p>
 <p>指每一个非非主属性既不部分依赖于也不传递依赖于业务主键，也就是在第二范式的基础上相处了非主键对主键的传递依赖</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/7.jpg" alt="img"></p>
 <p>其中</p>
 <p><strong>客户编号</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
 <p><strong>客户姓名</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
@@ -532,11 +530,11 @@
 </ul>
 <p>商品信息反范式设计</p>
 <p>下面是范式设计的商品信息表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589872072524.png" alt="1589872072524"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589872072524.png" alt="1589872072524"></p>
 <p>商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放</p>
 <p>在线销售功能反范式</p>
 <p>下面是在线手写功能的范式设计</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589872083937.png" alt="1589872083937"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589872083937.png" alt="1589872083937"></p>
 <p> 范式化设计优缺点</p>
 <p>优点：</p>
 <p>  可以尽量得减少数据冗余</p>
@@ -561,28 +559,28 @@
 <p>存储过程应该能够体现存储过程的功能。</p>
 <p>数据库、表、字段的命名要遵守长名原则</p>
 <p>尽可能少使用或者不使用缩写</p>
-<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg" alt="img"></p>
+<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/8.jpg" alt="img"></p>
 <h3 id="数据类型选择"><a href="#数据类型选择" class="headerlink" title="数据类型选择"></a>数据类型选择</h3><p>当一个列可以选择多种数据类型时</p>
 <p>l  优先考虑数字类型</p>
 <p>l  其次是日期、时间类型</p>
 <p>l  最后是字符类型</p>
 <p>l  对于相同级别的数据类型，应该优先选择占用空间小的数据类型</p>
 <p>浮点类型</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/9.jpg" alt="img"></p>
 <p>注意float 和double 是非精度类型，如果是和金额相关尽量用decimal</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/10.jpg" alt="img"></p>
 <p>select sum(c1),sum(c2),sum(c3) from test_numberic</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image008.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/11.jpg" alt="img"></p>
 <p>日期类型</p>
 <p>面试经常问道 timestamp 类型 与 datetime区别</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/12.jpg" alt="img"></p>
 <p>datetime类型在5.6中字段长度是5个字节</p>
 <p>datetime类型在5.5中字段长度是8个字节</p>
 <p><strong>timestamp</strong> <strong>和时区有关，而datetime**</strong>无关**</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/13.jpg" alt="img"></p>
 <p>insert into  test_time  VALUES(NOW(),NOW(),NOW());</p>
 <p>set time_zone=”-10:00”</p>
-<p><img src="file:///C:/Users/dsz/AppData/Local/Temp/msohtmlclip1/01/clip_image014.jpg" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/14.jpg" alt="img"></p>
 <h2 id="sql慢查询"><a href="#sql慢查询" class="headerlink" title="sql慢查询"></a>sql慢查询</h2><h3 id="什么是慢查询"><a href="#什么是慢查询" class="headerlink" title="什么是慢查询"></a>什么是慢查询</h3><p>慢查询日志，顾名思义，就是查询慢的日志，是指mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。该日志能为SQL语句的优化带来很好的帮助。默认情况下，慢查询日志是关闭的，要使用慢查询日志功能，首先要开启慢查询日志功能。（也就是说 把查询慢的SQL写到一个日志中）</p>
 <p> 1.1.1.    慢查询基本配置</p>
 <ul>
@@ -661,7 +659,7 @@
 <h2 id="sql索引与执行计划"><a href="#sql索引与执行计划" class="headerlink" title="sql索引与执行计划"></a>sql索引与执行计划</h2><h3 id="生活中的索引"><a href="#生活中的索引" class="headerlink" title="生活中的索引"></a>生活中的索引</h3><p>MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。</p>
 <p>可以得到索引的本质：<strong>索引是数据结构</strong>。</p>
 <p>上面的理解比较抽象，举一个例子，平时看任何一本书，首先看到的都是目录，通过目录去查询书籍里面的内容会非常的迅速。</p>
-<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589883497088.png" alt="1589883497088"></p>
+<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589883497088.png" alt="1589883497088"></p>
 <p>MySql中的索引其实也是这么一回事，我们可以在数据库中建立一系列的索引，比如创建主键的时候默认会创建主键索引，上图是一种BTREE的索引。每一个节点都是主键的ID</p>
 <p>当我们通过ID来查询内容的时候，首先去查索引库，在到索引库后能快速的定位索引的具体位置。</p>
 <h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h3><p><strong>普通索引：</strong>即一个索引只包含单个列，一个表可以有多个单列索引</p>
@@ -693,7 +691,7 @@
 <p>比如：EXPLAIN select * from table1 </p>
 <p>重点的就是EXPLAIN后面你要分析的SQL语句 </p>
 <h4 id="执行计划详解"><a href="#执行计划详解" class="headerlink" title="执行计划详解"></a><strong>执行计划详解</strong></h4><p>通过EXPLAIN关键分析的结果由以下列组成，接下来挨个分析每一个列</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589883858311.png" alt="1589883858311"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589883858311.png" alt="1589883858311"></p>
 <p><strong>1. ID列</strong></p>
 <p>ID列：描述select查询的序列号,包含一组数字，表示查询中执行select子句或操作表的顺序</p>
 <p>根据ID的数值结果可以分成一下三种情况</p>
@@ -706,7 +704,7 @@
 <p>Select_type：查询的类型</p>
 <p>用于区别：普通查询、联合查询、子查询等的复杂查询</p>
 <p>类型如下</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1589884184701.png" alt="1589884184701"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/%5C1589884184701.png" alt="1589884184701"></p>
 <p><strong>3.table列</strong></p>
 <p>显示这一行数据是关于那张表从那张表而来的</p>
 <p><strong>4.Type列</strong></p>
