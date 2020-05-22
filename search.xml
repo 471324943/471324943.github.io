@@ -266,21 +266,21 @@
 <p>l  最后是字符类型</p>
 <p>l  对于相同级别的数据类型，应该优先选择占用空间小的数据类型</p>
 <p>浮点类型</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/9.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/ss.png" alt="img"></p>
 <p>注意float 和double 是非精度类型，如果是和金额相关尽量用decimal</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/10.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/9.png" alt="img"></p>
 <p>select sum(c1),sum(c2),sum(c3) from test_numberic</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/11.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/10.png" alt="img"></p>
 <p>日期类型</p>
 <p>面试经常问道 timestamp 类型 与 datetime区别</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/12.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/11.png" alt="img"></p>
 <p>datetime类型在5.6中字段长度是5个字节</p>
 <p>datetime类型在5.5中字段长度是8个字节</p>
 <p><strong>timestamp</strong> <strong>和时区有关，而datetime**</strong>无关**</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/13.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/12.png" alt="img"></p>
 <p>insert into  test_time  VALUES(NOW(),NOW(),NOW());</p>
 <p>set time_zone=”-10:00”</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/14.png" alt="img"></p>
+<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/13.png" alt="img"></p>
 <h2 id="sql慢查询"><a href="#sql慢查询" class="headerlink" title="sql慢查询"></a>sql慢查询</h2><h3 id="什么是慢查询"><a href="#什么是慢查询" class="headerlink" title="什么是慢查询"></a>什么是慢查询</h3><p>慢查询日志，顾名思义，就是查询慢的日志，是指mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。该日志能为SQL语句的优化带来很好的帮助。默认情况下，慢查询日志是关闭的，要使用慢查询日志功能，首先要开启慢查询日志功能。（也就是说 把查询慢的SQL写到一个日志中）</p>
 <p> 1.1.1.    慢查询基本配置</p>
 <ul>
