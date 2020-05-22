@@ -46,16 +46,19 @@
   };
 </script>
 
-  <meta name="description" content="机会是留给有准备的人的。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="DSZ">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;nodejs&#x2F;index.html">
+  <meta name="description" content="jvm架构解析程序加载步骤   class  &amp;gt;&amp;gt; 类装载子系统 &amp;gt;&amp;gt; 运行时数据区(内存模型)  &amp;gt;&amp;gt; 字节码执行引擎栈： 一个线程对应一块栈内存区域栈针 ： 一个方法对应一个栈针操作数栈：一个临时的运行空间  用于程序运算局部变量 表：存储局部变量 内部是集合的一个存储结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jvm虚拟机">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;22&#x2F;jvm%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="机会是留给有准备的人的。">
+<meta property="og:description" content="jvm架构解析程序加载步骤   class  &amp;gt;&amp;gt; 类装载子系统 &amp;gt;&amp;gt; 运行时数据区(内存模型)  &amp;gt;&amp;gt; 字节码执行引擎栈： 一个线程对应一块栈内存区域栈针 ： 一个方法对应一个栈针操作数栈：一个临时的运行空间  用于程序运算局部变量 表：存储局部变量 内部是集合的一个存储结构">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;22&#x2F;jvm%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1590134776914.png">
+<meta property="og:updated_time" content="2020-05-22T09:07:49.775Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;22&#x2F;jvm%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1590134776914.png">
 
-<link rel="canonical" href="http://yoursite.com/tags/nodejs/">
+<link rel="canonical" href="http://yoursite.com/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/">
 
 
 <script id="page-configurations">
@@ -63,13 +66,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: nodejs | DSZ</title>
+  <title>jvm虚拟机 | DSZ</title>
   
 
 
@@ -218,54 +221,98 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">nodejs
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpeg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jvm虚拟机
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-22 14:12:44 / 修改时间：17:07:49" itemprop="dateCreated datePublished" datetime="2020-05-22T14:12:44+08:00">2020-05-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img src="/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1590134776914.png" alt="1590134776914"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
+
+
+
+
+
+<p>方法出口：但前方法执行完毕后 回到调用者方法 从那块开始继续执行 </p>
+<p>程序计数器:代码运行到那一行的位置 值是由字节码执行引擎进行修改</p>
+<p>方法区：1.8之前叫永久代 1.8以后叫元空间 它使用的是物理内存 不是虚拟机的内存  内部主要存储 常量，静态变量，类信息等</p>
+<p>堆：由老年代与年轻代组成 老年代占用 3/2 年轻代占用3/1   年轻代分为Eden区 和 survivor区   对象一般会存储在Eden区  在Eden区 被占满后 会字节码执行引擎会调用minor gc 对垃圾对象进行回收  有引用的的对象会被复制进 survivor0区  没有引用的对象直接清除  当gc对堆进行第二次进行清理时 Eden 区有引用的对象会被移到survivor0区 ，survivor0区的有引用的对象会被移动到 survivor1区中 并且每进行一次移动 对象头中的年龄便会加一 年龄达到15会被移到老年代内 当老年代内存满了的时候 会字节码执行引擎会调用full gc对整个堆进行垃圾清理 如何还是在增加则会触发oom内存溢出 </p>
+<p>stop the word :停止到所有用户线程 然fullgc 让full gc 专心回收内存  原因是为了防止gc在处理的时候 突然有线程停止 产生大量垃圾 会增加gc的复杂度 也会让gc的清理不够干净</p>
+<p>本地方法栈：native 修饰方法 会到底层去找c语言实现</p>
+<p>jvm调优：计算业务可能触发的内存大小，然后对堆内存 年轻代进行合理的内存分配，让对象尽量不要进入老年代 触发full gc 从而触发STW导致系统卡顿   （进入survivor区内存的对象如果内存超过 survivor区内存的50%会被直接移入到老年代内去  极易导致STW）</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-20T08:49:27+08:00"
-              content="2019-11-20">
-          11-20
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" itemprop="url">
-            <span itemprop="name">nodejs设置全局路径后npm报错 已解决</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/" rel="next" title="sql优化相关之如何写出一条好sql">
+                  <i class="fa fa-chevron-left"></i> sql优化相关之如何写出一条好sql
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
         </div>
           
@@ -290,6 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jvm架构解析"><span class="nav-number">1.</span> <span class="nav-text">jvm架构解析</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -409,6 +457,23 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: '7d429f62896f0c5830f6be5ac291db5f',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>
