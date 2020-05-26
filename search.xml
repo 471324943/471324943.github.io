@@ -1493,14 +1493,25 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>并发编程-线程共享与协作</title>
     <url>/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。</p><h3 id="CPU时间片轮转机制"><a href="#CPU时间片轮转机制" class="headerlink" title="CPU时间片轮转机制"></a>CPU时间片轮转机制</h3><p>在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。</p><a id="more"></a>
+    <content><![CDATA[<h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> is = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (is)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            is = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直真在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
+
+
+
+
+
+
+
+
+
+<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。</p>
+<h3 id="CPU时间片轮转机制"><a href="#CPU时间片轮转机制" class="headerlink" title="CPU时间片轮转机制"></a>CPU时间片轮转机制</h3><p>在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。</p>
 <h3 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h3><p>进程是程序运行分配的最小单位，一个进程内有多个线程，一起共享这个进程的资源，多个进程之间基本互不干扰，要进行通信的话要通过操作系统。</p>
 <p>线程是CPU调度的最小单位，一个进程至少拥有一个线程</p>
 <h3 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h3><p>   并行：系统可以同时处理的请求数</p>
 <p>   并发：系统在一段时间内处理的请求数</p>
 <h3 id="高并发编程的意义"><a href="#高并发编程的意义" class="headerlink" title="高并发编程的意义"></a>高并发编程的意义</h3><p>多个线程同时使用CPU，充实CPU使用率，提高程序性能，不过内存使用过高可能出现内存耗尽的情况，导致机器宕机</p>
-<h2 id="认识java里的线程"><a href="#认识java里的线程" class="headerlink" title="认识java里的线程"></a>认识java里的线程</h2><h3 id="获取当前进程运行中的所有线程"><a href="#获取当前进程运行中的所有线程" class="headerlink" title="获取当前进程运行中的所有线程"></a>获取当前进程运行中的所有线程</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">           System.out.println(threadInfo.getThreadName());</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取当前进程运行中的所有线程"><a href="#获取当前进程运行中的所有线程" class="headerlink" title="获取当前进程运行中的所有线程"></a>获取当前进程运行中的所有线程</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">           System.out.println(threadInfo.getThreadName());</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个main方法运行会产生以下线程</p>
 <p><strong>Attach Listener</strong>：获取但前程序运行相关信息<br><strong>Signal Dispatcher</strong>：分发处理给虚拟机的线程<br><strong>Finalizer</strong>：结束运行时执行清理垃圾，但并不保证每次都会正常运行<br><strong>Reference Handler</strong>：负责清除引用<br><strong>main</strong>：当前线程</p>
@@ -1548,6 +1559,9 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>注意：由于每个线程都要开辟出来一个自己的内存空间，如果设置的类型占用内存大的话，可能会导致Thread local 占用内存太大</p>
 <h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a><strong>ReentrantLock</strong></h3><p>与synchronized一样是可重入锁，Synchronized是依赖于JVM实现的；而ReentrantLock是依赖于JDK实现的，是API层面的，需要Lock()和unLock()方法配合try/finally语句块来完成。ReentrantLock比Synchronized多了三项功能：等待可中断，可实现公平锁，可实现选择性通知（锁可绑定多个条件）。<br>关于上述三项功能的解释：<br>等待可中断是指线程可以选择放弃等待，改为处理其他事情，ReenTrantLock通过lock.lockInterruptibly()来实现的。<br>Synchronized只能是非公平锁。ReenTrantLock默认情况是非公平的，可以通过 ReentrantLock(boolean fair)构造方法来指定是公平锁还是非公平锁。<br>Synchronized关键字与wait()和notify/notifyAll()方法相结合可以实现等待/通知机制，但被通知的线程是由JVM随机选择。Synchronized相当于整个Lock对象中只有一个单一的condition对象，所有的线程都注册在它一个对象身上。线程开始notifyAll()时，需要通知所有等待的线程，没有选择权，会造成很大的效率问题。而ReenTrantLock可以借助Condition对象实现选择性通知，具有更好的灵活性。比如：可以在一个Lock对象里创建多个Condition实例（即对象监视器），线程对像可以注册在指定的Condition中，从而可以有选择的进行线程通知，即使使用signalAll()方法也只会唤醒注册在该Condition实例中所有等待的线程。</p>
 ]]></content>
+      <tags>
+        <tag>-多线程</tag>
+      </tags>
   </entry>
   <entry>
     <title>spring-cloud-Netflix 基本配置</title>

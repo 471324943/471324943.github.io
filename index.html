@@ -320,7 +320,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-22 17:04:47" itemprop="dateModified" datetime="2020-05-22T17:04:47+08:00">2020-05-22</time>
+                <time title="修改时间：2020-05-22 18:06:05" itemprop="dateModified" datetime="2020-05-22T18:06:05+08:00">2020-05-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -777,7 +777,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-23 09:58:32" itemprop="dateModified" datetime="2020-04-23T09:58:32+08:00">2020-04-23</time>
+                <time title="修改时间：2020-05-25 10:55:33" itemprop="dateModified" datetime="2020-05-25T10:55:33+08:00">2020-05-25</time>
               </span>
 
           
@@ -791,7 +791,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。</p><h3 id="CPU时间片轮转机制"><a href="#CPU时间片轮转机制" class="headerlink" title="CPU时间片轮转机制"></a>CPU时间片轮转机制</h3><p>在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。</p>
+          <h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> is = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (is)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            is = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直真在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/#more" rel="contents">
@@ -1048,7 +1048,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
