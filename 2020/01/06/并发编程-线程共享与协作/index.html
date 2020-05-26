@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="多核并发缓存架构和jmm模型​    java线程内存模型​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的编写案例：1234567891011121314151617181920212223242526public class XianChenTest &amp;#123;    public static boole">
+<meta name="keywords" content="-多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程-线程共享与协作">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;06&#x2F;%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="多核并发缓存架构和jmm模型​    java线程内存模型​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的编写案例：1234567891011121314151617181920212223242526public class XianChenTest &amp;#123;    public static boole">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-25T02:55:33.467Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>并发编程-线程共享与协作 | DSZ</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          并发编程-线程共享与协作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-06 19:37:21" itemprop="dateCreated datePublished" datetime="2020-01-06T19:37:21+08:00">2020-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-25 10:55:33" itemprop="dateModified" datetime="2020-05-25T10:55:33+08:00">2020-05-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> is = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (is)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            is = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直真在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+
+
+
+
+
+
+<h3 id="什么是线程？"><a href="#什么是线程？" class="headerlink" title="什么是线程？"></a>什么是线程？</h3><p>​    线程是与物理CPU息息相关的，也就是说一个核心数对应一个线程，在因特尔引入了超核心数的技术 就变化成了一个核心对应两个线程。</p>
+<h3 id="CPU时间片轮转机制"><a href="#CPU时间片轮转机制" class="headerlink" title="CPU时间片轮转机制"></a>CPU时间片轮转机制</h3><p>在系统运行多个线程时，由于内核无法对应太多线程的消耗，所以需要在多个线程之间来回切换，也就是上下文切换一般需要5千个时钟周期，大概需要占用线程运行20%左右的时间。</p>
+<h3 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h3><p>进程是程序运行分配的最小单位，一个进程内有多个线程，一起共享这个进程的资源，多个进程之间基本互不干扰，要进行通信的话要通过操作系统。</p>
+<p>线程是CPU调度的最小单位，一个进程至少拥有一个线程</p>
+<h3 id="并行与并发"><a href="#并行与并发" class="headerlink" title="并行与并发"></a>并行与并发</h3><p>   并行：系统可以同时处理的请求数</p>
+<p>   并发：系统在一段时间内处理的请求数</p>
+<h3 id="高并发编程的意义"><a href="#高并发编程的意义" class="headerlink" title="高并发编程的意义"></a>高并发编程的意义</h3><p>多个线程同时使用CPU，充实CPU使用率，提高程序性能，不过内存使用过高可能出现内存耗尽的情况，导致机器宕机</p>
+<h3 id="获取当前进程运行中的所有线程"><a href="#获取当前进程运行中的所有线程" class="headerlink" title="获取当前进程运行中的所有线程"></a>获取当前进程运行中的所有线程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();</span><br><span class="line">       ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(<span class="keyword">false</span>, <span class="keyword">false</span>);</span><br><span class="line">       <span class="keyword">for</span> (ThreadInfo threadInfo : threadInfos) &#123;</span><br><span class="line">           System.out.println(threadInfo.getThreadName());</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个main方法运行会产生以下线程</p>
+<p><strong>Attach Listener</strong>：获取但前程序运行相关信息<br><strong>Signal Dispatcher</strong>：分发处理给虚拟机的线程<br><strong>Finalizer</strong>：结束运行时执行清理垃圾，但并不保证每次都会正常运行<br><strong>Reference Handler</strong>：负责清除引用<br><strong>main</strong>：当前线程</p>
+<p><strong><code>Java程序天生就是多线程的</code></strong></p>
+<h3 id="有几种开启新线程的方法？"><a href="#有几种开启新线程的方法？" class="headerlink" title="有几种开启新线程的方法？"></a>有几种开启新线程的方法？</h3><ol>
+<li><p>直接继承类Thread重写run 方法 </p>
+</li>
+<li><p>实现Runnable重写run 方法并创建实现类对象，传递给Thread的构造</p>
+</li>
+<li><p>实现callable接口重写call方法并创建实现类对象，传递给FutureTask类构造，由于FutureTask实现了Runnable所以可以直接做为参数传递给Thread类开启线程。FutureTask类的get方法可以获取call方法的对应返回值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Thread创建线程</span></span><br><span class="line">      ThreadTest threadTest = <span class="keyword">new</span> ThreadTest();</span><br><span class="line">      threadTest.start();</span><br><span class="line">   </span><br><span class="line">      <span class="comment">//Runnable创建线程</span></span><br><span class="line">      RunnableTest runnableTest = <span class="keyword">new</span> RunnableTest();</span><br><span class="line">      <span class="keyword">new</span> Thread(runnableTest).start();</span><br><span class="line">   </span><br><span class="line">      <span class="comment">//Callable创建线程</span></span><br><span class="line">      CallableTest callableTest = <span class="keyword">new</span> CallableTest();</span><br><span class="line">      FutureTask&lt;String&gt; futureTask = <span class="keyword">new</span> FutureTask&lt;String&gt;(callableTest);</span><br><span class="line">      <span class="keyword">new</span> Thread(futureTask).start();</span><br><span class="line">      System.out.println(futureTask.get());</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="线程的安全停止"><a href="#线程的安全停止" class="headerlink" title="线程的安全停止"></a>线程的安全停止</h3><ol>
+<li>自然执行完毕停止</li>
+<li>出现异常，意外终止线程</li>
+<li>stop()方法停止线程(无法保证线程资源正常释放可能导致未知问题)，resume()继续线程,suspend()暂停线程(都已过时因为可能导致死锁) </li>
+<li>interrupt()中断一个线程，并不是强制停止一个线程，而是标注但前线程中断标注位为true</li>
+<li>isInterrupt()判断但前线程是否属于中断 </li>
+<li>静态的interrupt()也是判断一个线程是否属于中断状态 他会标注中断标志为false</li>
+<li>Java线程是协作式的，因为要让线程完成自己的中止操作</li>
+<li>调用一个线程的interrupt() 方法中断一个线程，并不是强行关闭这个线程，只是跟这个线程打个招呼，将线程的中断标志位置为true，线程是否中断，由线程本身决定。</li>
+</ol>
+<h3 id="线程常用方法和线程的状态"><a href="#线程常用方法和线程的状态" class="headerlink" title="线程常用方法和线程的状态"></a>线程常用方法和线程的状态</h3><p>线程有  创建-&gt;就绪-&gt;运行-&gt;阻塞-&gt;死亡 五种状态</p>
+<p>run()和start() ：run方法就是普通对象的普通方法，只有调用了start()后，Java才会将线程对象和操作系统中实际的线程进行映射，再来执行run方法。</p>
+<p>yield() ：让出cpu的执行权，将线程从运行转到可运行状态，但是下个时间片，该线程依然有可能被再次选中运行。</p>
+<h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>线程的级别有1-10级 1为最高  默认省缺值是5</p>
+<p>线程的优先级因系统而异 有些系统可能直接会把所有的优先级默认成5。</p>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>守护线程一旦执行，只有主线程关闭才会关闭。</p>
+<p>一般用于辅助主线程进行正常工作。</p>
+<p><strong>使用</strong></p>
+<p>​        需要在start方法<strong>前</strong>设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">threadTest.setDaemon(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：在使用守护线程时，try/finally不能保证一定执行，一旦主线程停止守护线程也会跟随立即停止  不会最后运行finally</p>
+<h3 id="synchronized内置锁"><a href="#synchronized内置锁" class="headerlink" title="synchronized内置锁"></a>synchronized内置锁</h3><p>用处：限制访问 各个线程之间去抢夺synchronized的标志位，谁吧标志位指向了自己  那么谁就获得了运行权</p>
+<p>对象锁：在方法上加锁 或者在方法中加锁 限制但前对象只能排队进行访问</p>
+<p>类锁：在类上定义，锁定但前类的class文件，对所有创建出来的对象进行限制。</p>
+<h3 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h3><p> 轻量效率高的同步机制，但是线程不安全 不能保证原子性</p>
+<p>适用环境：只有一个线程写多个线程读的时候</p>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>Thread local 包装成员变量能保证每一个线程只使用自己的那一份数据，每个线程之间互不干扰。</p>
+<p>注意：由于每个线程都要开辟出来一个自己的内存空间，如果设置的类型占用内存大的话，可能会导致Thread local 占用内存太大</p>
+<h3 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a><strong>ReentrantLock</strong></h3><p>与synchronized一样是可重入锁，Synchronized是依赖于JVM实现的；而ReentrantLock是依赖于JDK实现的，是API层面的，需要Lock()和unLock()方法配合try/finally语句块来完成。ReentrantLock比Synchronized多了三项功能：等待可中断，可实现公平锁，可实现选择性通知（锁可绑定多个条件）。<br>关于上述三项功能的解释：<br>等待可中断是指线程可以选择放弃等待，改为处理其他事情，ReenTrantLock通过lock.lockInterruptibly()来实现的。<br>Synchronized只能是非公平锁。ReenTrantLock默认情况是非公平的，可以通过 ReentrantLock(boolean fair)构造方法来指定是公平锁还是非公平锁。<br>Synchronized关键字与wait()和notify/notifyAll()方法相结合可以实现等待/通知机制，但被通知的线程是由JVM随机选择。Synchronized相当于整个Lock对象中只有一个单一的condition对象，所有的线程都注册在它一个对象身上。线程开始notifyAll()时，需要通知所有等待的线程，没有选择权，会造成很大的效率问题。而ReenTrantLock可以借助Condition对象实现选择性通知，具有更好的灵活性。比如：可以在一个Lock对象里创建多个Condition实例（即对象监视器），线程对像可以注册在指定的Condition中，从而可以有选择的进行线程通知，即使使用signalAll()方法也只会唤醒注册在该Condition实例中所有等待的线程。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># -多线程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/" rel="next" title="spring-cloud-Netflix 基本配置">
+                  <i class="fa fa-chevron-left"></i> spring-cloud-Netflix 基本配置
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/03/26/spring-data-jpa%E5%85%A5%E9%97%A8/" rel="prev" title="spring-data-jpa入门">
+                  spring-data-jpa入门 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#多核并发缓存架构和jmm模型"><span class="nav-number">1.</span> <span class="nav-text">多核并发缓存架构和jmm模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程？"><span class="nav-number">2.</span> <span class="nav-text">什么是线程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU时间片轮转机制"><span class="nav-number">3.</span> <span class="nav-text">CPU时间片轮转机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">4.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行与并发"><span class="nav-number">5.</span> <span class="nav-text">并行与并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高并发编程的意义"><span class="nav-number">6.</span> <span class="nav-text">高并发编程的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前进程运行中的所有线程"><span class="nav-number">7.</span> <span class="nav-text">获取当前进程运行中的所有线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有几种开启新线程的方法？"><span class="nav-number">8.</span> <span class="nav-text">有几种开启新线程的方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的安全停止"><span class="nav-number">9.</span> <span class="nav-text">线程的安全停止</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程常用方法和线程的状态"><span class="nav-number">10.</span> <span class="nav-text">线程常用方法和线程的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程优先级"><span class="nav-number">11.</span> <span class="nav-text">线程优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程"><span class="nav-number">12.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized内置锁"><span class="nav-number">13.</span> <span class="nav-text">synchronized内置锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile关键字"><span class="nav-number">14.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">15.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock"><span class="nav-number">16.</span> <span class="nav-text">ReentrantLock</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Dsz."></i>
+  </span>
+ 
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: '',
+      clientSecret: '',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: '29efd41bbdc2b2f09a6d85c8a29c953b',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
