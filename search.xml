@@ -3,7 +3,7 @@
   <entry>
     <title>jvm虚拟机</title>
     <url>/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/</url>
-    <content><![CDATA[<h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img src="/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/C:%5CUsers%5Cdsz%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1590134776914.png" alt="1590134776914"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
+    <content><![CDATA[<h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img src="/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/1590134776914.png" alt="1590134776914"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
 
 
 
