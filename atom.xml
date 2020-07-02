@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-24T07:56:03.830Z</updated>
+  <updated>2020-06-12T06:38:17.367Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,30 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>简单实践spring框架(手写Spring-MVC)</title>
-    <link href="http://yoursite.com/2020/06/24/%C2%96%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99Spring-MVC/"/>
-    <id>http://yoursite.com/2020/06/24/%C2%96%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99Spring-MVC/</id>
-    <published>2020-06-24T01:54:13.000Z</published>
-    <updated>2020-06-24T07:56:03.830Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Spring-MVC篇"><a href="#Spring-MVC篇" class="headerlink" title="Spring-MVC篇"></a>Spring-MVC篇</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Spring-MVC篇&quot;&gt;&lt;a href=&quot;#Spring-MVC篇&quot; class=&quot;headerlink&quot; title=&quot;Spring-MVC篇&quot;&gt;&lt;/a&gt;Spring-MVC篇&lt;/h1&gt;
-      
-    
-    </summary>
-    
-    
-    
-      <category term="-框架底层" scheme="http://yoursite.com/tags/%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82/"/>
-    
-  </entry>
   
   <entry>
     <title>简单实践spring框架(手写spring)</title>
@@ -527,6 +503,52 @@
       &lt;p&gt;&lt;strong&gt;以服务消费者service-consumer为例&lt;/strong&gt;&lt;/p&gt;&lt;ol&gt;
 &lt;li&gt;添加pom依赖&lt;/li&gt;
 &lt;/ol&gt;&lt;p&gt;&lt;dependency&gt;     &lt;groupid&gt;org.springframework.cloud&lt;/groupid&gt;     &lt;artifactid&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactid&gt; &lt;/dependency&gt; &lt;/p&gt;&lt;p&gt;2.打开nacos 打开 服务配置列表 点击新增配置&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;&lt;p&gt;3.添加服务&lt;/p&gt;&lt;p&gt;Data ID 必须是唯一的  &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Spring-Cloud-Alibaba" scheme="http://yoursite.com/categories/Spring-Cloud-Alibaba/"/>
+    
+    
+      <category term="微服务" scheme="http://yoursite.com/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>3，Nacos Feign 客户端</title>
+    <link href="http://yoursite.com/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+    <id>http://yoursite.com/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/</id>
+    <published>2019-11-19T08:15:07.000Z</published>
+    <updated>2019-11-19T08:17:14.621Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol><li>修改pom添加依赖</li></ol><dependencies>    <!-- Spring Boot Begin -->    <dependency>        <groupid>org.springframework.boot</groupid>        <artifactid>spring-boot-starter-web</artifactid>    </dependency>    <dependency>        <groupid>org.springframework.boot</groupid>        <artifactid>spring-boot-starter-actuator</artifactid>    </dependency>    <dependency>        <groupid>org.springframework.cloud</groupid>        <artifactid>spring-cloud-starter-openfeign</artifactid>    </dependency>    <!-- Spring Boot End -->    <!-- Spring Cloud Begin -->    <dependency>        <groupid>org.springframework.cloud</groupid>        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>    </dependency>    <!-- Spring Cloud End --></dependencies><a id="more"></a><p>2.创建并修改 application.yml </p><p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>server:</p><h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p><h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”</p><p>3.创建启动类</p><p>import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cloud.client.discovery.EnableDiscoveryClient; @SpringBootApplication @EnableDiscoveryClient @EnableFeignClients public class ConsumerApplication {     public static void main(String[] args) {         SpringApplication.run(ConsumerApplication.class, args);     } } </p><p>4.启动查看nacos</p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard.png" alt="img"></p><p>服务注册成功!</p><p><strong>使用feign客户端请求provider服务提供者获得服务</strong></p><ol><li>在consumer创建好目录结构</li></ol><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard1.png" alt="img"></p><ol><li>在service处添加</li></ol><p>@FeignClient(“service-provider”)这个注解的意思是向名为service-provider的服务发起请求</p><p>@GetMapping(“/dsz”) 此注解的意思是向 /dsz 的路径发起get请求</p><p>import org.springframework.cloud.openfeign.FeignClient; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.PathVariable;  import java.util.List;  @FeignClient(“service-provider”) public interface EchoService {     @GetMapping(“/dsz”)     List<string> getList(); } </string></p><p>3.在controller处添加</p><p>@RestController public class TestEchoController {       @Autowired     private EchoService echoService;          @GetMapping(value = “/feign/list”)     public List echo() {         return echoService.getList();     } } </p><p>4.修改provider项目的controller 创建一个集合并输出</p><p>@RestController public class EchoController {      @GetMapping(value = “dsz”)     public List<string> ok(){         ArrayList<string> strings = new ArrayList&lt;&gt;();         strings.add(“dsz1”);         strings.add(“dsz2”);         strings.add(“dsz3”);         strings.add(“dsz4”);         strings.add(“dsz5”);         return strings;     } } </string></string></p><p>5.启动项目</p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard2.png" alt="img"></p><p>请求成功</p><p>这一个小demo的意思就是通过服务消费者的service，去请求服务提供者 ，</p><p>获取数据，然后服务消费者进行输出展示最终结果</p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard3.png" alt="img"></p><p><strong>feign负载均衡</strong></p><p>修改idea 配置</p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard4.png" alt="img"></p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard5.png" alt="img"></p><p>启动一台服务提供者provider后</p><p>修改端口号 再启动一台</p><p>在controller处创建变量提取配置文件端口号 通过端口号的变换 来确定是否实现负载均衡</p><ol><li>修改controller  添加  </li></ol><p>@Value(“${server.port}”) private String port;  @GetMapping(value = “/echo/{string}”) public String echo(@PathVariable String string) {     return string+”  您好，负载均衡已经开启 现在是端口为”+port+”的服务器为您提供服务！”; } </p><p>2.修改服务消费者consumer service 添加如下配置</p><p>@GetMapping(value = “/echo/{string}”) String echo(@PathVariable(“string”) String string); </p><p>3.修改controller添加</p><p>@GetMapping(value = “/feign/echo/{str}”) public String echo(@PathVariable String str) {     return echoService.echo(str); } </p><p>4.浏览器请求  <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard6.png" alt="img"></p><p>5.刷新浏览器</p><p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard7.png" alt="img"></p><p>负载均衡成功！</p><p><strong>附：扩展阅读</strong></p><p><strong>常见负载均衡策略</strong></p><p>负载主机可以提供很多种负载均衡方法，也就是我们常说的调度方法或算法</p><p><strong>轮循</strong></p><p><strong>Round Robin：</strong> 这种方法会将收到的请求循环分配到服务器集群中的每台机器，即有效服务器。如果使用这种方式，所有的标记进入虚拟服务的服务器应该有相近的资源容量 以及负载形同的应用程序。如果所有的服务器有相同或者相近的性能那么选择这种方式会使服务器负载形同。基于这个前提，轮循调度是一个简单而有效的分配请求 的方式。然而对于服务器不同的情况，选择这种方式就意味着能力比较弱的服务器也会在下一轮循环中接受轮循，即使这个服务器已经不能再处理当前这个请求了。 这可能导致能力较弱的服务器超载。</p><p><strong>加权轮循</strong></p><p><strong>Weighted Round Robin：</strong> 这种算法解决了简单轮循调度算法的缺点：传入的请求按顺序被分配到集群中服务器，但是会考虑提前为每台服务器分配的权重。管理员只是简单的通过服务 器的处理能力来定义各台服务器的权重。例如，能力最强的服务器 A 给的权重是 100，同时能力最低的服务器给的权重是 50。这意味着在服务器 B 接收到第一个 请求之前前，服务器 A 会连续的接受到 2 个请求，以此类推。</p><p><strong>最少连接数</strong></p><p><strong>Least Connection：</strong> 以上两种方法都没有考虑的是系统不能识别在给定的时间里保持了多少连接。因此可能发生，服务器 B 服务器收到的连接比服务器 A 少但是它已经超载，因为 服务器 B 上的用户打开连接持续的时间更长。这就是说连接数即服务器的负载是累加的。这种潜在的问题可以通过 “最少连接数” 算法来避免：传入的请求是根据每 台服务器当前所打开的连接数来分配的。即活跃连接数最少的服务器会自动接收下一个传入的请求。接本上和简单轮询的原则相同：所有拥有虚拟服务的服务器资源 容量应该相近。值得注意的是，在流量率低的配置环境中，各服务器的流量并不是相同的，会优先考虑第一台服务器。这是因为，如果所有的服务器是相同的，那么 第一个服务器优先，直到第一台服务器有连续的活跃流量，否则总是会优先选择第一台服务器。</p><p><strong>最少连接数慢启动时间</strong></p><p><strong>Least Connection Slow Start Time：</strong> 对最少连接数和带权重的最小连接数调度方法来说，当一个服务器刚加入线上环境是，可以为其配置一个时间段，在这段时间内连接数是有限制的而且是缓慢 增加的。这为服务器提供了一个‘过渡时间’以保证这个服务器不会因为刚启动后因为分配的连接数过多而超载。这个值在 L7 配置界面设置。</p><p><strong>加权最少连接</strong></p><p><strong>Weighted Least Connection：</strong> 如果服务器的资源容量各不相同，那么 “加权最少连接” 方法更合适：由管理员根据服务器情况定制的权重所决定的活跃连接数一般提供了一种对服务器非常 平衡的利用，因为他它借鉴了最少连接和权重两者的优势。通常，这是一个非常公平的分配方式，因为它使用了连接数和服务器权重比例；集群中比例最低的服务器 自动接收下一个请求。但是请注意，在低流量情况中使用这种方法时，请参考 “最小连接数” 方法中的注意事项。</p><p><strong>基于代理的自适应负载均衡</strong></p><p><strong>Agent Based Adaptive Balancing：</strong> 除了上述方法之外，负载主机包含一个自适用逻辑用来定时监测服务器状态和该服务器的权重。对于非常强大的 “基于代理的自适应负载均衡” 方法来说，负 载主机以这种方式来定时检测所有服务器负载情况：每台服务器都必须提供一个包含文件，这个文件包含一个 0~99 的数字用来标明改服务器的实际负载情况 (0 = 空前，99 = 超载，101 = 失败，102 = 管理员禁用)，而服务器同构 http get 方法来获取这个文件；同时对集群中服务器来说，以二进制文件形式提供自身负载情况也是该服务器工作之一，然而，并没有限制服务器如何计算自身的负载 情况。根据服务器整体负载情况，有两种策略可以选择：在常规的操作中，调度算法通过收集的服务器负载值和分配给该服务器的连接数的比例计算出一个权重比 例。因此，如果一个服务器负载过大，权重会通过系统透明的作重新调整。和加权轮循调度方法一样，不正确的分配可以被记录下来使得可以有效的为不同服务器分 配不同的权重。然而，在流量非常低的环境下，服务器报上来的负载值将不能建立一个有代表性的样本；那么基于这些值来分配负载的话将导致失控以及指令震荡。 因此，在这种情况下更合理的做法是基于静态的权重比来计算负载分配。当所有服务器的负载低于管理员定义的下限时，负载主机就会自动切换为加权轮循方式来分 配请求；如果负载大于管理员定义的下限，那么负载主机又会切换回自适应方式。</p><p><strong>固定权重</strong></p><p><strong>Fixed Weighted：</strong> 最高权重只有在其他服务器的权重值都很低时才使用。然而，如果最高权重的服务器下降，则下一个最高优先级的服务器将为客户端服务。这种方式中每个真实服务器的权重需要基于服务器优先级来配置。</p><p><strong>加权响应</strong></p><p><strong>Weighted Response：</strong> 流量的调度是通过加权轮循方式。加权轮循中所使用的权重是根据服务器有效性检测的响应时间来计算。每个有效性检测都会被计时，用来标记它响应成功花 了多长时间。但是需要注意的是，这种方式假定服务器心跳检测是基于机器的快慢，但是这种假设也许不总是能够成立。所有服务器在虚拟服务上的响应时间的总和 加在一起，通过这个值来计算单个服务物理服务器的权重；这个权重值大约每 15 秒计算一次。</p><p><strong>源 IP 哈希</strong></p><p><strong>Source IP Hash：</strong> 这种方式通过生成请求源 IP 的哈希值，并通过这个哈希值来找到正确的真实服务器。这意味着对于同一主机来说他对应的服务器总是相同。使用这种方式，你不需要保存任何源 IP。但是需要注意，这种方式可能导致服务器负载不平衡。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;创建服务消费者spring-cloud-demo-consumer&lt;/strong&gt;&lt;/p&gt;&lt;ol&gt;
+&lt;li&gt;修改pom添加依赖&lt;/li&gt;
+&lt;/ol&gt;&lt;dependencies&gt;
+    &lt;!-- Spring Boot Begin --&gt;
+    &lt;dependency&gt;
+        &lt;groupid&gt;org.springframework.boot&lt;/groupid&gt;
+        &lt;artifactid&gt;spring-boot-starter-web&lt;/artifactid&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupid&gt;org.springframework.boot&lt;/groupid&gt;
+        &lt;artifactid&gt;spring-boot-starter-actuator&lt;/artifactid&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupid&gt;org.springframework.cloud&lt;/groupid&gt;
+        &lt;artifactid&gt;spring-cloud-starter-openfeign&lt;/artifactid&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Spring Boot End --&gt;
+    &lt;!-- Spring Cloud Begin --&gt;
+    &lt;dependency&gt;
+        &lt;groupid&gt;org.springframework.cloud&lt;/groupid&gt;
+        &lt;artifactid&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactid&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Spring Cloud End --&gt;
+&lt;/dependencies&gt;
     
     </summary>
     
