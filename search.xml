@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>简单实践spring框架(手写Spring-MVC)</title>
+    <url>/2020/06/24/%C2%96%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99Spring-MVC/</url>
+    <content><![CDATA[<h1 id="Spring-MVC篇"><a href="#Spring-MVC篇" class="headerlink" title="Spring-MVC篇"></a>Spring-MVC篇</h1>]]></content>
+      <tags>
+        <tag>-框架底层</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>简单实践spring框架(手写spring)</title>
     <url>/2020/06/09/%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99spring/</url>
     <content><![CDATA[<h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p><a id="more"></a>
