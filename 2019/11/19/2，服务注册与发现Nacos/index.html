@@ -9,24 +9,50 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
 
-  <meta name="description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习 部署操作步骤  Clone 项目  git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker   单机模式  docker-compose -f example&#x2F;standalone-mysql.yaml up -d  3.查看日志 docker">
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习部署操作步骤 Clone 项目 git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker  单机模式 docker-compose -f example&#x2F;standalone-mysql.yaml up -d">
 <meta name="keywords" content="微服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2，服务注册与发现Nacos">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习 部署操作步骤  Clone 项目  git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker   单机模式  docker-compose -f example&#x2F;standalone-mysql.yaml up -d  3.查看日志 docker">
+<meta property="og:description" content="Nacos需要部署 所以想自己部署的同学请移步docker学习部署操作步骤 Clone 项目 git clone https:&#x2F;&#x2F;github.com&#x2F;nacos-group&#x2F;nacos-docker.git cd nacos-docker  单机模式 docker-compose -f example&#x2F;standalone-mysql.yaml up -d">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos&#x2F;clipboard1.png">
@@ -42,9 +68,10 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
 
@@ -96,6 +123,18 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
@@ -103,28 +142,11 @@
       <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">DSZ</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
 </div>
 
 
-
-
 <nav class="site-nav">
+  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
@@ -161,34 +183,29 @@
         </a>
       </li>
   </ul>
+
 </nav>
-
-
-
-  <div class="search-pop-overlay">
+  <div class="site-search">
     <div class="popup search-popup">
-        <div class="search-header">
+    <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
            placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
+           type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
+<div id="search-result"></div>
+
 </div>
+<div class="search-pop-overlay"></div>
 
-    </div>
   </div>
-
 </div>
     </header>
 
@@ -204,10 +221,11 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content">
             
 
-    
+  <div class="posts-expand">
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
@@ -260,16 +278,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p>
-<p><strong>部署操作步骤</strong></p>
-<ol>
+        <p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p><p><strong>部署操作步骤</strong></p><ol>
 <li><strong>Clone 项目</strong></li>
-</ol>
-<p>git clone <a href="https://github.com/nacos-group/nacos-docker.git" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-docker.git</a> cd nacos-docker </p>
-<ol>
+</ol><p>git clone <a href="https://github.com/nacos-group/nacos-docker.git" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-docker.git</a> cd nacos-docker </p><ol>
 <li><strong>单机模式</strong></li>
-</ol>
-<p>docker-compose -f example/standalone-mysql.yaml up -d </p>
+</ol><p>docker-compose -f example/standalone-mysql.yaml up -d </p><a id="more"></a>
+
+
+
+
+
 <p><strong>3.查看日志</strong></p>
 <p>docker-compose -f example/standalone-mysql.yaml logs -f </p>
 <p><strong>4.Nacos 控制台</strong></p>
@@ -280,24 +298,24 @@
 <p>密码：nacos</p>
 <p><strong>服务注册与发现</strong></p>
 <p>新增模块  spring-cloud-demo-provider服务提供者</p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard.png" alt="img"></p>
+<p><img src="clipboard.png" alt="img"></p>
 <p><strong>添加pom依赖</strong></p>
 <p>注：如遇maven报错请移步《maven报错解决》</p>
 <dependencies>
     <!-- Spring Boot Begin -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-web</artifactid>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
     </dependency>
     <!-- Spring Boot End -->
     <!-- Spring Cloud Begin -->
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
     </dependency>
     <!-- Spring Cloud End -->
 </dependencies>
@@ -305,7 +323,7 @@
 
 
 <p><strong>项目结构</strong></p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard1.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
 <ol>
 <li>创建启动类</li>
 </ol>
@@ -320,7 +338,7 @@
 <p>访问 ： <a href="http://localhost:8070/echo/dsz" target="_blank" rel="noopener">http://localhost:8070/echo/dsz</a> </p>
 <p><strong>再登录nacos</strong></p>
 <p>前面有说如何登录</p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard2.png" alt="img"></p>
+<p><img src="clipboard2.png" alt="img"></p>
 <p>显示服务名即表示服务注册成功</p>
 
     </div>
@@ -358,33 +376,12 @@
   
   
 
+  </div>
 
 
           </div>
           
     <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 
         </div>
           
@@ -443,6 +440,11 @@
       </div>
   </nav>
 </div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
 
 
 
@@ -458,8 +460,6 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        
-
         
 
 <div class="copyright">
@@ -484,6 +484,11 @@
 
 
 
+
+
+
+
+        
       </div>
     </footer>
   </div>
@@ -516,6 +521,7 @@
 
 
 
+
   
 
   
@@ -523,21 +529,19 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
     var gitalk = new Gitalk({
-      clientID    : '',
+      clientID: '',
       clientSecret: '',
-      repo        : '',
-      owner       : '',
-      admin       : [''],
-      id          : '7f9a0cac828ad15f895b3122f04ab793',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: 'dd92c61b32e1c26bfc3ad8c4b799dfe7',
         language: 'zh-CN',
-      distractionFreeMode: true
+      distractionFreeMode: 'true'
     });
     gitalk.render('gitalk-container');
   }, window.Gitalk);
-});
 </script>
 
 </body>

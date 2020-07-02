@@ -9,24 +9,50 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
 
-  <meta name="description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。 为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。 操作流程">
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。">
 <meta name="keywords" content="安全框架,spring全家桶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring security oAth2-实战(3)">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;20&#x2F;Spring-security-oAth2-%E5%AE%9E%E6%88%98-3&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。 为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。 操作流程">
+<meta property="og:description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;www.qfdmy.com&#x2F;wp-content&#x2F;uploads&#x2F;2019&#x2F;08&#x2F;901ef32a4fa6cad.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;www.qfdmy.com&#x2F;wp-content&#x2F;uploads&#x2F;2019&#x2F;08&#x2F;81b26cd8f499725-3.png">
@@ -44,9 +70,10 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
 
@@ -98,6 +125,18 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
@@ -105,28 +144,11 @@
       <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">DSZ</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
 </div>
 
 
-
-
 <nav class="site-nav">
+  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
@@ -163,34 +185,29 @@
         </a>
       </li>
   </ul>
+
 </nav>
-
-
-
-  <div class="search-pop-overlay">
+  <div class="site-search">
     <div class="popup search-popup">
-        <div class="search-header">
+    <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
            placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
+           type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
+<div id="search-result"></div>
+
 </div>
+<div class="search-pop-overlay"></div>
 
-    </div>
   </div>
-
 </div>
     </header>
 
@@ -206,10 +223,11 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content">
             
 
-    
+  <div class="posts-expand">
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
@@ -262,8 +280,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p>
-<p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p><p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p><a id="more"></a>
+
 <p><strong>操作流程</strong></p>
 <p><img src="http://www.qfdmy.com/wp-content/uploads/2019/08/901ef32a4fa6cad.png" alt="img"></p>
 <ul>
@@ -366,33 +384,12 @@
   
   
 
+  </div>
 
 
           </div>
           
     <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 
         </div>
           
@@ -451,6 +448,11 @@
       </div>
   </nav>
 </div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
 
 
 
@@ -466,8 +468,6 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        
-
         
 
 <div class="copyright">
@@ -492,6 +492,11 @@
 
 
 
+
+
+
+
+        
       </div>
     </footer>
   </div>
@@ -524,6 +529,7 @@
 
 
 
+
   
 
   
@@ -531,21 +537,19 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
     var gitalk = new Gitalk({
-      clientID    : '',
+      clientID: '',
       clientSecret: '',
-      repo        : '',
-      owner       : '',
-      admin       : [''],
-      id          : 'de09e646bac2473cf8c6fb9a44935794',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: '7428d4861b1ae092a28e3deed8a79eb0',
         language: 'zh-CN',
-      distractionFreeMode: true
+      distractionFreeMode: 'true'
     });
     gitalk.render('gitalk-container');
   }, window.Gitalk);
-});
 </script>
 
 </body>

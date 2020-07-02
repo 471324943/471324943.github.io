@@ -3,7 +3,7 @@
   <entry>
     <title>简单实践spring框架(手写spring)</title>
     <url>/2020/06/09/%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99spring/</url>
-    <content><![CDATA[<h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p>
+    <content><![CDATA[<h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p><a id="more"></a>
 <h3 id="IOC注入流程"><a href="#IOC注入流程" class="headerlink" title="IOC注入流程"></a>IOC注入流程</h3><p>流程大致分为五步</p>
 <ol>
 <li>读取配置文件获取文件根路径</li>
@@ -82,11 +82,11 @@
 
 <p>现在定义完毕了 我们还需要在但前包下创建一个项目 然后依赖我们定义的spring-ioc项目进行测试</p>
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>这是完成的框架项目结构</p>
-<p><img src="/2020/06/09/%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99spring/1591942979103.png" alt="1591942979103"></p>
+<p><img src="1591942979103.png" alt="1591942979103"></p>
 <p>这是定义的测试项目 的项目结构</p>
-<p><img src="/2020/06/09/%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99spring/1591943034322.png" alt="1591943034322"></p>
+<p><img src="1591943034322.png" alt="1591943034322"></p>
 <p>他俩存在于一个文件夹下</p>
-<p><img src="/2020/06/09/%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5spring%E6%A1%86%E6%9E%B6-%E6%89%8B%E5%86%99spring/1591943073077.png" alt="1591943073077"></p>
+<p><img src="1591943073077.png" alt="1591943073077"></p>
 <h3 id="测试项目"><a href="#测试项目" class="headerlink" title="测试项目"></a>测试项目</h3><p>在框架的同一级目录下创建一个maven项目</p>
 <p>pom依赖中依赖框架</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.dszmr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dsz-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -118,9 +118,9 @@
   <entry>
     <title>JAVA类加载器</title>
     <url>/2020/05/28/JAVA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</url>
-    <content><![CDATA[<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>​     当程序主动使用某个类时，如果该类还未被加载到内存中，则JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化</p>
-<p><img src="/2020/05/28/JAVA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/1590634636055.png" alt="1590634636055"></p>
-<h2 id="一、类加载过程"><a href="#一、类加载过程" class="headerlink" title="一、类加载过程"></a>一、类加载过程</h2><h3 id="1-加载"><a href="#1-加载" class="headerlink" title="1.加载"></a><strong>1.加载</strong></h3><p>​    加载指的是将类的class文件读入到内存，并为之创建一个java.lang.Class对象，也就是说，当程序中使用任何类时，系统都会为之建立一个java.lang.Class对象。</p>
+    <content><![CDATA[<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>​     当程序主动使用某个类时，如果该类还未被加载到内存中，则JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化</p><p><img src="1590634636055.png" alt="1590634636055"></p><h2 id="一、类加载过程"><a href="#一、类加载过程" class="headerlink" title="一、类加载过程"></a>一、类加载过程</h2><h3 id="1-加载"><a href="#1-加载" class="headerlink" title="1.加载"></a><strong>1.加载</strong></h3><p>​    加载指的是将类的class文件读入到内存，并为之创建一个java.lang.Class对象，也就是说，当程序中使用任何类时，系统都会为之建立一个java.lang.Class对象。</p><a id="more"></a>
+
+
 <pre><code>类的加载由类加载器完成，类加载器通常由JVM提供，这些类加载器也是前面所有程序运行的基础，JVM提供的这些类加载器通常被称为系统类加载器。除此之外，开发者可以通过继承ClassLoader基类来创建自己的类加载器。
 
 通过使用不同的类加载器，可以从不同来源加载类的二进制数据，通常有如下几种来源。</code></pre><p>从本地文件系统加载class文件，这是前面绝大部分示例程序的类加载方式。<br>从JAR包加载class文件，这种方式也是很常见的，前面介绍JDBC编程时用到的数据库驱动类就放在JAR文件中，JVM可以从JAR文件中直接加载该class文件。<br>通过网络加载class文件。<br>把一个Java源文件动态编译，并执行加载。<br>    类加载器通常无须等到“首次使用”该类时才加载该类，Java虚拟机规范允许系统预先加载某些类。</p>
@@ -181,12 +181,12 @@
   <entry>
     <title>jvm虚拟机</title>
     <url>/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/</url>
-    <content><![CDATA[<h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p>
-<p><img src="/2020/05/22/jvm%E8%99%9A%E6%8B%9F%E6%9C%BA/1590134776914.png" alt="1590134776914"></p>
-<p>栈： 一个线程对应一块栈内存区域</p>
-<p>栈针 ： 一个方法对应一个栈针</p>
-<p>操作数栈：一个临时的运行空间  用于程序运算</p>
-<p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p>
+    <content><![CDATA[<h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img src="1590134776914.png" alt="1590134776914"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
+
+
+
+
+
 <p>方法出口：但前方法执行完毕后 回到调用者方法 从那块开始继续执行 </p>
 <p>程序计数器:代码运行到那一行的位置 值是由字节码执行引擎进行修改</p>
 <p>方法区：1.8之前叫永久代 1.8以后叫元空间 它使用的是物理内存 不是虚拟机的内存  内部主要存储 常量，静态变量，类信息等</p>
@@ -199,26 +199,26 @@
   <entry>
     <title>sql优化相关之如何写出一条好sql</title>
     <url>/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/</url>
-    <content><![CDATA[<h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p>
-<p>TPS = (事务提交+事务回滚）/运行时间</p>
-<p>​                QPS:执行sql等待返回结果之间的等待时间</p>
-<p>QPS=查询个数/运行时间</p>
-<h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><p>MySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测试MySQL服务器的性能</p>
+    <content><![CDATA[<h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p><p>TPS = (事务提交+事务回滚）/运行时间</p><p>​                QPS:执行sql等待返回结果之间的等待时间</p><p>QPS=查询个数/运行时间</p><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><a id="more"></a>
+
+
+
+<p>MySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测试MySQL服务器的性能</p>
 <h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p>​    <strong>连接层</strong></p>
 <p>MySQL启动时 MySQL自己会创建一个线程 每一个用户对MySQL进行连接时，服务器都会新建一个线程去处理这一个连接，每个线程都是独立的 但是如果有两个线程进行修改同一块内存时会引发数据同步问题</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589769109015.png" alt="1589769109015"></p>
+<p><img src="/1589769109015.png" alt="1589769109015"></p>
 <p><strong>sql处理层</strong></p>
 <p>sql语句的解析，优化，缓存的查询 MySQL内置函数的实现等</p>
 <p>1，如果是查询语句select，首先会查询缓存是否已经有对应的结果，有返回结果 没有的话进行下一步 </p>
 <p>2，解析查询，创建一个内部数据结构这个解析树用于解析SQL语法</p>
 <p>3，优化sql语句，列如重写查询，决定表的读写顺序以及选择需要的查询等，这一阶段用户是可以查询的，用户可以针对的进行一个调优</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589770015142.png" alt="1589770015142"></p>
+<p><img src="1589770015142.png" alt="1589770015142"></p>
 <p><strong>sql缓存</strong></p>
 <p>show variables like ‘%query_cache_type%’ </p>
 <p>查询数据库缓存是否开启</p>
 <p><strong>sql转换器</strong></p>
 <p>将传输进来的sql语句转换成MySQL能看得懂的样子</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589770451852.png" alt="1589770451852"></p>
+<p><img src="1589770451852.png" alt="1589770451852"></p>
 <p><strong>sql优化器</strong></p>
 <p>能够优化一些MySQL中很明显得一些冗余代码 （列如 1=1），使得代码变得更加简单</p>
 <h3 id="mylsam存储引擎"><a href="#mylsam存储引擎" class="headerlink" title="mylsam存储引擎"></a>mylsam存储引擎</h3><p><strong>文件结构</strong></p>
@@ -250,7 +250,7 @@
 <li>独立表空间可以同时向多个文件刷新数据</li>
 </ul>
 <p>（列如一张表有100w条数据占用磁盘内存 100000kb 当你把表中数据清除时 他在磁盘的占用内存还是 100000kb 无法收缩文件大小）</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589773241899.png" alt="1589773241899"></p>
+<p><img src="1589773241899.png" alt="1589773241899"></p>
 <p><strong>适用场景</strong>：</p>
 <p>修改较多，事务操作较多的场景</p>
 <h3 id="CSV存储引擎"><a href="#CSV存储引擎" class="headerlink" title="CSV存储引擎"></a>CSV存储引擎</h3><p>​    <strong>结构</strong></p>
@@ -401,19 +401,19 @@
 <p>数据库表中的所有字段都只具有单一属性</p>
 <p>单一属性的列是由基本数据类型所构成的</p>
 <p>设计出来的表都是简单的二维表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/2.png" alt="img"> </p>
+<p><img src="2.png" alt="img"> </p>
 <p>name-age列具有两个属性，一个name,一个 age不符合第一范式，把它拆分成两列</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/3.png" alt="img"></p>
+<p><img src="3.png" alt="img"></p>
 <p><strong>第二范式</strong></p>
 <p>要求表中只具有一个业务主键，也就是说符合第二范式的表不能存在非主键列只对部分主键的依赖关系</p>
 <p>有两张表：订单表，产品表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/4.png" alt="img"></p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/5.png" alt="img"></p>
+<p><img src="4.png" alt="img"></p>
+<p><img src="5.png" alt="img"></p>
 <p>一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/6.png" alt="img"></p>
+<p><img src="6.png" alt="img"></p>
 <p><strong>第三范式</strong></p>
 <p>指每一个非非主属性既不部分依赖于也不传递依赖于业务主键，也就是在第二范式的基础上相处了非主键对主键的传递依赖</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/7.png" alt="img"></p>
+<p><img src="7.png" alt="img"></p>
 <p>其中</p>
 <p><strong>客户编号</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
 <p><strong>客户姓名</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
@@ -426,11 +426,11 @@
 </ul>
 <p>商品信息反范式设计</p>
 <p>下面是范式设计的商品信息表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589872072524.png" alt="1589872072524"></p>
+<p><img src="1589872072524.png" alt="1589872072524"></p>
 <p>商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放</p>
 <p>在线销售功能反范式</p>
 <p>下面是在线手写功能的范式设计</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589872083937.png" alt="1589872083937"></p>
+<p><img src="1589872083937.png" alt="1589872083937"></p>
 <p> 范式化设计优缺点</p>
 <p>优点：</p>
 <p>  可以尽量得减少数据冗余</p>
@@ -455,28 +455,28 @@
 <p>存储过程应该能够体现存储过程的功能。</p>
 <p>数据库、表、字段的命名要遵守长名原则</p>
 <p>尽可能少使用或者不使用缩写</p>
-<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/8.png" alt="img"></p>
+<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="8.png" alt="img"></p>
 <h3 id="数据类型选择"><a href="#数据类型选择" class="headerlink" title="数据类型选择"></a>数据类型选择</h3><p>当一个列可以选择多种数据类型时</p>
 <p>l  优先考虑数字类型</p>
 <p>l  其次是日期、时间类型</p>
 <p>l  最后是字符类型</p>
 <p>l  对于相同级别的数据类型，应该优先选择占用空间小的数据类型</p>
 <p>浮点类型</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/ss.png" alt="img"></p>
+<p><img src="ss.png" alt="img"></p>
 <p>注意float 和double 是非精度类型，如果是和金额相关尽量用decimal</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/9.png" alt="img"></p>
+<p><img src="9.png" alt="img"></p>
 <p>select sum(c1),sum(c2),sum(c3) from test_numberic</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/10.png" alt="img"></p>
+<p><img src="10.png" alt="img"></p>
 <p>日期类型</p>
 <p>面试经常问道 timestamp 类型 与 datetime区别</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/11.png" alt="img"></p>
+<p><img src="11.png" alt="img"></p>
 <p>datetime类型在5.6中字段长度是5个字节</p>
 <p>datetime类型在5.5中字段长度是8个字节</p>
 <p><strong>timestamp</strong> <strong>和时区有关，而datetime**</strong>无关**</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/12.png" alt="img"></p>
+<p><img src="12.png" alt="img"></p>
 <p>insert into  test_time  VALUES(NOW(),NOW(),NOW());</p>
 <p>set time_zone=”-10:00”</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/13.png" alt="img"></p>
+<p><img src="13.png" alt="img"></p>
 <h2 id="sql慢查询"><a href="#sql慢查询" class="headerlink" title="sql慢查询"></a>sql慢查询</h2><h3 id="什么是慢查询"><a href="#什么是慢查询" class="headerlink" title="什么是慢查询"></a>什么是慢查询</h3><p>慢查询日志，顾名思义，就是查询慢的日志，是指mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。该日志能为SQL语句的优化带来很好的帮助。默认情况下，慢查询日志是关闭的，要使用慢查询日志功能，首先要开启慢查询日志功能。（也就是说 把查询慢的SQL写到一个日志中）</p>
 <p> 1.1.1.    慢查询基本配置</p>
 <ul>
@@ -555,7 +555,7 @@
 <h2 id="sql索引与执行计划"><a href="#sql索引与执行计划" class="headerlink" title="sql索引与执行计划"></a>sql索引与执行计划</h2><h3 id="生活中的索引"><a href="#生活中的索引" class="headerlink" title="生活中的索引"></a>生活中的索引</h3><p>MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。</p>
 <p>可以得到索引的本质：<strong>索引是数据结构</strong>。</p>
 <p>上面的理解比较抽象，举一个例子，平时看任何一本书，首先看到的都是目录，通过目录去查询书籍里面的内容会非常的迅速。</p>
-<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589883497088.png" alt="1589883497088"></p>
+<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="1589883497088.png" alt="1589883497088"></p>
 <p>MySql中的索引其实也是这么一回事，我们可以在数据库中建立一系列的索引，比如创建主键的时候默认会创建主键索引，上图是一种BTREE的索引。每一个节点都是主键的ID</p>
 <p>当我们通过ID来查询内容的时候，首先去查索引库，在到索引库后能快速的定位索引的具体位置。</p>
 <h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h3><p><strong>普通索引：</strong>即一个索引只包含单个列，一个表可以有多个单列索引</p>
@@ -587,7 +587,7 @@
 <p>比如：EXPLAIN select * from table1 </p>
 <p>重点的就是EXPLAIN后面你要分析的SQL语句 </p>
 <h4 id="执行计划详解"><a href="#执行计划详解" class="headerlink" title="执行计划详解"></a><strong>执行计划详解</strong></h4><p>通过EXPLAIN关键分析的结果由以下列组成，接下来挨个分析每一个列</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589883858311.png" alt="1589883858311"></p>
+<p><img src="1589883858311.png" alt="1589883858311"></p>
 <p><strong>1. ID列</strong></p>
 <p>ID列：描述select查询的序列号,包含一组数字，表示查询中执行select子句或操作表的顺序</p>
 <p>根据ID的数值结果可以分成一下三种情况</p>
@@ -600,7 +600,7 @@
 <p>Select_type：查询的类型</p>
 <p>用于区别：普通查询、联合查询、子查询等的复杂查询</p>
 <p>类型如下</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589884184701.png" alt="1589884184701"></p>
+<p><img src="1589884184701.png" alt="1589884184701"></p>
 <p><strong>3.table列</strong></p>
 <p>显示这一行数据是关于那张表从那张表而来的</p>
 <p><strong>4.Type列</strong></p>
@@ -652,13 +652,13 @@
   <entry>
     <title>Elastic-Stack相关</title>
     <url>/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/</url>
-    <content><![CDATA[<h1 id="安装Elastic-Stack"><a href="#安装Elastic-Stack" class="headerlink" title="安装Elastic Stack"></a>安装Elastic Stack</h1><p>准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡）</p>
-<ol>
+    <content><![CDATA[<h1 id="安装Elastic-Stack"><a href="#安装Elastic-Stack" class="headerlink" title="安装Elastic Stack"></a>安装Elastic Stack</h1><p>准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡）</p><ol>
 <li>准备docker环境</li>
-</ol>
-<h6 id="安装docker环境"><a href="#安装docker环境" class="headerlink" title="安装docker环境"></a>安装docker环境</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 安装docker </span></span><br><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure>
+</ol><h6 id="安装docker环境"><a href="#安装docker环境" class="headerlink" title="安装docker环境"></a>安装docker环境</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 安装docker </span></span><br><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure><h6 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 输入命令行 </span><br><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 配置权限</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 查看版本</span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<h6 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 输入命令行 </span><br><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 配置权限</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 查看版本</span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+
+
+
 
 
 
@@ -758,7 +758,7 @@
   <entry>
     <title>RabbitMQ的入门</title>
     <url>/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[<h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p>
+    <content><![CDATA[<h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p><a id="more"></a>
 <p><strong>与其他mq的比较</strong></p>
 <pre><code>activiMq老牌消息中间件，api全面，但是吞吐量不大
 
@@ -814,23 +814,23 @@ rabbitMQ：吞吐量大，数据不易丢失</code></pre><p><strong>初识Rabbit
 </tbody></table>
 <p><strong>下载Erlang</strong></p>
 <p>​    <a href="http://www.erlang.org/downloads" target="_blank" rel="noopener">官网下载地址</a>但是个人不推荐官网下载，因为Erlang官网在国外的原因下载会特别的慢</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588922880637.png" alt="1588922880637"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588922880637.png" alt="1588922880637"></p>
 <p><strong>下载RabbitMQ</strong></p>
 <p><a href="https://github.com/rabbitmq/rabbitmq-server/tags" target="_blank" rel="noopener">官方git地址</a>直接下载即可</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923074328.png" alt="1588923074328"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923074328.png" alt="1588923074328"></p>
 <p><strong>两个软件安装的话一直下一步即可</strong></p>
 <p>安装完成之后需要配置Erlang的环境变量</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923359657.png" alt="1588923359657"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923359657.png" alt="1588923359657"></p>
 <p>配好环境变量以后找到RabbitMQ安装路径</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923496376.png" alt="1588923496376"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923496376.png" alt="1588923496376"></p>
 <p>也可以在菜单处打开</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923467960.png" alt="1588923467960"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923467960.png" alt="1588923467960"></p>
 <p>以管理员身份运行RabbitMQ Command Prompt (sbin dir) <strong>一定要以管理员身份运行</strong></p>
 <p>在打开的黑窗口中输入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
 
 <p> 命令</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923647762.png" alt="1588923647762"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923647762.png" alt="1588923647762"></p>
 <p>加载完毕后启动服务即可</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#启动服务</span><br><span class="line">net start RabbitMQ</span><br><span class="line">#停止服务</span><br><span class="line">net stop RabbitMQ</span><br></pre></td></tr></table></figure>
 
@@ -840,17 +840,17 @@ rabbitMQ：吞吐量大，数据不易丢失</code></pre><p><strong>初识Rabbit
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:15672</span><br></pre></td></tr></table></figure>
 
 <p>出现如下页面</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588924048369.png" alt="1588924048369"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588924048369.png" alt="1588924048369"></p>
 <p>默认账号密码是     guest</p>
 <p>登录进去 添加一个admin账户还有对应一个测试用的虚拟主机</p>
 <p>添加用户</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926208949.png" alt="1588926208949"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926208949.png" alt="1588926208949"></p>
 <p>添加虚拟主机</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926263239.png" alt="1588926263239"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926263239.png" alt="1588926263239"></p>
 <p>为账户绑定虚拟机</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926370839.png" alt="1588926370839"></p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926419418.png" alt="1588926419418"></p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926614652.png" alt="1588926614652"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926370839.png" alt="1588926370839"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926419418.png" alt="1588926419418"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588926614652.png" alt="1588926614652"></p>
 <p><strong>RabbitMQ默认端口</strong></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4369 -- erlang发现口</span><br><span class="line">5672 --client端通信口</span><br><span class="line">15672 -- 管理界面ui端口</span><br><span class="line">25672 -- server间内部通信口</span><br></pre></td></tr></table></figure>
 
@@ -871,7 +871,7 @@ rabbitMQ：吞吐量大，数据不易丢失</code></pre><p><strong>初识Rabbit
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.rabbitmq.client.Channel;</span><br><span class="line"><span class="keyword">import</span> com.rabbitmq.client.Connection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Send</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取到连接以及mq通道</span></span><br><span class="line">        Connection connection = ConnectionUtil.getConnection();</span><br><span class="line">        <span class="comment">// 从连接中创建通道</span></span><br><span class="line">        Channel channel = connection.createChannel();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 声明（创建）队列</span></span><br><span class="line">        channel.queueDeclare(ConnectionUtil.QUEUE_NAME, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息内容</span></span><br><span class="line">        String message = <span class="string">"你能随时收到么？"</span>;</span><br><span class="line">        channel.basicPublish(<span class="string">""</span>, ConnectionUtil.QUEUE_NAME, <span class="keyword">null</span>, message.getBytes());</span><br><span class="line">        System.out.println(<span class="string">" [x] Sent '"</span> + message + <span class="string">"'"</span>);</span><br><span class="line">        <span class="comment">//关闭通道和连接</span></span><br><span class="line">        channel.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>5，测试：</p>
-<p><img src="/2020/05/08/RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8/D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588924589956.png" alt="1588924589956"></p>
+<p><img src="D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588924589956.png" alt="1588924589956"></p>
 <p>接收成功！</p>
 <p>6，总结</p>
 <p>​        服务消费者一共分为7个步骤</p>
@@ -1197,10 +1197,10 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>redis学习与提升</title>
     <url>/2020/04/24/redis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%8F%90%E5%8D%87/</url>
-    <content><![CDATA[<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string   基本数据</p>
-<p>​        <strong>hash</strong>:对应hash表类型  –》hashmap  对象</p>
-<p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist  列表</p>
-<p>​        <strong>set</strong>:对应不可重复类型–》hashset 去重 </p>
+    <content><![CDATA[<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string   基本数据</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap  对象</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist  列表</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset 去重 </p><a id="more"></a>
+
+
+
 <p>​        <strong>sorted_set</strong>:排序列表   –》treemap 排序</p>
 <h3 id="string类型的基本操作"><a href="#string类型的基本操作" class="headerlink" title="string类型的基本操作"></a>string类型的基本操作</h3><p>​        get key //根据key获取value</p>
 <p>​        set key value  //写入一对数据</p>
@@ -1336,11 +1336,11 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>HashMap底层学习</title>
     <url>/2020/04/21/HashMap%E5%BA%95%E5%B1%82%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p>
-<p><strong>数组：</strong></p>
-<p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p>
-<p><strong>线性链表：</strong></p>
-<p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p>
+    <content><![CDATA[<h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p><p><strong>数组：</strong></p><p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p><p><strong>线性链表：</strong></p><p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p><a id="more"></a>
+
+
+
+
 <p><strong>二叉树</strong>：<br>        对一棵相对平衡的有序二叉树，对其进行插入，查找，删除等操作，平均复杂度均为二次方倍数。</p>
 <blockquote>
 <p><strong>哈希表：</strong></p>
@@ -1377,8 +1377,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
     <url>/2020/03/26/spring-data-jpa%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<blockquote>
 <p>SpringData JPA是spring基于ORM框架、JPA规范的基础上封装的一套JPA应用框架，可以使开发者使用极简的代码实现对数据库的访问和操作。它提供了包括增删改查等在内的基本功能，且易于扩展。</p>
-</blockquote>
-<h3 id="1-springdata-jpa、jpa和hibernate三者关系"><a href="#1-springdata-jpa、jpa和hibernate三者关系" class="headerlink" title="1 springdata jpa、jpa和hibernate三者关系"></a>1 springdata jpa、jpa和hibernate三者关系</h3><p>通俗来讲springdata jpa是对jpa规范的一层封装，hibernate实现了jpa规范。spring data jpa 内部封装了hibernate 是使用hibernate进行数据库交互的。</p>
+</blockquote><h3 id="1-springdata-jpa、jpa和hibernate三者关系"><a href="#1-springdata-jpa、jpa和hibernate三者关系" class="headerlink" title="1 springdata jpa、jpa和hibernate三者关系"></a>1 springdata jpa、jpa和hibernate三者关系</h3><p>通俗来讲springdata jpa是对jpa规范的一层封装，hibernate实现了jpa规范。spring data jpa 内部封装了hibernate 是使用hibernate进行数据库交互的。</p><a id="more"></a>
+
 <h3 id="2-编写spring配置文件"><a href="#2-编写spring配置文件" class="headerlink" title="2 编写spring配置文件"></a>2 编写spring配置文件</h3><ul>
 <li>配置spring相关</li>
 <li>数据源信息</li>
@@ -1671,12 +1671,12 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>并发编程-线程共享与协作</title>
     <url>/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p>
-<p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p>
-<p>编写案例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initFlag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (initFlag)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            initFlag = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直正在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initFlag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (initFlag)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            initFlag = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直正在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
-<p><img src="/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png" alt="Java线程内存模型JMM2"></p>
+
+
+
+<p><img src="D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png" alt="Java线程内存模型JMM2"></p>
 <h4 id="内存执行步骤"><a href="#内存执行步骤" class="headerlink" title="内存执行步骤"></a>内存执行步骤</h4><ol>
 <li>工作内存通过read到主内存中读取共享资源</li>
 <li>共享资源通过load指令加载到工作内存中</li>
@@ -1762,8 +1762,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>spring-cloud-Netflix 基本配置</title>
     <url>/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><strong>pom</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><strong>pom</strong></p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+
 
 <p><strong>yml</strong></p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">fetch-registry:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:$&#123;server.port&#125;/eureka</span></span><br></pre></td></tr></table></figure>
@@ -1877,16 +1877,16 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <li>解决应用服务器的cpu和内存压力</li>
 <li>减少io的读操作，减轻io的压力</li>
 <li>关系型数据库的扩展性不强，难以改变表结构</li>
-</ol>
-<h3 id="二、优点："><a href="#二、优点：" class="headerlink" title="二、优点："></a>二、优点：</h3><ol>
+</ol><h3 id="二、优点："><a href="#二、优点：" class="headerlink" title="二、优点："></a>二、优点：</h3><ol>
 <li>nosql数据库没有关联关系，数据结构简单，拓展表比较容易</li>
 <li>nosql读取速度快，对较大数据处理快</li>
-</ol>
-<h3 id="三、适用场景："><a href="#三、适用场景：" class="headerlink" title="三、适用场景："></a><strong>三、适用场景：</strong></h3><ol>
+</ol><h3 id="三、适用场景："><a href="#三、适用场景：" class="headerlink" title="三、适用场景："></a><strong>三、适用场景：</strong></h3><ol>
 <li>数据高并发的读写</li>
 <li>海量数据的读写</li>
 <li>对扩展性要求高的数据</li>
-</ol>
+</ol><a id="more"></a>
+
+
 <h3 id="四、不适场景："><a href="#四、不适场景：" class="headerlink" title="四、不适场景："></a>四、不适场景：</h3><ol>
 <li>需要事务支持（非关系型数据库）</li>
 <li>基于sql结构化查询储存，关系复杂</li>
@@ -1944,7 +1944,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <li><strong>分页插件支持多种数据库</strong>：支持 MySQL、MariaDB、Oracle、DB2、H2、HSQL、SQLite、Postgre、SQLServer 等多种数据库</li>
 <li><strong>内置性能分析插件</strong>：可输出 Sql 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询</li>
 <li><strong>内置全局拦截插件</strong>：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作</li>
-</ul>
+</ul><a id="more"></a>
 <p>。</p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
 <li>pom依赖</li>
@@ -2370,8 +2370,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2-实战(3)</title>
     <url>/2019/11/20/Spring-security-oAth2-%E5%AE%9E%E6%88%98-3/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p>
-<p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p><p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p><a id="more"></a>
+
 <p><strong>操作流程</strong></p>
 <p><img src="http://www.qfdmy.com/wp-content/uploads/2019/08/901ef32a4fa6cad.png" alt="img"></p>
 <ul>
@@ -2449,8 +2449,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2(2)</title>
     <url>/2019/11/20/Spring-security-oAth2-2/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本章节 <strong>基于 JDBC 存储令牌</strong> 的模式用于演示最基本的操作，帮助大家快速理解 oAuth2 认证服务器中 “认证”、”授权”、”访问令牌” 的基本概念</p>
-<h3 id="对于上篇文章需要修改的点"><a href="#对于上篇文章需要修改的点" class="headerlink" title="对于上篇文章需要修改的点"></a>对于上篇文章需要修改的点</h3><ul>
+    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本章节 <strong>基于 JDBC 存储令牌</strong> 的模式用于演示最基本的操作，帮助大家快速理解 oAuth2 认证服务器中 “认证”、”授权”、”访问令牌” 的基本概念</p><h3 id="对于上篇文章需要修改的点"><a href="#对于上篇文章需要修改的点" class="headerlink" title="对于上篇文章需要修改的点"></a>对于上篇文章需要修改的点</h3><ul>
 <li><p>初始化 oAuth2 相关表</p>
 </li>
 <li><p>在数据库中配置客户端</p>
@@ -2479,7 +2478,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 </li>
 </ul>
 </li>
-</ul>
+</ul><a id="more"></a>
+
 <h2 id="初始化-oAuth2-相关表"><a href="#初始化-oAuth2-相关表" class="headerlink" title="初始化 oAuth2 相关表"></a>初始化 oAuth2 相关表</h2><p>使用官方提供的建表脚本初始化 oAuth2 相关表，地址如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://github.com/spring-projects/spring-security-oauth/blob/master/spring-security-oauth2/src/test/resources/schema.sql</span><br></pre></td></tr></table></figure>
 
@@ -2596,9 +2596,9 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2(1)</title>
     <url>/2019/11/20/Spring-security/</url>
-    <content><![CDATA[<h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p>
-<p>​            认证：判断该用户是否有权限登录该系统</p>
-<p>​            授权：判断该用户是否有权限访问该功能</p>
+    <content><![CDATA[<h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p><p>​            认证：判断该用户是否有权限登录该系统</p><p>​            授权：判断该用户是否有权限访问该功能</p><a id="more"></a>
+
+
 <p>spring security的所有的架构也是基于这两个核心功能去实现的。</p>
 <h3 id="2、框架原理"><a href="#2、框架原理" class="headerlink" title="2、框架原理"></a>2、框架原理</h3><p>​     众所周知 想要对对Web资源进行保护，最好的办法莫过于Filter，要想对方法调用进行保护，最好的办法莫过于AOP。所以springSecurity在我们进行用户认证以及授予权限的时候，通过各种各样的拦截器来控制权限的访问，从而实现安全。</p>
 <h5 id="关于-oAth2"><a href="#关于-oAth2" class="headerlink" title="关于 oAth2"></a>关于 oAth2</h5><p>​    oAth2不是一种技术，而是一种安全协议</p>
@@ -2647,7 +2647,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <li><p><code>/oauth/token_key</code>：提供公有密匙的端点，如果你使用 JWT 令牌的话</p>
 </li>
 </ul>
-<h3 id="实现逻辑"><a href="#实现逻辑" class="headerlink" title="实现逻辑"></a>实现逻辑</h3><p>  <img src="/2019/11/20/Spring-security/253eb4ef0c03ae7.png" alt="253eb4ef0c03ae7"></p>
+<h3 id="实现逻辑"><a href="#实现逻辑" class="headerlink" title="实现逻辑"></a>实现逻辑</h3><p>  <img src="253eb4ef0c03ae7.png" alt="253eb4ef0c03ae7"></p>
 <h3 id="具体实现步骤"><a href="#具体实现步骤" class="headerlink" title="具体实现步骤"></a>具体实现步骤</h3><ol>
 <li><p>​        创建spring-cloud项目</p>
 <ul>
@@ -2745,10 +2745,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>gateway网关</title>
     <url>/2019/11/20/gateway%E7%BD%91%E5%85%B3/</url>
-    <content><![CDATA[<p><strong>实现思想</strong></p>
-<p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p>
-<p><strong>功能特征</strong></p>
-<ul>
+    <content><![CDATA[<p><strong>实现思想</strong></p><p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p><p><strong>功能特征</strong></p><ul>
 <li>基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0</li>
 <li>动态路由</li>
 <li>Predicates 和 Filters 作用于特定路由</li>
@@ -2757,7 +2754,10 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <li>易于编写的 Predicates 和 Filters</li>
 <li>限流</li>
 <li>路径重写</li>
-</ul>
+</ul><a id="more"></a>
+
+
+
 <p><strong>具体拦截与分配代码</strong></p>
 <h1 id="采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）"><a href="#采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）" class="headerlink" title="采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）"></a>采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：<a href="https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）" target="_blank" rel="noopener">https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）</a></h1><ul>
 <li>id: BUSINESS-OAUTH2<h1 id="采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名"><a href="#采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名" class="headerlink" title="采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名"></a>采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名</h1>uri: lb://business-oauth2<h1 id="Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"><a href="#Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法" class="headerlink" title="Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"></a>Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法</h1>predicates:<h1 id="路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置"><a href="#路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置" class="headerlink" title="路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置"></a>路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置</h1><ul>
@@ -2774,30 +2774,30 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <dependencies>
     <!-- Spring Boot Begin -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-test</artifactid>
         <scope>test</scope>
     </dependency>
     <!-- Spring Boot End -->
     <!-- Spring Cloud Begin -->
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
         <version>0.9.0.RELEASE</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-gateway</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-gateway</artifactid>
     </dependency>
     <!-- Spring Cloud End -->
     <!-- Commons Begin -->
     <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
+        <groupid>javax.servlet</groupid>
+        <artifactid>javax.servlet-api</artifactid>
     </dependency>
     <!-- Commons Begin -->
 </dependencies>
@@ -2851,11 +2851,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>nodejs设置全局路径后npm报错 已解决</title>
     <url>/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p>
-<p><img src="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp" alt="大大大"></p>
-<p>解决办法：</p>
-<p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>
-]]></content>
+    <content><![CDATA[<p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img src="%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp" alt="大大大"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>]]></content>
       <categories>
         <category>bug记录</category>
       </categories>
@@ -2867,27 +2863,27 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>4，Nacos分布式配置中心</title>
     <url>/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/</url>
-    <content><![CDATA[<p><strong>以服务消费者service-consumer为例</strong></p>
-<ol>
+    <content><![CDATA[<p><strong>以服务消费者service-consumer为例</strong></p><ol>
 <li>添加pom依赖</li>
-</ol>
-<p><dependency>     <groupId>org.springframework.cloud</groupId>     <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId> </dependency> </p>
-<p>2.打开nacos 打开 服务配置列表 点击新增配置</p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard.png" alt="img"></p>
-<p>3.添加服务</p>
-<p>Data ID 必须是唯一的  </p>
+</ol><p><dependency>     <groupid>org.springframework.cloud</groupid>     <artifactid>spring-cloud-starter-alibaba-nacos-config</artifactid> </dependency> </p><p>2.打开nacos 打开 服务配置列表 点击新增配置</p><p><img src="clipboard.png" alt="img"></p><p>3.添加服务</p><p>Data ID 必须是唯一的  </p><a id="more"></a>
+
+
+
+
+
+
 <p>以.yaml结尾</p>
 <p>并选中配置格式 .yaml</p>
 <p>否则系统将默认为.properties文件</p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard1.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
 <p>4.把consumer项目的application.yml 配置复制到</p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard2.png" alt="img"></p>
+<p><img src="clipboard2.png" alt="img"></p>
 <p>后面增加一个节点用于测试</p>
 <p>test:     name: “dsz” </p>
 <pre><code>5.在controller </code></pre><ul>
 <li>添加注解@RefreshScope</li>
 </ul>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard3.png" alt="img"></p>
+<p><img src="clipboard3.png" alt="img"></p>
 <ul>
 <li>注入测试节点</li>
 </ul>
@@ -2911,11 +2907,11 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>bootstrap.properties-&gt;bootstrap.yml-&gt;application.properties-&gt;application.yml </p>
 <p>7.运行测试</p>
 <p>访问<a href="http://localhost:8080/name" target="_blank" rel="noopener">http://localhost:8080/name</a></p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard4.png" alt="img"></p>
+<p><img src="clipboard4.png" alt="img"></p>
 <p>修改配置</p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard5.png" alt="img"></p>
+<p><img src="clipboard5.png" alt="img"></p>
 <p>刷新</p>
-<p><img src="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/clipboard6.png" alt="img"></p>
+<p><img src="clipboard6.png" alt="img"></p>
 <p>成功！</p>
 ]]></content>
       <categories>
@@ -2928,32 +2924,32 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>3，Nacos Feign 客户端</title>
     <url>/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
-    <content><![CDATA[<p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p>
-<ol>
+    <content><![CDATA[<p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol>
 <li>修改pom添加依赖</li>
-</ol>
-<dependencies>
+</ol><dependencies>
     <!-- Spring Boot Begin -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-web</artifactid>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
     </dependency>
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-openfeign</artifactid>
     </dependency>
     <!-- Spring Boot End -->
     <!-- Spring Cloud Begin -->
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
     </dependency>
     <!-- Spring Cloud End -->
-</dependencies>
+</dependencies><a id="more"></a>
+
+
 
 
 
@@ -2964,33 +2960,33 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>3.创建启动类</p>
 <p>import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cloud.client.discovery.EnableDiscoveryClient; @SpringBootApplication @EnableDiscoveryClient @EnableFeignClients public class ConsumerApplication {     public static void main(String[] args) {         SpringApplication.run(ConsumerApplication.class, args);     } } </p>
 <p>4.启动查看nacos</p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard.png" alt="img"></p>
+<p><img src="clipboard.png" alt="img"></p>
 <p>服务注册成功!</p>
 <p><strong>使用feign客户端请求provider服务提供者获得服务</strong></p>
 <ol>
 <li>在consumer创建好目录结构</li>
 </ol>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard1.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
 <ol>
 <li>在service处添加</li>
 </ol>
 <p>@FeignClient(“service-provider”)这个注解的意思是向名为service-provider的服务发起请求</p>
 <p>@GetMapping(“/dsz”) 此注解的意思是向 /dsz 的路径发起get请求</p>
-<p>import org.springframework.cloud.openfeign.FeignClient; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.PathVariable;  import java.util.List;  @FeignClient(“service-provider”) public interface EchoService {     @GetMapping(“/dsz”)     List<String> getList(); } </String></p>
+<p>import org.springframework.cloud.openfeign.FeignClient; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.PathVariable;  import java.util.List;  @FeignClient(“service-provider”) public interface EchoService {     @GetMapping(“/dsz”)     List<string> getList(); } </string></p>
 <p>3.在controller处添加</p>
 <p>@RestController public class TestEchoController {       @Autowired     private EchoService echoService;          @GetMapping(value = “/feign/list”)     public List echo() {         return echoService.getList();     } } </p>
 <p>4.修改provider项目的controller 创建一个集合并输出</p>
-<p>@RestController public class EchoController {      @GetMapping(value = “dsz”)     public List<String> ok(){         ArrayList<String> strings = new ArrayList&lt;&gt;();         strings.add(“dsz1”);         strings.add(“dsz2”);         strings.add(“dsz3”);         strings.add(“dsz4”);         strings.add(“dsz5”);         return strings;     } } </String></String></p>
+<p>@RestController public class EchoController {      @GetMapping(value = “dsz”)     public List<string> ok(){         ArrayList<string> strings = new ArrayList&lt;&gt;();         strings.add(“dsz1”);         strings.add(“dsz2”);         strings.add(“dsz3”);         strings.add(“dsz4”);         strings.add(“dsz5”);         return strings;     } } </string></string></p>
 <p>5.启动项目</p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard2.png" alt="img"></p>
+<p><img src="clipboard2.png" alt="img"></p>
 <p>请求成功</p>
 <p>这一个小demo的意思就是通过服务消费者的service，去请求服务提供者 ，</p>
 <p>获取数据，然后服务消费者进行输出展示最终结果</p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard3.png" alt="img"></p>
+<p><img src="clipboard3.png" alt="img"></p>
 <p><strong>feign负载均衡</strong></p>
 <p>修改idea 配置</p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard4.png" alt="img"></p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard5.png" alt="img"></p>
+<p><img src="clipboard4.png" alt="img"></p>
+<p><img src="clipboard5.png" alt="img"></p>
 <p>启动一台服务提供者provider后</p>
 <p>修改端口号 再启动一台</p>
 <p>在controller处创建变量提取配置文件端口号 通过端口号的变换 来确定是否实现负载均衡</p>
@@ -3003,9 +2999,9 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>3.修改controller添加</p>
 <p>@GetMapping(value = “/feign/echo/{str}”) public String echo(@PathVariable String str) {     return echoService.echo(str); } </p>
 <p>4.浏览器请求  <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard6.png" alt="img"></p>
+<p><img src="clipboard6.png" alt="img"></p>
 <p>5.刷新浏览器</p>
-<p><img src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard7.png" alt="img"></p>
+<p><img src="clipboard7.png" alt="img"></p>
 <p>负载均衡成功！</p>
 <p><strong>附：扩展阅读</strong></p>
 <p><strong>常见负载均衡策略</strong></p>
@@ -3039,16 +3035,16 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>2，服务注册与发现Nacos</title>
     <url>/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/</url>
-    <content><![CDATA[<p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p>
-<p><strong>部署操作步骤</strong></p>
-<ol>
+    <content><![CDATA[<p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p><p><strong>部署操作步骤</strong></p><ol>
 <li><strong>Clone 项目</strong></li>
-</ol>
-<p>git clone <a href="https://github.com/nacos-group/nacos-docker.git" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-docker.git</a> cd nacos-docker </p>
-<ol>
+</ol><p>git clone <a href="https://github.com/nacos-group/nacos-docker.git" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-docker.git</a> cd nacos-docker </p><ol>
 <li><strong>单机模式</strong></li>
-</ol>
-<p>docker-compose -f example/standalone-mysql.yaml up -d </p>
+</ol><p>docker-compose -f example/standalone-mysql.yaml up -d </p><a id="more"></a>
+
+
+
+
+
 <p><strong>3.查看日志</strong></p>
 <p>docker-compose -f example/standalone-mysql.yaml logs -f </p>
 <p><strong>4.Nacos 控制台</strong></p>
@@ -3059,24 +3055,24 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>密码：nacos</p>
 <p><strong>服务注册与发现</strong></p>
 <p>新增模块  spring-cloud-demo-provider服务提供者</p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard.png" alt="img"></p>
+<p><img src="clipboard.png" alt="img"></p>
 <p><strong>添加pom依赖</strong></p>
 <p>注：如遇maven报错请移步《maven报错解决》</p>
 <dependencies>
     <!-- Spring Boot Begin -->
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-web</artifactid>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
     </dependency>
     <!-- Spring Boot End -->
     <!-- Spring Cloud Begin -->
     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
     </dependency>
     <!-- Spring Cloud End -->
 </dependencies>
@@ -3084,7 +3080,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
 
 <p><strong>项目结构</strong></p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard1.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
 <ol>
 <li>创建启动类</li>
 </ol>
@@ -3099,7 +3095,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>访问 ： <a href="http://localhost:8070/echo/dsz" target="_blank" rel="noopener">http://localhost:8070/echo/dsz</a> </p>
 <p><strong>再登录nacos</strong></p>
 <p>前面有说如何登录</p>
-<p><img src="/2019/11/19/2%EF%BC%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0Nacos/clipboard2.png" alt="img"></p>
+<p><img src="clipboard2.png" alt="img"></p>
 <p>显示服务名即表示服务注册成功</p>
 ]]></content>
       <categories>
@@ -3112,23 +3108,23 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>1，统一依赖管理</title>
     <url>/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<p><strong>创建一个普通spring-boot工程</strong></p>
-<p><img src="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/clipboard.png" alt="img"></p>
-<p><strong>修改pom文件</strong></p>
-<ol>
+    <content><![CDATA[<p><strong>创建一个普通spring-boot工程</strong></p><p><img src="clipboard.png" alt="img"></p><p><strong>修改pom文件</strong></p><ol>
 <li>修改pom文件默认打包方式为pom</li>
-</ol>
-<p><packaging>pom</packaging> </p>
-<ol>
+</ol><p><packaging>pom</packaging> </p><ol>
 <li>添加统一版本管理</li>
-</ol>
-<p><properties>     &lt;java.version&gt;1.8&lt;/java.version&gt;     &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;     &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;     &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;     &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt; </properties> </p>
+</ol><p><properties>     &lt;java.version&gt;1.8&lt;/java.version&gt;     &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;     &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;     &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;     &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt; </properties> </p><a id="more"></a>
+
+
+
+
+
+
 <p>3.添加插件管理</p>
 <p>插件管理备注：</p>
 <p>  <id>default</id> 这是一个标注现在状态的一个属性 可以自定义</p>
   <activation>
 
-<p>​            <activeByDefault>true</activeByDefault></p>
+<p>​            <activebydefault>true</activebydefault></p>
   </activation>
 
 <p>表示为默认使用状态 如果不使用可以设置为false</p>
@@ -3146,7 +3142,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
     <profile>
         <id>default</id>
         <activation>
-            <activeByDefault>true</activeByDefault>
+            <activebydefault>true</activebydefault>
         </activation>
         <properties>
             <spring-javaformat.version>0.0.12</spring-javaformat.version>
@@ -3154,13 +3150,13 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
         <build>
             <plugins>
                 <plugin>
-                    <groupId>io.spring.javaformat</groupId>
-                    <artifactId>spring-javaformat-maven-plugin</artifactId>
+                    <groupid>io.spring.javaformat</groupid>
+                    <artifactid>spring-javaformat-maven-plugin</artifactid>
                     <version>${spring-javaformat.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
+                    <groupid>org.apache.maven.plugins</groupid>
+                    <artifactid>maven-surefire-plugin</artifactid>
                     <configuration>
                         <includes>
                             <include>**/*Tests.java</include>
@@ -3168,15 +3164,15 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
                         <excludes>
                             <exclude>**/Abstract*.java</exclude>
                         </excludes>
-                        <systemPropertyVariables>
+                        <systempropertyvariables>
                             <java.security.egd>file:/dev/./urandom</java.security.egd>
                             <java.awt.headless>true</java.awt.headless>
-                        </systemPropertyVariables>
+                        </systempropertyvariables>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <groupid>org.apache.maven.plugins</groupid>
+                    <artifactid>maven-enforcer-plugin</artifactid>
                     <executions>
                         <execution>
                             <id>enforce-rules</id>
@@ -3185,12 +3181,12 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
                             </goals>
                             <configuration>
                                 <rules>
-                                    <bannedDependencies>
+                                    <banneddependencies>
                                         <excludes>
                                             <exclude>commons-logging:*:*</exclude>
                                         </excludes>
-                                        <searchTransitive>true</searchTransitive>
-                                    </bannedDependencies>
+                                        <searchtransitive>true</searchtransitive>
+                                    </banneddependencies>
                                 </rules>
                                 <fail>true</fail>
                             </configuration>
@@ -3198,15 +3194,15 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
+                    <groupid>org.apache.maven.plugins</groupid>
+                    <artifactid>maven-install-plugin</artifactid>
                     <configuration>
                         <skip>true</skip>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <groupid>org.apache.maven.plugins</groupid>
+                    <artifactid>maven-javadoc-plugin</artifactid>
                     <configuration>
                         <skip>true</skip>
                     </configuration>
@@ -3237,7 +3233,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
 <p><strong>创建统一依赖管理</strong></p>
 <p><strong>创建模块</strong> </p>
-<p><img src="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/clipboard1.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
 <p><strong>修改pom</strong> </p>
 <p><strong>更改打包方式为 pom</strong></p>
 <ol>
@@ -3283,40 +3279,40 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 </tbody></table>
 <p> <properties>          <!--这里填对应版本 列如我使用的是2.2.0 所以是-->         &lt;spring-cloud.version&gt;Hoxton.M3&lt;/spring-cloud.version&gt;         &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;     </properties> </p>
 <p>2.依赖cloud项目</p>
-<dependencyManagement>
+<dependencymanagement>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
+            <groupid>org.springframework.cloud</groupid>
+            <artifactid>spring-cloud-dependencies</artifactid>
             <version>${spring-cloud.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+            <groupid>org.springframework.cloud</groupid>
+            <artifactid>spring-cloud-alibaba-dependencies</artifactid>
             <version>${spring-cloud-alibaba.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
-</dependencyManagement>
+</dependencymanagement>
 
 
 
 <p><strong>再让父pom依赖dependencies</strong></p>
 <p>添加依赖管理 把整个项目的依赖交由dependencies管理</p>
-<dependencyManagement>
+<dependencymanagement>
     <dependencies>
         <dependency>
-            <groupId>cn.dszmr</groupId>
-            <artifactId>spring-cloud-demo-dependencies</artifactId>
+            <groupid>cn.dszmr</groupid>
+            <artifactid>spring-cloud-demo-dependencies</artifactid>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
-</dependencyManagement>
+</dependencymanagement>
 <modules>
     <module>spring-cloud-demo-dependencies</module>
 </modules>
@@ -3327,19 +3323,19 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
 <p><strong>完整父pom文件（供参考）</strong></p>
 <?xml version="1.0" encoding="UTF-8"?>
-<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelVersion>4.0.0</modelVersion><br>    <modules><br>        <module>spring-cloud-demo-dependencies</module><br>    </modules><br>    <parent><br>        <groupId>org.springframework.boot</groupId><br>        <artifactId>spring-boot-starter-parent</artifactId><br>        <version>2.2.0.RELEASE</version><br>        <relativePath> <!-- lookup parent from repository --><br>    </relativePath></parent><br>    <groupId>cn.dszmr</groupId><br>    <artifactId>spring-cloud-demo</artifactId><br>    <version>0.0.1-SNAPSHOT</version><br>    <name>spring-cloud-demo</name><br>    <packaging>pom</packaging><br>    <description>Demo project for Spring Boot</description></project></p>
+<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelversion>4.0.0</modelversion><br>    <modules><br>        <module>spring-cloud-demo-dependencies</module><br>    </modules><br>    <parent><br>        <groupid>org.springframework.boot</groupid><br>        <artifactid>spring-boot-starter-parent</artifactid><br>        <version>2.2.0.RELEASE</version><br>        <relativepath> <!-- lookup parent from repository --><br>    </relativepath></parent><br>    <groupid>cn.dszmr</groupid><br>    <artifactid>spring-cloud-demo</artifactid><br>    <version>0.0.1-SNAPSHOT</version><br>    <name>spring-cloud-demo</name><br>    <packaging>pom</packaging><br>    <description>Demo project for Spring Boot</description></project></p>
 <p>​    <properties><br>​        &lt;java.version&gt;1.8&lt;/java.version&gt;<br>​        &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;<br>​        &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;<br>​        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;<br>​        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;<br>​    </properties></p>
-<p>​    <dependencyManagement><br>​        <dependencies><br>​            <dependency><br>​                <groupId>cn.dszmr</groupId><br>​                <artifactId>spring-cloud-demo-dependencies</artifactId><br>​                <version>${project.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencyManagement></p>
-<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activeByDefault>true</activeByDefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupId>io.spring.javaformat</groupId><br>​                        <artifactId>spring-javaformat-maven-plugin</artifactId><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-surefire-plugin</artifactId><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systemPropertyVariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systemPropertyVariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-enforcer-plugin</artifactId><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <bannedDependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchTransitive>true</searchTransitive><br>​                                        </bannedDependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-install-plugin</artifactId><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-javadoc-plugin</artifactId><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><a href="https://repo.spring.io/milestone" target="_blank" rel="noopener">https://repo.spring.io/milestone</a></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><a href="https://repo.spring.io/snapshot" target="_blank" rel="noopener">https://repo.spring.io/snapshot</a></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
+<p>​    <dependencymanagement><br>​        <dependencies><br>​            <dependency><br>​                <groupid>cn.dszmr</groupid><br>​                <artifactid>spring-cloud-demo-dependencies</artifactid><br>​                <version>${project.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencymanagement></p>
+<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activebydefault>true</activebydefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupid>io.spring.javaformat</groupid><br>​                        <artifactid>spring-javaformat-maven-plugin</artifactid><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-surefire-plugin</artifactid><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systempropertyvariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systempropertyvariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-enforcer-plugin</artifactid><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <banneddependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchtransitive>true</searchtransitive><br>​                                        </banneddependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-install-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-javadoc-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><a href="https://repo.spring.io/milestone" target="_blank" rel="noopener">https://repo.spring.io/milestone</a></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><a href="https://repo.spring.io/snapshot" target="_blank" rel="noopener">https://repo.spring.io/snapshot</a></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
 
 
 
 
 <p><strong>完整dependencies依赖管理pom</strong></p>
 <?xml version="1.0" encoding="UTF-8"?>
-<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <parent><br>        <artifactId>spring-cloud-demo</artifactId><br>        <groupId>cn.dszmr</groupId><br>        <version>0.0.1-SNAPSHOT</version><br>    </parent><br>    <modelVersion>4.0.0</modelVersion><br>    <packaging>pom</packaging></project></p>
-<p>​    <artifactId>spring-cloud-demo-dependencies</artifactId><br>​    <properties><br>​        <!--这里填对应版本 列如我使用的是2.2.0 所以是Hoxton--><br>​        &lt;spring-cloud.version&gt;Hoxton.RELEASE&lt;/spring-cloud.version&gt;<br>​        &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;<br>​    </properties></p>
-<p>​    <dependencyManagement><br>​        <dependencies><br>​            <dependency><br>​                <groupId>org.springframework.cloud</groupId><br>​                <artifactId>spring-cloud-dependencies</artifactId><br>​                <version>${spring-cloud.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​            <dependency><br>​                <groupId>org.springframework.cloud</groupId><br>​                <artifactId>spring-cloud-alibaba-dependencies</artifactId><br>​                <version>${spring-cloud-alibaba.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencyManagement></p>
+<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <parent><br>        <artifactid>spring-cloud-demo</artifactid><br>        <groupid>cn.dszmr</groupid><br>        <version>0.0.1-SNAPSHOT</version><br>    </parent><br>    <modelversion>4.0.0</modelversion><br>    <packaging>pom</packaging></project></p>
+<p>​    <artifactid>spring-cloud-demo-dependencies</artifactid><br>​    <properties><br>​        <!--这里填对应版本 列如我使用的是2.2.0 所以是Hoxton--><br>​        &lt;spring-cloud.version&gt;Hoxton.RELEASE&lt;/spring-cloud.version&gt;<br>​        &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;<br>​    </properties></p>
+<p>​    <dependencymanagement><br>​        <dependencies><br>​            <dependency><br>​                <groupid>org.springframework.cloud</groupid><br>​                <artifactid>spring-cloud-dependencies</artifactid><br>​                <version>${spring-cloud.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​            <dependency><br>​                <groupid>org.springframework.cloud</groupid><br>​                <artifactid>spring-cloud-alibaba-dependencies</artifactid><br>​                <version>${spring-cloud-alibaba.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencymanagement></p>
 ]]></content>
       <categories>
         <category>Spring-Cloud-Alibaba</category>
@@ -3351,14 +3347,14 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>5，sentinel服务熔断</title>
     <url>/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/</url>
-    <content><![CDATA[<p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p>
-<p>下载解压</p>
-<p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard.png" alt="img"></p>
-<p>点击启动文件启动项目</p>
-<p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p>
-<p>账号 密码 都是 sentinel</p>
-<p>修改服务消费者 consuner </p>
+    <content><![CDATA[<p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<a href="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA" target="_blank" rel="noopener">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA</a> 密码：t9so </p><p><img src="clipboard.png" alt="img"></p><p>点击启动文件启动项目</p><p>访问<a href="http://localhost:9527/" target="_blank" rel="noopener">http://localhost:9527</a></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
+
+
+
+
+
+
+
 <p>填加依赖</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt; &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
@@ -3376,8 +3372,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <p>@FeignClient(value = “service-provider”, fallback = EchoServiceFallback.class) </p>
 <p>启动 consuner 关闭 provider</p>
 <p>访问 <a href="http://localhost:8080/feign/echo/dsz" target="_blank" rel="noopener">http://localhost:8080/feign/echo/dsz</a></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard1.png" alt="img"></p>
-<p><img src="/2019/11/18/%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD/clipboard2.png" alt="img"></p>
+<p><img src="clipboard1.png" alt="img"></p>
+<p><img src="clipboard2.png" alt="img"></p>
 ]]></content>
       <categories>
         <category>Spring-Cloud-Alibaba</category>

@@ -9,26 +9,52 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
 
-  <meta name="description" content="sql架构与存储引擎Qps与Tps​                TPS: 指服务器每秒处理的事务数 ，支持事务的存储引擎特有的一个性能指标  TPS = (事务提交+事务回滚）&#x2F;运行时间 ​                QPS:执行sql等待返回结果之间的等待时间 QPS=查询个数&#x2F;运行时间 mysqlslapMySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测">
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="sql架构与存储引擎Qps与Tps​                TPS: 指服务器每秒处理的事务数 ，支持事务的存储引擎特有的一个性能指标 TPS = (事务提交+事务回滚）&#x2F;运行时间​                QPS:执行sql等待返回结果之间的等待时间QPS=查询个数&#x2F;运行时间mysqlslap">
 <meta name="keywords" content="底层深入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql优化相关之如何写出一条好sql">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="sql架构与存储引擎Qps与Tps​                TPS: 指服务器每秒处理的事务数 ，支持事务的存储引擎特有的一个性能指标  TPS = (事务提交+事务回滚）&#x2F;运行时间 ​                QPS:执行sql等待返回结果之间的等待时间 QPS=查询个数&#x2F;运行时间 mysqlslapMySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测">
+<meta property="og:description" content="sql架构与存储引擎Qps与Tps​                TPS: 指服务器每秒处理的事务数 ，支持事务的存储引擎特有的一个性能指标 TPS = (事务提交+事务回滚）&#x2F;运行时间​                QPS:执行sql等待返回结果之间的等待时间QPS=查询个数&#x2F;运行时间mysqlslap">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589769109015.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;1589769109015.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589770015142.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589770451852.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589773241899.png">
@@ -52,7 +78,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589884184701.png">
 <meta property="og:updated_time" content="2020-05-22T10:06:05.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;18&#x2F;sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql&#x2F;1589769109015.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;1589769109015.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/">
 
@@ -61,9 +87,10 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
   };
 </script>
 
@@ -115,6 +142,18 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
@@ -122,28 +161,11 @@
       <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">DSZ</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
 </div>
 
 
-
-
 <nav class="site-nav">
+  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
@@ -180,34 +202,29 @@
         </a>
       </li>
   </ul>
+
 </nav>
-
-
-
-  <div class="search-pop-overlay">
+  <div class="site-search">
     <div class="popup search-popup">
-        <div class="search-header">
+    <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
            placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
+           type="text" id="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
+<div id="search-result"></div>
+
 </div>
+<div class="search-pop-overlay"></div>
 
-    </div>
   </div>
-
 </div>
     </header>
 
@@ -223,10 +240,11 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content">
             
 
-    
+  <div class="posts-expand">
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
@@ -285,26 +303,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p>
-<p>TPS = (事务提交+事务回滚）/运行时间</p>
-<p>​                QPS:执行sql等待返回结果之间的等待时间</p>
-<p>QPS=查询个数/运行时间</p>
-<h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><p>MySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测试MySQL服务器的性能</p>
+        <h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p><p>TPS = (事务提交+事务回滚）/运行时间</p><p>​                QPS:执行sql等待返回结果之间的等待时间</p><p>QPS=查询个数/运行时间</p><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><a id="more"></a>
+
+
+
+<p>MySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测试MySQL服务器的性能</p>
 <h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p>​    <strong>连接层</strong></p>
 <p>MySQL启动时 MySQL自己会创建一个线程 每一个用户对MySQL进行连接时，服务器都会新建一个线程去处理这一个连接，每个线程都是独立的 但是如果有两个线程进行修改同一块内存时会引发数据同步问题</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589769109015.png" alt="1589769109015"></p>
+<p><img src="/1589769109015.png" alt="1589769109015"></p>
 <p><strong>sql处理层</strong></p>
 <p>sql语句的解析，优化，缓存的查询 MySQL内置函数的实现等</p>
 <p>1，如果是查询语句select，首先会查询缓存是否已经有对应的结果，有返回结果 没有的话进行下一步 </p>
 <p>2，解析查询，创建一个内部数据结构这个解析树用于解析SQL语法</p>
 <p>3，优化sql语句，列如重写查询，决定表的读写顺序以及选择需要的查询等，这一阶段用户是可以查询的，用户可以针对的进行一个调优</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589770015142.png" alt="1589770015142"></p>
+<p><img src="1589770015142.png" alt="1589770015142"></p>
 <p><strong>sql缓存</strong></p>
 <p>show variables like ‘%query_cache_type%’ </p>
 <p>查询数据库缓存是否开启</p>
 <p><strong>sql转换器</strong></p>
 <p>将传输进来的sql语句转换成MySQL能看得懂的样子</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589770451852.png" alt="1589770451852"></p>
+<p><img src="1589770451852.png" alt="1589770451852"></p>
 <p><strong>sql优化器</strong></p>
 <p>能够优化一些MySQL中很明显得一些冗余代码 （列如 1=1），使得代码变得更加简单</p>
 <h3 id="mylsam存储引擎"><a href="#mylsam存储引擎" class="headerlink" title="mylsam存储引擎"></a>mylsam存储引擎</h3><p><strong>文件结构</strong></p>
@@ -336,7 +354,7 @@
 <li>独立表空间可以同时向多个文件刷新数据</li>
 </ul>
 <p>（列如一张表有100w条数据占用磁盘内存 100000kb 当你把表中数据清除时 他在磁盘的占用内存还是 100000kb 无法收缩文件大小）</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589773241899.png" alt="1589773241899"></p>
+<p><img src="1589773241899.png" alt="1589773241899"></p>
 <p><strong>适用场景</strong>：</p>
 <p>修改较多，事务操作较多的场景</p>
 <h3 id="CSV存储引擎"><a href="#CSV存储引擎" class="headerlink" title="CSV存储引擎"></a>CSV存储引擎</h3><p>​    <strong>结构</strong></p>
@@ -487,19 +505,19 @@
 <p>数据库表中的所有字段都只具有单一属性</p>
 <p>单一属性的列是由基本数据类型所构成的</p>
 <p>设计出来的表都是简单的二维表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/2.png" alt="img"> </p>
+<p><img src="2.png" alt="img"> </p>
 <p>name-age列具有两个属性，一个name,一个 age不符合第一范式，把它拆分成两列</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/3.png" alt="img"></p>
+<p><img src="3.png" alt="img"></p>
 <p><strong>第二范式</strong></p>
 <p>要求表中只具有一个业务主键，也就是说符合第二范式的表不能存在非主键列只对部分主键的依赖关系</p>
 <p>有两张表：订单表，产品表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/4.png" alt="img"></p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/5.png" alt="img"></p>
+<p><img src="4.png" alt="img"></p>
+<p><img src="5.png" alt="img"></p>
 <p>一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/6.png" alt="img"></p>
+<p><img src="6.png" alt="img"></p>
 <p><strong>第三范式</strong></p>
 <p>指每一个非非主属性既不部分依赖于也不传递依赖于业务主键，也就是在第二范式的基础上相处了非主键对主键的传递依赖</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/7.png" alt="img"></p>
+<p><img src="7.png" alt="img"></p>
 <p>其中</p>
 <p><strong>客户编号</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
 <p><strong>客户姓名</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
@@ -512,11 +530,11 @@
 </ul>
 <p>商品信息反范式设计</p>
 <p>下面是范式设计的商品信息表</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589872072524.png" alt="1589872072524"></p>
+<p><img src="1589872072524.png" alt="1589872072524"></p>
 <p>商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放</p>
 <p>在线销售功能反范式</p>
 <p>下面是在线手写功能的范式设计</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589872083937.png" alt="1589872083937"></p>
+<p><img src="1589872083937.png" alt="1589872083937"></p>
 <p> 范式化设计优缺点</p>
 <p>优点：</p>
 <p>  可以尽量得减少数据冗余</p>
@@ -541,28 +559,28 @@
 <p>存储过程应该能够体现存储过程的功能。</p>
 <p>数据库、表、字段的命名要遵守长名原则</p>
 <p>尽可能少使用或者不使用缩写</p>
-<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/8.png" alt="img"></p>
+<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="8.png" alt="img"></p>
 <h3 id="数据类型选择"><a href="#数据类型选择" class="headerlink" title="数据类型选择"></a>数据类型选择</h3><p>当一个列可以选择多种数据类型时</p>
 <p>l  优先考虑数字类型</p>
 <p>l  其次是日期、时间类型</p>
 <p>l  最后是字符类型</p>
 <p>l  对于相同级别的数据类型，应该优先选择占用空间小的数据类型</p>
 <p>浮点类型</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/ss.png" alt="img"></p>
+<p><img src="ss.png" alt="img"></p>
 <p>注意float 和double 是非精度类型，如果是和金额相关尽量用decimal</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/9.png" alt="img"></p>
+<p><img src="9.png" alt="img"></p>
 <p>select sum(c1),sum(c2),sum(c3) from test_numberic</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/10.png" alt="img"></p>
+<p><img src="10.png" alt="img"></p>
 <p>日期类型</p>
 <p>面试经常问道 timestamp 类型 与 datetime区别</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/11.png" alt="img"></p>
+<p><img src="11.png" alt="img"></p>
 <p>datetime类型在5.6中字段长度是5个字节</p>
 <p>datetime类型在5.5中字段长度是8个字节</p>
 <p><strong>timestamp</strong> <strong>和时区有关，而datetime**</strong>无关**</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/12.png" alt="img"></p>
+<p><img src="12.png" alt="img"></p>
 <p>insert into  test_time  VALUES(NOW(),NOW(),NOW());</p>
 <p>set time_zone=”-10:00”</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/13.png" alt="img"></p>
+<p><img src="13.png" alt="img"></p>
 <h2 id="sql慢查询"><a href="#sql慢查询" class="headerlink" title="sql慢查询"></a>sql慢查询</h2><h3 id="什么是慢查询"><a href="#什么是慢查询" class="headerlink" title="什么是慢查询"></a>什么是慢查询</h3><p>慢查询日志，顾名思义，就是查询慢的日志，是指mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。该日志能为SQL语句的优化带来很好的帮助。默认情况下，慢查询日志是关闭的，要使用慢查询日志功能，首先要开启慢查询日志功能。（也就是说 把查询慢的SQL写到一个日志中）</p>
 <p> 1.1.1.    慢查询基本配置</p>
 <ul>
@@ -641,7 +659,7 @@
 <h2 id="sql索引与执行计划"><a href="#sql索引与执行计划" class="headerlink" title="sql索引与执行计划"></a>sql索引与执行计划</h2><h3 id="生活中的索引"><a href="#生活中的索引" class="headerlink" title="生活中的索引"></a>生活中的索引</h3><p>MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。</p>
 <p>可以得到索引的本质：<strong>索引是数据结构</strong>。</p>
 <p>上面的理解比较抽象，举一个例子，平时看任何一本书，首先看到的都是目录，通过目录去查询书籍里面的内容会非常的迅速。</p>
-<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589883497088.png" alt="1589883497088"></p>
+<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="1589883497088.png" alt="1589883497088"></p>
 <p>MySql中的索引其实也是这么一回事，我们可以在数据库中建立一系列的索引，比如创建主键的时候默认会创建主键索引，上图是一种BTREE的索引。每一个节点都是主键的ID</p>
 <p>当我们通过ID来查询内容的时候，首先去查索引库，在到索引库后能快速的定位索引的具体位置。</p>
 <h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h3><p><strong>普通索引：</strong>即一个索引只包含单个列，一个表可以有多个单列索引</p>
@@ -673,7 +691,7 @@
 <p>比如：EXPLAIN select * from table1 </p>
 <p>重点的就是EXPLAIN后面你要分析的SQL语句 </p>
 <h4 id="执行计划详解"><a href="#执行计划详解" class="headerlink" title="执行计划详解"></a><strong>执行计划详解</strong></h4><p>通过EXPLAIN关键分析的结果由以下列组成，接下来挨个分析每一个列</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589883858311.png" alt="1589883858311"></p>
+<p><img src="1589883858311.png" alt="1589883858311"></p>
 <p><strong>1. ID列</strong></p>
 <p>ID列：描述select查询的序列号,包含一组数字，表示查询中执行select子句或操作表的顺序</p>
 <p>根据ID的数值结果可以分成一下三种情况</p>
@@ -686,7 +704,7 @@
 <p>Select_type：查询的类型</p>
 <p>用于区别：普通查询、联合查询、子查询等的复杂查询</p>
 <p>类型如下</p>
-<p><img src="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/1589884184701.png" alt="1589884184701"></p>
+<p><img src="1589884184701.png" alt="1589884184701"></p>
 <p><strong>3.table列</strong></p>
 <p>显示这一行数据是关于那张表从那张表而来的</p>
 <p><strong>4.Type列</strong></p>
@@ -763,33 +781,12 @@
   
   
 
+  </div>
 
 
           </div>
           
     <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 
         </div>
           
@@ -848,6 +845,11 @@
       </div>
   </nav>
 </div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
 
 
 
@@ -863,8 +865,6 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        
-
         
 
 <div class="copyright">
@@ -889,6 +889,11 @@
 
 
 
+
+
+
+
+        
       </div>
     </footer>
   </div>
@@ -921,6 +926,7 @@
 
 
 
+
   
 
   
@@ -928,21 +934,19 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
     var gitalk = new Gitalk({
-      clientID    : '',
+      clientID: '',
       clientSecret: '',
-      repo        : '',
-      owner       : '',
-      admin       : [''],
-      id          : 'e6ebb7155c168efce40bfc32384e5fb3',
+      repo: '',
+      owner: '',
+      admin: [''],
+      id: 'b46e833c38e56604c3f27be48d924f7d',
         language: 'zh-CN',
-      distractionFreeMode: true
+      distractionFreeMode: 'true'
     });
     gitalk.render('gitalk-container');
   }, window.Gitalk);
-});
 </script>
 
 </body>
