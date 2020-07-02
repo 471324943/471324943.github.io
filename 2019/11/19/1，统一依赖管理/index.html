@@ -9,50 +9,24 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":true},
-    path: 'search.xml',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-  <meta name="description" content="创建一个普通spring-boot工程修改pom文件 修改pom文件默认打包方式为pom pom  添加统一版本管理      &amp;lt;java.version&amp;gt;1.8&amp;lt;&#x2F;java.version&amp;gt;     &amp;lt;maven.compiler.source&amp;gt;${java.version}&amp;lt;&#x2F;maven.compiler.source&amp;gt;     &amp;lt;mave">
+  <meta name="description" content="创建一个普通spring-boot工程  修改pom文件  修改pom文件默认打包方式为pom  pom   添加统一版本管理       &amp;lt;java.version&amp;gt;1.8&amp;lt;&#x2F;java.version&amp;gt;     &amp;lt;maven.compiler.source&amp;gt;${java.version}&amp;lt;&#x2F;maven.compiler.source&amp;gt;     &amp;l">
 <meta name="keywords" content="微服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1，统一依赖管理">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="创建一个普通spring-boot工程修改pom文件 修改pom文件默认打包方式为pom pom  添加统一版本管理      &amp;lt;java.version&amp;gt;1.8&amp;lt;&#x2F;java.version&amp;gt;     &amp;lt;maven.compiler.source&amp;gt;${java.version}&amp;lt;&#x2F;maven.compiler.source&amp;gt;     &amp;lt;mave">
+<meta property="og:description" content="创建一个普通spring-boot工程  修改pom文件  修改pom文件默认打包方式为pom  pom   添加统一版本管理       &amp;lt;java.version&amp;gt;1.8&amp;lt;&#x2F;java.version&amp;gt;     &amp;lt;maven.compiler.source&amp;gt;${java.version}&amp;lt;&#x2F;maven.compiler.source&amp;gt;     &amp;l">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86&#x2F;clipboard.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;19&#x2F;1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86&#x2F;clipboard1.png">
@@ -67,10 +41,9 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -122,18 +95,6 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">DSZ</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
-  </div>
-
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
@@ -141,11 +102,28 @@
       <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">DSZ</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
 
+
+
 <nav class="site-nav">
-  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
@@ -177,34 +155,44 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
 
   </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
       </li>
   </ul>
-
 </nav>
-  <div class="site-search">
+
+
+
+  <div class="search-pop-overlay">
     <div class="popup search-popup">
-    <div class="search-header">
+        <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+    <input autocomplete="off" autocapitalize="off"
            placeholder="搜索..." spellcheck="false"
-           type="text" id="search-input">
+           type="search" class="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
   </div>
+</div>
+
+    </div>
+  </div>
+
 </div>
     </header>
 
@@ -220,11 +208,10 @@
         <div class="content-wrap">
           
 
-          <div class="content">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
@@ -277,23 +264,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>创建一个普通spring-boot工程</strong></p><p><img src="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/clipboard.png" alt="img"></p><p><strong>修改pom文件</strong></p><ol>
+        <p><strong>创建一个普通spring-boot工程</strong></p>
+<p><img src="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/clipboard.png" alt="img"></p>
+<p><strong>修改pom文件</strong></p>
+<ol>
 <li>修改pom文件默认打包方式为pom</li>
-</ol><p><packaging>pom</packaging> </p><ol>
+</ol>
+<p><packaging>pom</packaging> </p>
+<ol>
 <li>添加统一版本管理</li>
-</ol><p><properties>     &lt;java.version&gt;1.8&lt;/java.version&gt;     &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;     &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;     &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;     &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt; </properties> </p><a id="more"></a>
-
-
-
-
-
-
+</ol>
+<p><properties>     &lt;java.version&gt;1.8&lt;/java.version&gt;     &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;     &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;     &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;     &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt; </properties> </p>
 <p>3.添加插件管理</p>
 <p>插件管理备注：</p>
 <p>  <id>default</id> 这是一个标注现在状态的一个属性 可以自定义</p>
   <activation>
 
-<p>​            <activebydefault>true</activebydefault></p>
+<p>​            <activeByDefault>true</activeByDefault></p>
   </activation>
 
 <p>表示为默认使用状态 如果不使用可以设置为false</p>
@@ -311,7 +298,7 @@
     <profile>
         <id>default</id>
         <activation>
-            <activebydefault>true</activebydefault>
+            <activeByDefault>true</activeByDefault>
         </activation>
         <properties>
             <spring-javaformat.version>0.0.12</spring-javaformat.version>
@@ -319,13 +306,13 @@
         <build>
             <plugins>
                 <plugin>
-                    <groupid>io.spring.javaformat</groupid>
-                    <artifactid>spring-javaformat-maven-plugin</artifactid>
+                    <groupId>io.spring.javaformat</groupId>
+                    <artifactId>spring-javaformat-maven-plugin</artifactId>
                     <version>${spring-javaformat.version}</version>
                 </plugin>
                 <plugin>
-                    <groupid>org.apache.maven.plugins</groupid>
-                    <artifactid>maven-surefire-plugin</artifactid>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <includes>
                             <include>**/*Tests.java</include>
@@ -333,15 +320,15 @@
                         <excludes>
                             <exclude>**/Abstract*.java</exclude>
                         </excludes>
-                        <systempropertyvariables>
+                        <systemPropertyVariables>
                             <java.security.egd>file:/dev/./urandom</java.security.egd>
                             <java.awt.headless>true</java.awt.headless>
-                        </systempropertyvariables>
+                        </systemPropertyVariables>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupid>org.apache.maven.plugins</groupid>
-                    <artifactid>maven-enforcer-plugin</artifactid>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
                     <executions>
                         <execution>
                             <id>enforce-rules</id>
@@ -350,12 +337,12 @@
                             </goals>
                             <configuration>
                                 <rules>
-                                    <banneddependencies>
+                                    <bannedDependencies>
                                         <excludes>
                                             <exclude>commons-logging:*:*</exclude>
                                         </excludes>
-                                        <searchtransitive>true</searchtransitive>
-                                    </banneddependencies>
+                                        <searchTransitive>true</searchTransitive>
+                                    </bannedDependencies>
                                 </rules>
                                 <fail>true</fail>
                             </configuration>
@@ -363,15 +350,15 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupid>org.apache.maven.plugins</groupid>
-                    <artifactid>maven-install-plugin</artifactid>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
                     <configuration>
                         <skip>true</skip>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupid>org.apache.maven.plugins</groupid>
-                    <artifactid>maven-javadoc-plugin</artifactid>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
                         <skip>true</skip>
                     </configuration>
@@ -448,40 +435,40 @@
 </tbody></table>
 <p> <properties>          <!--这里填对应版本 列如我使用的是2.2.0 所以是-->         &lt;spring-cloud.version&gt;Hoxton.M3&lt;/spring-cloud.version&gt;         &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;     </properties> </p>
 <p>2.依赖cloud项目</p>
-<dependencymanagement>
+<dependencyManagement>
     <dependencies>
         <dependency>
-            <groupid>org.springframework.cloud</groupid>
-            <artifactid>spring-cloud-dependencies</artifactid>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
             <version>${spring-cloud.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
         <dependency>
-            <groupid>org.springframework.cloud</groupid>
-            <artifactid>spring-cloud-alibaba-dependencies</artifactid>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-dependencies</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
-</dependencymanagement>
+</dependencyManagement>
 
 
 
 <p><strong>再让父pom依赖dependencies</strong></p>
 <p>添加依赖管理 把整个项目的依赖交由dependencies管理</p>
-<dependencymanagement>
+<dependencyManagement>
     <dependencies>
         <dependency>
-            <groupid>cn.dszmr</groupid>
-            <artifactid>spring-cloud-demo-dependencies</artifactid>
+            <groupId>cn.dszmr</groupId>
+            <artifactId>spring-cloud-demo-dependencies</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
     </dependencies>
-</dependencymanagement>
+</dependencyManagement>
 <modules>
     <module>spring-cloud-demo-dependencies</module>
 </modules>
@@ -492,19 +479,19 @@
 
 <p><strong>完整父pom文件（供参考）</strong></p>
 <?xml version="1.0" encoding="UTF-8"?>
-<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelversion>4.0.0</modelversion><br>    <modules><br>        <module>spring-cloud-demo-dependencies</module><br>    </modules><br>    <parent><br>        <groupid>org.springframework.boot</groupid><br>        <artifactid>spring-boot-starter-parent</artifactid><br>        <version>2.2.0.RELEASE</version><br>        <relativepath> <!-- lookup parent from repository --><br>    </relativepath></parent><br>    <groupid>cn.dszmr</groupid><br>    <artifactid>spring-cloud-demo</artifactid><br>    <version>0.0.1-SNAPSHOT</version><br>    <name>spring-cloud-demo</name><br>    <packaging>pom</packaging><br>    <description>Demo project for Spring Boot</description></project></p>
+<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelVersion>4.0.0</modelVersion><br>    <modules><br>        <module>spring-cloud-demo-dependencies</module><br>    </modules><br>    <parent><br>        <groupId>org.springframework.boot</groupId><br>        <artifactId>spring-boot-starter-parent</artifactId><br>        <version>2.2.0.RELEASE</version><br>        <relativePath> <!-- lookup parent from repository --><br>    </relativePath></parent><br>    <groupId>cn.dszmr</groupId><br>    <artifactId>spring-cloud-demo</artifactId><br>    <version>0.0.1-SNAPSHOT</version><br>    <name>spring-cloud-demo</name><br>    <packaging>pom</packaging><br>    <description>Demo project for Spring Boot</description></project></p>
 <p>​    <properties><br>​        &lt;java.version&gt;1.8&lt;/java.version&gt;<br>​        &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;<br>​        &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;<br>​        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;<br>​        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;<br>​    </properties></p>
-<p>​    <dependencymanagement><br>​        <dependencies><br>​            <dependency><br>​                <groupid>cn.dszmr</groupid><br>​                <artifactid>spring-cloud-demo-dependencies</artifactid><br>​                <version>${project.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencymanagement></p>
-<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activebydefault>true</activebydefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupid>io.spring.javaformat</groupid><br>​                        <artifactid>spring-javaformat-maven-plugin</artifactid><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-surefire-plugin</artifactid><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systempropertyvariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systempropertyvariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-enforcer-plugin</artifactid><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <banneddependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchtransitive>true</searchtransitive><br>​                                        </banneddependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-install-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-javadoc-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><a href="https://repo.spring.io/milestone" target="_blank" rel="noopener">https://repo.spring.io/milestone</a></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><a href="https://repo.spring.io/snapshot" target="_blank" rel="noopener">https://repo.spring.io/snapshot</a></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
+<p>​    <dependencyManagement><br>​        <dependencies><br>​            <dependency><br>​                <groupId>cn.dszmr</groupId><br>​                <artifactId>spring-cloud-demo-dependencies</artifactId><br>​                <version>${project.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencyManagement></p>
+<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activeByDefault>true</activeByDefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupId>io.spring.javaformat</groupId><br>​                        <artifactId>spring-javaformat-maven-plugin</artifactId><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-surefire-plugin</artifactId><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systemPropertyVariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systemPropertyVariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-enforcer-plugin</artifactId><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <bannedDependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchTransitive>true</searchTransitive><br>​                                        </bannedDependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-install-plugin</artifactId><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupId>org.apache.maven.plugins</groupId><br>​                        <artifactId>maven-javadoc-plugin</artifactId><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><a href="https://repo.spring.io/milestone" target="_blank" rel="noopener">https://repo.spring.io/milestone</a></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><a href="https://repo.spring.io/snapshot" target="_blank" rel="noopener">https://repo.spring.io/snapshot</a></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
 
 
 
 
 <p><strong>完整dependencies依赖管理pom</strong></p>
 <?xml version="1.0" encoding="UTF-8"?>
-<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <parent><br>        <artifactid>spring-cloud-demo</artifactid><br>        <groupid>cn.dszmr</groupid><br>        <version>0.0.1-SNAPSHOT</version><br>    </parent><br>    <modelversion>4.0.0</modelversion><br>    <packaging>pom</packaging></project></p>
-<p>​    <artifactid>spring-cloud-demo-dependencies</artifactid><br>​    <properties><br>​        <!--这里填对应版本 列如我使用的是2.2.0 所以是Hoxton--><br>​        &lt;spring-cloud.version&gt;Hoxton.RELEASE&lt;/spring-cloud.version&gt;<br>​        &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;<br>​    </properties></p>
-<p>​    <dependencymanagement><br>​        <dependencies><br>​            <dependency><br>​                <groupid>org.springframework.cloud</groupid><br>​                <artifactid>spring-cloud-dependencies</artifactid><br>​                <version>${spring-cloud.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​            <dependency><br>​                <groupid>org.springframework.cloud</groupid><br>​                <artifactid>spring-cloud-alibaba-dependencies</artifactid><br>​                <version>${spring-cloud-alibaba.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencymanagement></p>
+<p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <parent><br>        <artifactId>spring-cloud-demo</artifactId><br>        <groupId>cn.dszmr</groupId><br>        <version>0.0.1-SNAPSHOT</version><br>    </parent><br>    <modelVersion>4.0.0</modelVersion><br>    <packaging>pom</packaging></project></p>
+<p>​    <artifactId>spring-cloud-demo-dependencies</artifactId><br>​    <properties><br>​        <!--这里填对应版本 列如我使用的是2.2.0 所以是Hoxton--><br>​        &lt;spring-cloud.version&gt;Hoxton.RELEASE&lt;/spring-cloud.version&gt;<br>​        &lt;spring-cloud-alibaba.version&gt;0.9.0.RELEASE&lt;/spring-cloud-alibaba.version&gt;<br>​    </properties></p>
+<p>​    <dependencyManagement><br>​        <dependencies><br>​            <dependency><br>​                <groupId>org.springframework.cloud</groupId><br>​                <artifactId>spring-cloud-dependencies</artifactId><br>​                <version>${spring-cloud.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​            <dependency><br>​                <groupId>org.springframework.cloud</groupId><br>​                <artifactId>spring-cloud-alibaba-dependencies</artifactId><br>​                <version>${spring-cloud-alibaba.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencyManagement></p>
 
     </div>
 
@@ -541,12 +528,33 @@
   
   
 
-  </div>
 
 
           </div>
           
     <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
@@ -604,11 +612,6 @@
       </div>
   </nav>
 </div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
 
 
 
@@ -624,6 +627,8 @@
 
     <footer class="footer">
       <div class="footer-inner">
+        
+
         
 
 <div class="copyright">
@@ -648,11 +653,6 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
@@ -685,7 +685,6 @@
 
 
 
-
   
 
   
@@ -693,19 +692,21 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
     var gitalk = new Gitalk({
-      clientID: '',
+      clientID    : '',
       clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: '8e192a125b77be9ceb13536359c202d8',
+      repo        : '',
+      owner       : '',
+      admin       : [''],
+      id          : '296bc0e738477c1c62878428641a02d5',
         language: 'zh-CN',
-      distractionFreeMode: 'true'
+      distractionFreeMode: true
     });
     gitalk.render('gitalk-container');
   }, window.Gitalk);
+});
 </script>
 
 </body>

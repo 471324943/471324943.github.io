@@ -9,50 +9,24 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
-  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
-
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '7.5.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":true},
-    path: 'search.xml',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-  <meta name="description" content="一，RabbitMQ的介绍与安装简介​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 &#x2F;订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。">
+  <meta name="description" content="一，RabbitMQ的介绍与安装简介​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 &#x2F;订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。 与其他mq的比较 activiMq老牌消息中间件，api">
 <meta name="keywords" content="消息中间件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RabbitMQ的入门">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;08&#x2F;RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
-<meta property="og:description" content="一，RabbitMQ的介绍与安装简介​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 &#x2F;订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。">
+<meta property="og:description" content="一，RabbitMQ的介绍与安装简介​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 &#x2F;订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。 与其他mq的比较 activiMq老牌消息中间件，api">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;08&#x2F;RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8&#x2F;D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588922880637.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;08&#x2F;RabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8&#x2F;D:%5Chexo%5Csource_posts%5CRabbitMQ%E7%9A%84%E5%85%A5%E9%97%A8%5C1588923074328.png">
@@ -78,10 +52,9 @@
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -133,18 +106,6 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">DSZ</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
-  </div>
-
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
@@ -152,11 +113,28 @@
       <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">DSZ</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
 
+
+
 <nav class="site-nav">
-  
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
@@ -188,34 +166,44 @@
     <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
 
   </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
       </li>
   </ul>
-
 </nav>
-  <div class="site-search">
+
+
+
+  <div class="search-pop-overlay">
     <div class="popup search-popup">
-    <div class="search-header">
+        <div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+    <input autocomplete="off" autocapitalize="off"
            placeholder="搜索..." spellcheck="false"
-           type="text" id="search-input">
+           type="search" class="search-input">
   </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result"></div>
-
-</div>
-<div class="search-pop-overlay"></div>
-
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
   </div>
+</div>
+
+    </div>
+  </div>
+
 </div>
     </header>
 
@@ -231,11 +219,10 @@
         <div class="content-wrap">
           
 
-          <div class="content">
+          <div class="content post posts-expand">
             
 
-  <div class="posts-expand">
-      
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
@@ -294,7 +281,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p><a id="more"></a>
+        <h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p>
 <p><strong>与其他mq的比较</strong></p>
 <pre><code>activiMq老牌消息中间件，api全面，但是吞吐量不大
 
@@ -758,12 +745,33 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   
   
 
-  </div>
 
 
           </div>
           
     <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
@@ -822,11 +830,6 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
       </div>
   </nav>
 </div>
-  <div class="feed-link motion-element">
-    <a href="/atom.xml" rel="alternate">
-      <i class="fa fa-rss"></i>RSS
-    </a>
-  </div>
 
 
 
@@ -842,6 +845,8 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
     <footer class="footer">
       <div class="footer-inner">
+        
+
         
 
 <div class="copyright">
@@ -866,11 +871,6 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
@@ -903,7 +903,6 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 
 
 
-
   
 
   
@@ -911,19 +910,21 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
     var gitalk = new Gitalk({
-      clientID: '',
+      clientID    : '',
       clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: 'eff1da40ba045aa0c8535a5c3d5b950e',
+      repo        : '',
+      owner       : '',
+      admin       : [''],
+      id          : '957d16646975ce707e8062da461676e5',
         language: 'zh-CN',
-      distractionFreeMode: 'true'
+      distractionFreeMode: true
     });
     gitalk.render('gitalk-container');
   }, window.Gitalk);
+});
 </script>
 
 </body>
