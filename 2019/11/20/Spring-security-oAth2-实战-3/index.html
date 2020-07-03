@@ -49,6 +49,14 @@
   };
 </script>
 
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
   <meta name="description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。">
 <meta name="keywords" content="安全框架,spring全家桶">
 <meta property="og:type" content="article">
@@ -669,18 +677,6 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script>
-    (function(d, w, c) {
-      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
-      var s = d.createElement('script');
-      w[c] = w[c] || function() {
-        (w[c].q = w[c].q || []).push(arguments);
-      };
-      s.async = true;
-      s.src = 'https://call.chatra.io/chatra.js';
-      if (d.head) d.head.appendChild(s);
-    })(document, window, 'Chatra');
-  </script>
 
 
 

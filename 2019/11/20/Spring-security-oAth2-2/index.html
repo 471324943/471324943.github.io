@@ -49,6 +49,14 @@
   };
 </script>
 
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
   <meta name="description" content="概述本章节 基于 JDBC 存储令牌 的模式用于演示最基本的操作，帮助大家快速理解 oAuth2 认证服务器中 “认证”、”授权”、”访问令牌” 的基本概念对于上篇文章需要修改的点 初始化 oAuth2 相关表  在数据库中配置客户端  配置认证服务器  配置数据源：DataSource  配置令牌存储方式：TokenStore -&amp;gt; JdbcTokenStore  配置客户端读取方式：Cl">
 <meta name="keywords" content="安全框架,spring全家桶">
 <meta property="og:type" content="article">
@@ -737,18 +745,6 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script>
-    (function(d, w, c) {
-      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
-      var s = d.createElement('script');
-      w[c] = w[c] || function() {
-        (w[c].q = w[c].q || []).push(arguments);
-      };
-      s.async = true;
-      s.src = 'https://call.chatra.io/chatra.js';
-      if (d.head) d.head.appendChild(s);
-    })(document, window, 'Chatra');
-  </script>
 
 
 
