@@ -10,11 +10,14 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -23,15 +26,15 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.5.0',
-    exturl: false,
+    exturl: true,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -98,7 +101,7 @@
   
 
 
-  <script>
+  <script pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -151,7 +154,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -179,17 +183,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -233,6 +237,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -254,15 +260,15 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           sql优化相关之如何写出一条好sql
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -293,6 +299,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -310,19 +330,19 @@
 <p>MySQLSlap是从MySQL5.1.4版本就开始的官方提供的压力测试工具，能测试MySQL服务器的性能</p>
 <h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p>​    <strong>连接层</strong></p>
 <p>MySQL启动时 MySQL自己会创建一个线程 每一个用户对MySQL进行连接时，服务器都会新建一个线程去处理这一个连接，每个线程都是独立的 但是如果有两个线程进行修改同一块内存时会引发数据同步问题</p>
-<p><img src="/1589769109015.png" alt="1589769109015"></p>
+<p><img alt="1589769109015" data-src="/1589769109015.png"></p>
 <p><strong>sql处理层</strong></p>
 <p>sql语句的解析，优化，缓存的查询 MySQL内置函数的实现等</p>
 <p>1，如果是查询语句select，首先会查询缓存是否已经有对应的结果，有返回结果 没有的话进行下一步 </p>
 <p>2，解析查询，创建一个内部数据结构这个解析树用于解析SQL语法</p>
 <p>3，优化sql语句，列如重写查询，决定表的读写顺序以及选择需要的查询等，这一阶段用户是可以查询的，用户可以针对的进行一个调优</p>
-<p><img src="1589770015142.png" alt="1589770015142"></p>
+<p><img alt="1589770015142" data-src="1589770015142.png"></p>
 <p><strong>sql缓存</strong></p>
 <p>show variables like ‘%query_cache_type%’ </p>
 <p>查询数据库缓存是否开启</p>
 <p><strong>sql转换器</strong></p>
 <p>将传输进来的sql语句转换成MySQL能看得懂的样子</p>
-<p><img src="1589770451852.png" alt="1589770451852"></p>
+<p><img alt="1589770451852" data-src="1589770451852.png"></p>
 <p><strong>sql优化器</strong></p>
 <p>能够优化一些MySQL中很明显得一些冗余代码 （列如 1=1），使得代码变得更加简单</p>
 <h3 id="mylsam存储引擎"><a href="#mylsam存储引擎" class="headerlink" title="mylsam存储引擎"></a>mylsam存储引擎</h3><p><strong>文件结构</strong></p>
@@ -354,7 +374,7 @@
 <li>独立表空间可以同时向多个文件刷新数据</li>
 </ul>
 <p>（列如一张表有100w条数据占用磁盘内存 100000kb 当你把表中数据清除时 他在磁盘的占用内存还是 100000kb 无法收缩文件大小）</p>
-<p><img src="1589773241899.png" alt="1589773241899"></p>
+<p><img alt="1589773241899" data-src="1589773241899.png"></p>
 <p><strong>适用场景</strong>：</p>
 <p>修改较多，事务操作较多的场景</p>
 <h3 id="CSV存储引擎"><a href="#CSV存储引擎" class="headerlink" title="CSV存储引擎"></a>CSV存储引擎</h3><p>​    <strong>结构</strong></p>
@@ -505,19 +525,19 @@
 <p>数据库表中的所有字段都只具有单一属性</p>
 <p>单一属性的列是由基本数据类型所构成的</p>
 <p>设计出来的表都是简单的二维表</p>
-<p><img src="2.png" alt="img"> </p>
+<p><img alt="img" data-src="2.png"> </p>
 <p>name-age列具有两个属性，一个name,一个 age不符合第一范式，把它拆分成两列</p>
-<p><img src="3.png" alt="img"></p>
+<p><img alt="img" data-src="3.png"></p>
 <p><strong>第二范式</strong></p>
 <p>要求表中只具有一个业务主键，也就是说符合第二范式的表不能存在非主键列只对部分主键的依赖关系</p>
 <p>有两张表：订单表，产品表</p>
-<p><img src="4.png" alt="img"></p>
-<p><img src="5.png" alt="img"></p>
+<p><img alt="img" data-src="4.png"></p>
+<p><img alt="img" data-src="5.png"></p>
 <p>一个订单有多个产品，所以订单的主键为【订单ID】和【产品ID】组成的联合主键，这样2个组件不符合第二范式，而且产品ID和订单ID没有强关联，故，把订单表进行拆分为订单表与订单与商品的中间表</p>
-<p><img src="6.png" alt="img"></p>
+<p><img alt="img" data-src="6.png"></p>
 <p><strong>第三范式</strong></p>
 <p>指每一个非非主属性既不部分依赖于也不传递依赖于业务主键，也就是在第二范式的基础上相处了非主键对主键的传递依赖</p>
-<p><img src="7.png" alt="img"></p>
+<p><img alt="img" data-src="7.png"></p>
 <p>其中</p>
 <p><strong>客户编号</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
 <p><strong>客户姓名</strong> <strong>和订单编号管理</strong> <strong>关联</strong></p>
@@ -530,11 +550,11 @@
 </ul>
 <p>商品信息反范式设计</p>
 <p>下面是范式设计的商品信息表</p>
-<p><img src="1589872072524.png" alt="1589872072524"></p>
+<p><img alt="1589872072524" data-src="1589872072524.png"></p>
 <p>商品信息和分类信息经常一起查询，所以把分类信息也放到商品表里面，冗余存放</p>
 <p>在线销售功能反范式</p>
 <p>下面是在线手写功能的范式设计</p>
-<p><img src="1589872083937.png" alt="1589872083937"></p>
+<p><img alt="1589872083937" data-src="1589872083937.png"></p>
 <p> 范式化设计优缺点</p>
 <p>优点：</p>
 <p>  可以尽量得减少数据冗余</p>
@@ -559,28 +579,28 @@
 <p>存储过程应该能够体现存储过程的功能。</p>
 <p>数据库、表、字段的命名要遵守长名原则</p>
 <p>尽可能少使用或者不使用缩写</p>
-<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img src="8.png" alt="img"></p>
+<h3 id="存储引擎选择"><a href="#存储引擎选择" class="headerlink" title="存储引擎选择"></a>存储引擎选择</h3><p><img alt="img" data-src="8.png"></p>
 <h3 id="数据类型选择"><a href="#数据类型选择" class="headerlink" title="数据类型选择"></a>数据类型选择</h3><p>当一个列可以选择多种数据类型时</p>
 <p>l  优先考虑数字类型</p>
 <p>l  其次是日期、时间类型</p>
 <p>l  最后是字符类型</p>
 <p>l  对于相同级别的数据类型，应该优先选择占用空间小的数据类型</p>
 <p>浮点类型</p>
-<p><img src="ss.png" alt="img"></p>
+<p><img alt="img" data-src="ss.png"></p>
 <p>注意float 和double 是非精度类型，如果是和金额相关尽量用decimal</p>
-<p><img src="9.png" alt="img"></p>
+<p><img alt="img" data-src="9.png"></p>
 <p>select sum(c1),sum(c2),sum(c3) from test_numberic</p>
-<p><img src="10.png" alt="img"></p>
+<p><img alt="img" data-src="10.png"></p>
 <p>日期类型</p>
 <p>面试经常问道 timestamp 类型 与 datetime区别</p>
-<p><img src="11.png" alt="img"></p>
+<p><img alt="img" data-src="11.png"></p>
 <p>datetime类型在5.6中字段长度是5个字节</p>
 <p>datetime类型在5.5中字段长度是8个字节</p>
 <p><strong>timestamp</strong> <strong>和时区有关，而datetime**</strong>无关**</p>
-<p><img src="12.png" alt="img"></p>
+<p><img alt="img" data-src="12.png"></p>
 <p>insert into  test_time  VALUES(NOW(),NOW(),NOW());</p>
 <p>set time_zone=”-10:00”</p>
-<p><img src="13.png" alt="img"></p>
+<p><img alt="img" data-src="13.png"></p>
 <h2 id="sql慢查询"><a href="#sql慢查询" class="headerlink" title="sql慢查询"></a>sql慢查询</h2><h3 id="什么是慢查询"><a href="#什么是慢查询" class="headerlink" title="什么是慢查询"></a>什么是慢查询</h3><p>慢查询日志，顾名思义，就是查询慢的日志，是指mysql记录所有执行超过long_query_time参数设定的时间阈值的SQL语句的日志。该日志能为SQL语句的优化带来很好的帮助。默认情况下，慢查询日志是关闭的，要使用慢查询日志功能，首先要开启慢查询日志功能。（也就是说 把查询慢的SQL写到一个日志中）</p>
 <p> 1.1.1.    慢查询基本配置</p>
 <ul>
@@ -659,7 +679,7 @@
 <h2 id="sql索引与执行计划"><a href="#sql索引与执行计划" class="headerlink" title="sql索引与执行计划"></a>sql索引与执行计划</h2><h3 id="生活中的索引"><a href="#生活中的索引" class="headerlink" title="生活中的索引"></a>生活中的索引</h3><p>MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。</p>
 <p>可以得到索引的本质：<strong>索引是数据结构</strong>。</p>
 <p>上面的理解比较抽象，举一个例子，平时看任何一本书，首先看到的都是目录，通过目录去查询书籍里面的内容会非常的迅速。</p>
-<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img src="1589883497088.png" alt="1589883497088"></p>
+<h3 id="MySql中的索引"><a href="#MySql中的索引" class="headerlink" title="MySql中的索引"></a>MySql中的索引</h3><p><img alt="1589883497088" data-src="1589883497088.png"></p>
 <p>MySql中的索引其实也是这么一回事，我们可以在数据库中建立一系列的索引，比如创建主键的时候默认会创建主键索引，上图是一种BTREE的索引。每一个节点都是主键的ID</p>
 <p>当我们通过ID来查询内容的时候，首先去查索引库，在到索引库后能快速的定位索引的具体位置。</p>
 <h3 id="索引的分类"><a href="#索引的分类" class="headerlink" title="索引的分类"></a>索引的分类</h3><p><strong>普通索引：</strong>即一个索引只包含单个列，一个表可以有多个单列索引</p>
@@ -691,7 +711,7 @@
 <p>比如：EXPLAIN select * from table1 </p>
 <p>重点的就是EXPLAIN后面你要分析的SQL语句 </p>
 <h4 id="执行计划详解"><a href="#执行计划详解" class="headerlink" title="执行计划详解"></a><strong>执行计划详解</strong></h4><p>通过EXPLAIN关键分析的结果由以下列组成，接下来挨个分析每一个列</p>
-<p><img src="1589883858311.png" alt="1589883858311"></p>
+<p><img alt="1589883858311" data-src="1589883858311.png"></p>
 <p><strong>1. ID列</strong></p>
 <p>ID列：描述select查询的序列号,包含一组数字，表示查询中执行select子句或操作表的顺序</p>
 <p>根据ID的数值结果可以分成一下三种情况</p>
@@ -704,7 +724,7 @@
 <p>Select_type：查询的类型</p>
 <p>用于区别：普通查询、联合查询、子查询等的复杂查询</p>
 <p>类型如下</p>
-<p><img src="1589884184701.png" alt="1589884184701"></p>
+<p><img alt="1589884184701" data-src="1589884184701.png"></p>
 <p><strong>3.table列</strong></p>
 <p>显示这一行数据是关于那张表从那张表而来的</p>
 <p><strong>4.Type列</strong></p>
@@ -751,10 +771,57 @@
     
     
     
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/" title="sql优化相关之如何写出一条好sql">http://yoursite.com/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/%E5%BA%95%E5%B1%82%E6%B7%B1%E5%85%A5/" rel="tag"># 底层深入</a>
+              <a href="/tags/%E5%BA%95%E5%B1%82%E6%B7%B1%E5%85%A5/" rel="tag"><i class="fa fa-tag"></i> 底层深入</a>
           </div>
 
         
@@ -786,7 +853,7 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -850,6 +917,13 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
 
 
@@ -879,7 +953,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div>
 
 
@@ -899,16 +973,91 @@
   </div>
 
   
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -917,6 +1066,18 @@
 
 
 
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
 
 
 
@@ -926,28 +1087,49 @@
 
 
 
+    <div id="pjax">
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/2020/05/18/sql%E4%BC%98%E5%8C%96%E7%9B%B8%E5%85%B3%E4%B9%8B%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E4%B8%80%E6%9D%A1%E5%A5%BDsql/',]
+      });
+      });
+  </script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '',
-      clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: 'b46e833c38e56604c3f27be48d924f7d',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
+    </div>
 </body>
 </html>

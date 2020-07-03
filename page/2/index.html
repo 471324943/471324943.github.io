@@ -10,11 +10,14 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -23,15 +26,15 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.5.0',
-    exturl: false,
+    exturl: true,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -69,11 +72,11 @@
   };
 </script>
 
-  <title>DSZ</title>
+  <title>DSZ - 与其临渊羡鱼， 不如退而结网。</title>
   
 
 
-  <script>
+  <script pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -126,7 +129,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -154,17 +158,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -208,6 +212,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -229,16 +235,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">spring-cloud-Netflix 基本配置</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -269,6 +275,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/11/spring-cloud-Netflix-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -312,16 +332,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/21/redis-spring-data-redis-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">redis+spring-data-redis 的简单使用</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -346,6 +366,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/21/redis-spring-data-redis-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/21/redis-spring-data-redis-%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -400,16 +434,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">mybatis-plus 使用</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -440,6 +474,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -496,16 +544,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/20/Spring-security-oAth2-%E5%AE%9E%E6%88%98-3/" class="post-title-link" itemprop="url">Spring security oAth2-实战(3)</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -530,6 +578,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/20/Spring-security-oAth2-%E5%AE%9E%E6%88%98-3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/Spring-security-oAth2-%E5%AE%9E%E6%88%98-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -573,16 +635,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/20/Spring-security-oAth2-2/" class="post-title-link" itemprop="url">Spring security oAth2(2)</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -607,6 +669,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/20/Spring-security-oAth2-2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/Spring-security-oAth2-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -679,16 +755,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/20/Spring-security/" class="post-title-link" itemprop="url">Spring security oAth2(1)</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -713,6 +789,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/20/Spring-security/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/Spring-security/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -756,16 +846,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/20/gateway%E7%BD%91%E5%85%B3/" class="post-title-link" itemprop="url">gateway网关</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -790,6 +880,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/20/gateway%E7%BD%91%E5%85%B3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/gateway%E7%BD%91%E5%85%B3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -842,16 +946,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="post-title-link" itemprop="url">nodejs设置全局路径后npm报错 已解决</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -882,6 +986,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/20/nodejs%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E8%B7%AF%E5%BE%84%E5%90%8Enpm%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -892,7 +1010,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img src="%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp" alt="大大大"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>
+          <p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img alt="大大大" data-src="%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>
       
     </div>
 
@@ -917,16 +1035,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" class="post-title-link" itemprop="url">4，Nacos分布式配置中心</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -951,6 +1069,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -963,7 +1095,7 @@
       
           <p><strong>以服务消费者service-consumer为例</strong></p><ol>
 <li>添加pom依赖</li>
-</ol><p><dependency>     <groupid>org.springframework.cloud</groupid>     <artifactid>spring-cloud-starter-alibaba-nacos-config</artifactid> </dependency> </p><p>2.打开nacos 打开 服务配置列表 点击新增配置</p><p><img src="clipboard.png" alt="img"></p><p>3.添加服务</p><p>Data ID 必须是唯一的  </p>
+</ol><p><dependency>     <groupid>org.springframework.cloud</groupid>     <artifactid>spring-cloud-starter-alibaba-nacos-config</artifactid> </dependency> </p><p>2.打开nacos 打开 服务配置列表 点击新增配置</p><p><img alt="img" data-src="clipboard.png"></p><p>3.添加服务</p><p>Data ID 必须是唯一的  </p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/11/19/4%EF%BC%8CNacos%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/#more" rel="contents">
@@ -996,16 +1128,16 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           
             <a href="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/" class="post-title-link" itemprop="url">3，Nacos Feign 客户端</a>
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -1030,6 +1162,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -1159,6 +1305,13 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
 
 
@@ -1188,7 +1341,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div>
 
 
@@ -1208,16 +1361,91 @@
   </div>
 
   
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -1226,6 +1454,18 @@
 
 
 
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
 
 
 
@@ -1235,11 +1475,49 @@
 
 
 
+    <div id="pjax">
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/page/2/',]
+      });
+      });
+  </script>
 
 
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+    </div>
 </body>
 </html>

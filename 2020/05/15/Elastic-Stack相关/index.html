@@ -10,11 +10,14 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -23,15 +26,15 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.5.0',
-    exturl: false,
+    exturl: true,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -84,7 +87,7 @@
   
 
 
-  <script>
+  <script pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -137,7 +140,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -165,17 +169,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -219,6 +223,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -240,15 +246,15 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           Elastic-Stack相关
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -268,6 +274,20 @@
               </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -288,7 +308,7 @@
 
 
 
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-fb183f33f4842212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1016/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-fb183f33f4842212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1016/format/webp"></p>
 <p>01.png</p>
 <ol>
 <li>配置运行时需要的变量</li>
@@ -303,7 +323,7 @@
 
 
 
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-7cf1bd97a12f22bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/958/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-7cf1bd97a12f22bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/958/format/webp"></p>
 <p>02.png</p>
 <h6 id="配置es需要的-变量-避免es异常"><a href="#配置es需要的-变量-避免es异常" class="headerlink" title="配置es需要的 变量 避免es异常"></a>配置es需要的 变量 避免es异常</h6><p>es 异常 exit code 78 解决方式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl -w vm.max_map_count=524288</span><br></pre></td></tr></table></figure>
@@ -355,25 +375,25 @@
 
 
 
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-cae0d20a3f36dcc2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-cae0d20a3f36dcc2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/736/format/webp"></p>
 <p>03.png</p>
 <hr>
 <p>测试</p>
-<p>访问：<a href="http://192.168.62.144/" target="_blank" rel="noopener">http://192.168.62.144/</a> 验证nginx<br> 访问：<a href="https://links.jianshu.com/go?to=http%3A%2F%2F192.168.62.144%2Fnginx-status" target="_blank" rel="noopener">http://192.168.62.144/nginx-status</a> 验证nginx 心跳<br> 访问：<a href="http://192.168.62.144:5601" target="_blank" rel="noopener">http://192.168.62.144:5601</a> 验证kibana</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-31dd538b79de5ff0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p>访问：<span class="exturl" data-url="aHR0cDovLzE5Mi4xNjguNjIuMTQ0Lw==" title="http://192.168.62.144/">http://192.168.62.144/<i class="fa fa-external-link"></i></span> 验证nginx<br> 访问：<span class="exturl" data-url="aHR0cHM6Ly9saW5rcy5qaWFuc2h1LmNvbS9nbz90bz1odHRwJTNBJTJGJTJGMTkyLjE2OC42Mi4xNDQlMkZuZ2lueC1zdGF0dXM=" title="https://links.jianshu.com/go?to=http%3A%2F%2F192.168.62.144%2Fnginx-status">http://192.168.62.144/nginx-status<i class="fa fa-external-link"></i></span> 验证nginx 心跳<br> 访问：<span class="exturl" data-url="aHR0cDovLzE5Mi4xNjguNjIuMTQ0OjU2MDE=" title="http://192.168.62.144:5601">http://192.168.62.144:5601<i class="fa fa-external-link"></i></span> 验证kibana</p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-31dd538b79de5ff0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
 <p>05.png</p>
 <h6 id="安装Nginx-仪表盘"><a href="#安装Nginx-仪表盘" class="headerlink" title="安装Nginx 仪表盘"></a>安装Nginx 仪表盘</h6><p>确认之前的 beats 配置是否生效</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看容器信息</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看模块配置信息</span></span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./filebeat modules list</span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./metricbeat modules list</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装仪表盘</span></span><br><span class="line"></span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./filebeat setup --dashboards</span><br><span class="line">docker <span class="built_in">exec</span> 容器ID ./metricbeat setup --dashboards</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-c5661d4469e8778d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-c5661d4469e8778d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/775/format/webp"></p>
 <p>配置仪表盘</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-284ac77da8c13a51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-284ac77da8c13a51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
 <p>01</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-b9c70493991730d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-b9c70493991730d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
 <p>08.png</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/14387783-eadf581f70b2612c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
+<p><img alt="img" data-src="https:////upload-images.jianshu.io/upload_images/14387783-eadf581f70b2612c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp"></p>
 <p>10.png</p>
 <p>以上就完成了使用 Beats+ES+Kibana 完成 Nginx 运行监控</p>
 <h1 id="kibana简单使用"><a href="#kibana简单使用" class="headerlink" title="kibana简单使用"></a>kibana简单使用</h1>
@@ -382,10 +402,57 @@
     
     
     
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/" title="Elastic-Stack相关">http://yoursite.com/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/" rel="tag"># 主流框架</a>
+              <a href="/tags/%E4%B8%BB%E6%B5%81%E6%A1%86%E6%9E%B6/" rel="tag"><i class="fa fa-tag"></i> 主流框架</a>
           </div>
 
         
@@ -417,7 +484,7 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -481,6 +548,13 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
 
 
@@ -510,7 +584,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div>
 
 
@@ -530,16 +604,91 @@
   </div>
 
   
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -548,6 +697,18 @@
 
 
 
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
 
 
 
@@ -557,28 +718,49 @@
 
 
 
+    <div id="pjax">
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/2020/05/15/Elastic-Stack%E7%9B%B8%E5%85%B3/',]
+      });
+      });
+  </script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '',
-      clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: '19c9c6175d3cce380ee332746d7d22b3',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
+    </div>
 </body>
 </html>

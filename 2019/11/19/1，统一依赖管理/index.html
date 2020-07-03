@@ -10,11 +10,14 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -23,15 +26,15 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.5.0',
-    exturl: false,
+    exturl: true,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -78,7 +81,7 @@
   
 
 
-  <script>
+  <script pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -131,7 +134,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -159,17 +163,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -213,6 +217,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -234,15 +240,15 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           1，统一依赖管理
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -267,6 +273,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -277,7 +297,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><strong>创建一个普通spring-boot工程</strong></p><p><img src="clipboard.png" alt="img"></p><p><strong>修改pom文件</strong></p><ol>
+        <p><strong>创建一个普通spring-boot工程</strong></p><p><img alt="img" data-src="clipboard.png"></p><p><strong>修改pom文件</strong></p><ol>
 <li>修改pom文件默认打包方式为pom</li>
 </ol><p><packaging>pom</packaging> </p><ol>
 <li>添加统一版本管理</li>
@@ -402,7 +422,7 @@
 
 <p><strong>创建统一依赖管理</strong></p>
 <p><strong>创建模块</strong> </p>
-<p><img src="clipboard1.png" alt="img"></p>
+<p><img alt="img" data-src="clipboard1.png"></p>
 <p><strong>修改pom</strong> </p>
 <p><strong>更改打包方式为 pom</strong></p>
 <ol>
@@ -495,7 +515,7 @@
 <p><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"><br>    <modelversion>4.0.0</modelversion><br>    <modules><br>        <module>spring-cloud-demo-dependencies</module><br>    </modules><br>    <parent><br>        <groupid>org.springframework.boot</groupid><br>        <artifactid>spring-boot-starter-parent</artifactid><br>        <version>2.2.0.RELEASE</version><br>        <relativepath> <!-- lookup parent from repository --><br>    </relativepath></parent><br>    <groupid>cn.dszmr</groupid><br>    <artifactid>spring-cloud-demo</artifactid><br>    <version>0.0.1-SNAPSHOT</version><br>    <name>spring-cloud-demo</name><br>    <packaging>pom</packaging><br>    <description>Demo project for Spring Boot</description></project></p>
 <p>​    <properties><br>​        &lt;java.version&gt;1.8&lt;/java.version&gt;<br>​        &lt;maven.compiler.source&gt;${java.version}&lt;/maven.compiler.source&gt;<br>​        &lt;maven.compiler.target&gt;${java.version}&lt;/maven.compiler.target&gt;<br>​        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;<br>​        &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;<br>​    </properties></p>
 <p>​    <dependencymanagement><br>​        <dependencies><br>​            <dependency><br>​                <groupid>cn.dszmr</groupid><br>​                <artifactid>spring-cloud-demo-dependencies</artifactid><br>​                <version>${project.version}</version><br>​                <type>pom</type><br>​                <scope>import</scope><br>​            </dependency><br>​        </dependencies><br>​    </dependencymanagement></p>
-<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activebydefault>true</activebydefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupid>io.spring.javaformat</groupid><br>​                        <artifactid>spring-javaformat-maven-plugin</artifactid><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-surefire-plugin</artifactid><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systempropertyvariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systempropertyvariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-enforcer-plugin</artifactid><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <banneddependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchtransitive>true</searchtransitive><br>​                                        </banneddependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-install-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-javadoc-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><a href="https://repo.spring.io/milestone" target="_blank" rel="noopener">https://repo.spring.io/milestone</a></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><a href="https://repo.spring.io/snapshot" target="_blank" rel="noopener">https://repo.spring.io/snapshot</a></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
+<p>​    <profiles><br>​        <profile><br>​            <id>default</id><br>​            <activation><br>​                <activebydefault>true</activebydefault><br>​            </activation><br>​            <properties><br>​                &lt;spring-javaformat.version&gt;0.0.12&lt;/spring-javaformat.version&gt;<br>​            </properties><br>​            <build><br>​                <plugins><br>​                    <plugin><br>​                        <groupid>io.spring.javaformat</groupid><br>​                        <artifactid>spring-javaformat-maven-plugin</artifactid><br>​                        <version>${spring-javaformat.version}</version><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-surefire-plugin</artifactid><br>​                        <configuration><br>​                            <includes><br>​                                <include><strong>/*Tests.java</strong></include><br>​                            </includes><br>​                            <excludes><br>​                                <exclude>/Abstract<em>.java</em></exclude><br>​                            </excludes><br>​                            <systempropertyvariables><br>​                                &lt;java.security.egd&gt;file:/dev/./urandom&lt;/java.security.egd&gt;<br>​                                &lt;java.awt.headless&gt;true&lt;/java.awt.headless&gt;<br>​                            </systempropertyvariables><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-enforcer-plugin</artifactid><br>​                        <executions><br>​                            <execution><br>​                                <id>enforce-rules</id><br>​                                <goals><br>​                                    <goal>enforce</goal><br>​                                </goals><br>​                                <configuration><br>​                                    <rules><br>​                                        <banneddependencies><br>​                                            <excludes><br>​                                                <exclude>commons-logging::*</exclude><br>​                                            </excludes><br>​                                            <searchtransitive>true</searchtransitive><br>​                                        </banneddependencies><br>​                                    </rules><br>​                                    <fail>true</fail><br>​                                </configuration><br>​                            </execution><br>​                        </executions><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-install-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                    </plugin><br>​                    <plugin><br>​                        <groupid>org.apache.maven.plugins</groupid><br>​                        <artifactid>maven-javadoc-plugin</artifactid><br>​                        <configuration><br>​                            <skip>true</skip><br>​                        </configuration><br>​                        <inherited>true</inherited><br>​                    </plugin><br>​                </plugins><br>​            </build><br>​        </profile><br>​    </profiles><br>​    <repositories><br>​        <repository><br>​            <id>spring-milestone</id><br>​            <name>Spring Milestone</name><br>​            <url><span class="exturl" data-url="aHR0cHM6Ly9yZXBvLnNwcmluZy5pby9taWxlc3RvbmU=" title="https://repo.spring.io/milestone">https://repo.spring.io/milestone<i class="fa fa-external-link"></i></span></url><br>​            <snapshots><br>​                <enabled>false</enabled><br>​            </snapshots><br>​        </repository><br>​        <repository><br>​            <id>spring-snapshot</id><br>​            <name>Spring Snapshot</name><br>​            <url><span class="exturl" data-url="aHR0cHM6Ly9yZXBvLnNwcmluZy5pby9zbmFwc2hvdA==" title="https://repo.spring.io/snapshot">https://repo.spring.io/snapshot<i class="fa fa-external-link"></i></span></url><br>​            <snapshots><br>​                <enabled>true</enabled><br>​            </snapshots><br>​        </repository><br>​    </repositories></p>
 
 
 
@@ -511,10 +531,57 @@
     
     
     
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/" title="1，统一依赖管理">http://yoursite.com/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"><i class="fa fa-tag"></i> 微服务</a>
           </div>
 
         
@@ -546,7 +613,7 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -609,6 +676,13 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
 
 
@@ -638,7 +712,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div>
 
 
@@ -658,16 +732,91 @@
   </div>
 
   
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -676,6 +825,18 @@
 
 
 
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
 
 
 
@@ -685,28 +846,49 @@
 
 
 
+    <div id="pjax">
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/2019/11/19/1%EF%BC%8C%E7%BB%9F%E4%B8%80%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86/',]
+      });
+      });
+  </script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '',
-      clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: '8e192a125b77be9ceb13536359c202d8',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
+    </div>
 </body>
 </html>

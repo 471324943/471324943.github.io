@@ -10,11 +10,14 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -23,15 +26,15 @@
     root: '/',
     scheme: 'Gemini',
     version: '7.5.0',
-    exturl: false,
+    exturl: true,
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -75,7 +78,7 @@
   
 
 
-  <script>
+  <script pjax>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -128,7 +131,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">与其临渊羡鱼， 不如退而结网。</p>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -156,17 +160,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -210,6 +214,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 
     <main class="main">
@@ -231,15 +237,15 @@
       <meta itemprop="image" content="/images/dsz.jpg">
       <meta itemprop="name" content="DSZ">
       <meta itemprop="description" content="机会是留给有准备的人的。">
-    </span>
+    </span>	
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="DSZ">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
+        <h2 class="post-title" itemprop="name headline">
           mybatis-plus 使用
-        </h1>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -270,6 +276,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
@@ -305,7 +325,7 @@
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">   <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/test1</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line"><span class="comment"># 可省略，SpringBoot自动推断</span></span><br><span class="line">        <span class="attr">driverClassName:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line">  <span class="comment">#外部化xml配置</span></span><br><span class="line">  <span class="comment">#config-location: classpath:mybatis-config.xml</span></span><br><span class="line">  <span class="comment">#指定外部化 MyBatis Properties 配置，通过该配置可以抽离配置，实现不同环境的配置部署</span></span><br><span class="line">  <span class="comment">#configuration-properties: classpath:mybatis/config.properties</span></span><br><span class="line">  <span class="comment">#xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath*:/mapper/*.xml</span></span><br><span class="line">  <span class="comment">#MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名</span></span><br><span class="line">  <span class="attr">type-aliases-package:</span> <span class="string">net.xinhuamm.noah.api.model.entity,net.xinhuamm.noah.api.model.dto</span></span><br><span class="line">  <span class="comment">#如果配置了该属性，则仅仅会扫描路径下以该类作为父类的域对象</span></span><br><span class="line">  <span class="comment">#type-aliases-super-type: java.lang.Object</span></span><br><span class="line">  <span class="comment">#枚举类 扫描路径，如果配置了该属性，会将路径下的枚举类进行注入，让实体类字段能够简单快捷的使用枚举属性</span></span><br><span class="line">  <span class="comment">#type-enums-package: com.baomidou.mybatisplus.samples.quickstart.enums</span></span><br><span class="line">  <span class="comment">#项目启动会检查xml配置存在(只在开发时候打开)</span></span><br><span class="line">  <span class="attr">check-config-location:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#SIMPLE：该执行器类型不做特殊的事情，为每个语句的执行创建一个新的预处理语句,REUSE：该执行器类型会复用预处理语句,BATCH：该执行器类型会批量执行所有的更新语句</span></span><br><span class="line">  <span class="attr">default-executor-type:</span> <span class="string">REUSE</span></span><br><span class="line">  <span class="attr">configuration:</span></span><br><span class="line">    <span class="comment"># 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射</span></span><br><span class="line">    <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment"># 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true</span></span><br><span class="line">    <span class="attr">cache-enabled:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment">#懒加载</span></span><br><span class="line">    <span class="comment">#aggressive-lazy-loading: true</span></span><br><span class="line">    <span class="comment">#NONE：不启用自动映射 PARTIAL：只对非嵌套的 resultMap 进行自动映射 FULL：对所有的 resultMap 都进行自动映射</span></span><br><span class="line">    <span class="comment">#auto-mapping-behavior: partial</span></span><br><span class="line">    <span class="comment">#NONE：不做任何处理 (默认值)WARNING：以日志的形式打印相关警告信息 FAILING：当作映射失败处理，并抛出异常和详细信息</span></span><br><span class="line">    <span class="comment">#auto-mapping-unknown-column-behavior: none</span></span><br><span class="line">    <span class="comment">#如果查询结果中包含空值的列，则 MyBatis 在映射的时候，不会映射这个字段</span></span><br><span class="line">    <span class="attr">call-setters-on-nulls:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 这个配置会将执行的sql打印出来，在开发或测试的时候可以用</span></span><br><span class="line">    <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span></span><br><span class="line">  <span class="attr">global-config:</span></span><br><span class="line">    <span class="attr">db-config:</span></span><br><span class="line">      <span class="comment">#表名下划线命名默认true</span></span><br><span class="line">      <span class="attr">table-underline:</span> <span class="literal">true</span></span><br><span class="line">      <span class="comment">#id类型</span></span><br><span class="line">      <span class="attr">id-type:</span> <span class="string">auto</span></span><br><span class="line">      <span class="comment">#是否开启大写命名，默认不开启</span></span><br><span class="line">      <span class="comment">#capital-mode: false</span></span><br><span class="line">      <span class="comment">#逻辑已删除值,(逻辑删除下有效) 需要注入逻辑策略LogicSqlInjector 以@Bean方式注入</span></span><br><span class="line">      <span class="attr">logic-not-delete-value:</span> <span class="number">0</span></span><br><span class="line">      <span class="comment">#逻辑未删除值,(逻辑删除下有效)</span></span><br><span class="line">      <span class="attr">logic-delete-value:</span> <span class="number">1</span></span><br><span class="line">      <span class="comment">#数据库类型</span></span><br><span class="line">      <span class="attr">db-type:</span> <span class="string">sql_server</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableName.java" target="_blank" rel="noopener">@TableName</a></p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1RhYmxlTmFtZS5qYXZh" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableName.java">@TableName<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：表名注解</li>
 </ul>
@@ -361,7 +381,7 @@
 <li>定义在resultMap里,只作用于select查询的返回结果封装</li>
 <li>定义在<code>insert</code>和<code>update</code>sql的<code>#{property}</code>里的<code>property</code>后面(例:<code>#{property,typehandler=xxx.xxx.xxx}</code>),只作用于<code>设置值</code> 而除了这两种直接指定<code>typeHandler</code>,mybatis有一个全局的扫描你自己的<code>typeHandler</code>包的配置,这是根据你的<code>property</code>的类型去找<code>typeHandler</code>并使用.</li>
 </ol>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#tableid" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableId.java" target="_blank" rel="noopener">@TableId</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI3RhYmxlaWQ=" title="https://mp.baomidou.com/guide/annotation.html#tableid">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1RhYmxlSWQuamF2YQ==" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableId.java">@TableId<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：主键注解</li>
 </ul>
@@ -390,7 +410,7 @@
 <td align="center">主键类型</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#idtype" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/IdType.java" target="_blank" rel="noopener">IdType</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI2lkdHlwZQ==" title="https://mp.baomidou.com/guide/annotation.html#idtype">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL0lkVHlwZS5qYXZh" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/IdType.java">IdType<i class="fa fa-external-link"></i></span></p>
 <table>
 <thead>
 <tr>
@@ -431,7 +451,7 @@
 <td align="center">分布式全局唯一ID 字符串类型(please use <code>ASSIGN_ID</code>)</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#tablefield" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableField.java" target="_blank" rel="noopener">@TableField</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI3RhYmxlZmllbGQ=" title="https://mp.baomidou.com/guide/annotation.html#tablefield">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1RhYmxlRmllbGQuamF2YQ==" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableField.java">@TableField<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：字段注解(非主键)</li>
 </ul>
@@ -546,7 +566,7 @@
 </tbody></table>
 <p>关于<code>jdbcType</code>和<code>typeHandler</code>以及<code>numericScale</code>的说明:</p>
 <p><code>numericScale</code>只生效于 update 的sql. <code>jdbcType</code>和<code>typeHandler</code>如果不配合<code>@TableName#autoResultMap = true</code>一起使用,也只生效于 update 的sql. 对于<code>typeHandler</code>如果你的字段类型和set进去的类型为<code>equals</code>关系,则只需要让你的<code>typeHandler</code>让Mybatis加载到即可,不需要使用注解</p>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#fieldstrategy" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/FieldStrategy.java" target="_blank" rel="noopener">FieldStrategy</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI2ZpZWxkc3RyYXRlZ3k=" title="https://mp.baomidou.com/guide/annotation.html#fieldstrategy">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL0ZpZWxkU3RyYXRlZ3kuamF2YQ==" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/FieldStrategy.java">FieldStrategy<i class="fa fa-external-link"></i></span></p>
 <table>
 <thead>
 <tr>
@@ -571,7 +591,7 @@
 <td align="center">追随全局配置</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#fieldfill" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/FieldFill.java" target="_blank" rel="noopener">FieldFill</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI2ZpZWxkZmlsbA==" title="https://mp.baomidou.com/guide/annotation.html#fieldfill">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL0ZpZWxkRmlsbC5qYXZh" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/FieldFill.java">FieldFill<i class="fa fa-external-link"></i></span></p>
 <table>
 <thead>
 <tr>
@@ -596,15 +616,15 @@
 <td align="center">插入和更新时填充字段</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#version" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/Version.java" target="_blank" rel="noopener">@Version</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI3ZlcnNpb24=" title="https://mp.baomidou.com/guide/annotation.html#version">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1ZlcnNpb24uamF2YQ==" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/Version.java">@Version<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：乐观锁注解、标记 <code>@Verison</code> 在字段上</li>
 </ul>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#enumvalue" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/EnumValue.java" target="_blank" rel="noopener">@EnumValue</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI2VudW12YWx1ZQ==" title="https://mp.baomidou.com/guide/annotation.html#enumvalue">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL0VudW1WYWx1ZS5qYXZh" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/EnumValue.java">@EnumValue<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：通枚举类注解(注解在枚举字段上)</li>
 </ul>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#tablelogic" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableLogic.java" target="_blank" rel="noopener">@TableLogic</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI3RhYmxlbG9naWM=" title="https://mp.baomidou.com/guide/annotation.html#tablelogic">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1RhYmxlTG9naWMuamF2YQ==" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/TableLogic.java">@TableLogic<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：表字段逻辑处理注解（逻辑删除）</li>
 </ul>
@@ -633,7 +653,7 @@
 <td align="center">逻辑删除值</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#sqlparser" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/SqlParser.java" target="_blank" rel="noopener">@SqlParser</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI3NxbHBhcnNlcg==" title="https://mp.baomidou.com/guide/annotation.html#sqlparser">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL1NxbFBhcnNlci5qYXZh" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/SqlParser.java">@SqlParser<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：租户注解,支持method上以及mapper接口上</li>
 </ul>
@@ -655,7 +675,7 @@
 <td align="center">true: 表示过滤SQL解析，即不会进入ISqlParser解析链，否则会进解析链并追加例如tenant_id等条件</td>
 </tr>
 </tbody></table>
-<p><a href="https://mp.baomidou.com/guide/annotation.html#keysequence" target="_blank" rel="noopener">#</a><a href="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/KeySequence.java" target="_blank" rel="noopener">@KeySequence</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC5iYW9taWRvdS5jb20vZ3VpZGUvYW5ub3RhdGlvbi5odG1sI2tleXNlcXVlbmNl" title="https://mp.baomidou.com/guide/annotation.html#keysequence">#<i class="fa fa-external-link"></i></span><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2Jhb21pZG91L215YmF0aXMtcGx1cy9ibG9iLzMuMC9teWJhdGlzLXBsdXMtYW5ub3RhdGlvbi9zcmMvbWFpbi9qYXZhL2NvbS9iYW9taWRvdS9teWJhdGlzcGx1cy9hbm5vdGF0aW9uL0tleVNlcXVlbmNlLmphdmE=" title="https://github.com/baomidou/mybatis-plus/blob/3.0/mybatis-plus-annotation/src/main/java/com/baomidou/mybatisplus/annotation/KeySequence.java">@KeySequence<i class="fa fa-external-link"></i></span></p>
 <ul>
 <li>描述：序列主键策略 <code>oracle</code></li>
 <li>属性：value、resultMap</li>
@@ -714,10 +734,57 @@
     
     
     
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
 
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/" title="mybatis-plus 使用">http://yoursite.com/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag"># 插件</a>
+              <a href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 插件</a>
           </div>
 
         
@@ -749,7 +816,7 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -813,6 +880,13 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
 
 
 
@@ -842,7 +916,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </div>
 
 
@@ -862,16 +936,91 @@
   </div>
 
   
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
 <script src="/js/schemes/pisces.js"></script>
-<script src="/js/next-boot.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
 
 
 
   
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
 
 
 
@@ -880,6 +1029,18 @@
 
 
 
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'MJrjkEWhQW3YJKkY5';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
 
 
 
@@ -889,28 +1050,49 @@
 
 
 
+    <div id="pjax">
 
   
 
   
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/2019/11/21/mybatis-plus-%E4%BD%BF%E7%94%A8/',]
+      });
+      });
+  </script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
 
 <script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID: '',
-      clientSecret: '',
-      repo: '',
-      owner: '',
-      admin: [''],
-      id: 'a13299e3387fb3e0864f91ad8008935d',
-        language: 'zh-CN',
-      distractionFreeMode: 'true'
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
 </script>
 
+    </div>
 </body>
 </html>
