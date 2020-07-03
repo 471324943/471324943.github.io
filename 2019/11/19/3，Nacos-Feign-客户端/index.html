@@ -351,13 +351,13 @@
 <p>3.创建启动类</p>
 <p>import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cloud.client.discovery.EnableDiscoveryClient; @SpringBootApplication @EnableDiscoveryClient @EnableFeignClients public class ConsumerApplication {     public static void main(String[] args) {         SpringApplication.run(ConsumerApplication.class, args);     } } </p>
 <p>4.启动查看nacos</p>
-<p><img alt="img" data-src="clipboard.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard.png"></p>
 <p>服务注册成功!</p>
 <p><strong>使用feign客户端请求provider服务提供者获得服务</strong></p>
 <ol>
 <li>在consumer创建好目录结构</li>
 </ol>
-<p><img alt="img" data-src="clipboard1.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard1.png"></p>
 <ol>
 <li>在service处添加</li>
 </ol>
@@ -369,15 +369,15 @@
 <p>4.修改provider项目的controller 创建一个集合并输出</p>
 <p>@RestController public class EchoController {      @GetMapping(value = “dsz”)     public List<string> ok(){         ArrayList<string> strings = new ArrayList&lt;&gt;();         strings.add(“dsz1”);         strings.add(“dsz2”);         strings.add(“dsz3”);         strings.add(“dsz4”);         strings.add(“dsz5”);         return strings;     } } </string></string></p>
 <p>5.启动项目</p>
-<p><img alt="img" data-src="clipboard2.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard2.png"></p>
 <p>请求成功</p>
 <p>这一个小demo的意思就是通过服务消费者的service，去请求服务提供者 ，</p>
 <p>获取数据，然后服务消费者进行输出展示最终结果</p>
-<p><img alt="img" data-src="clipboard3.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard3.png"></p>
 <p><strong>feign负载均衡</strong></p>
 <p>修改idea 配置</p>
-<p><img alt="img" data-src="clipboard4.png"></p>
-<p><img alt="img" data-src="clipboard5.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard4.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard5.png"></p>
 <p>启动一台服务提供者provider后</p>
 <p>修改端口号 再启动一台</p>
 <p>在controller处创建变量提取配置文件端口号 通过端口号的变换 来确定是否实现负载均衡</p>
@@ -390,9 +390,9 @@
 <p>3.修改controller添加</p>
 <p>@GetMapping(value = “/feign/echo/{str}”) public String echo(@PathVariable String str) {     return echoService.echo(str); } </p>
 <p>4.浏览器请求  <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2ZlaWduL2VjaG8vZHN6" title="http://localhost:8080/feign/echo/dsz">http://localhost:8080/feign/echo/dsz<i class="fa fa-external-link"></i></span></p>
-<p><img alt="img" data-src="clipboard6.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard6.png"></p>
 <p>5.刷新浏览器</p>
-<p><img alt="img" data-src="clipboard7.png"></p>
+<p><img alt="img" data-src="/2019/11/19/3%EF%BC%8CNacos-Feign-%E5%AE%A2%E6%88%B7%E7%AB%AF/clipboard7.png"></p>
 <p>负载均衡成功！</p>
 <p><strong>附：扩展阅读</strong></p>
 <p><strong>常见负载均衡策略</strong></p>

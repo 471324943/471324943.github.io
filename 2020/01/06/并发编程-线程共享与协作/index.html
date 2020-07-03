@@ -69,10 +69,10 @@
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="多核并发缓存架构和jmm模型​    java线程内存模型​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的编写案例：1234567891011121314151617181920212223242526public class XianChenTest &amp;#123;    public static boole">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="d:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;06&#x2F;%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C&#x2F;D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png">
 <meta property="og:updated_time" content="2020-05-26T08:39:25.735Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="d:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;06&#x2F;%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C&#x2F;D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/">
 
@@ -308,7 +308,7 @@
 
 
 
-<p><img alt="Java线程内存模型JMM2" data-src="D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png"></p>
+<p><img alt="Java线程内存模型JMM2" data-src="/2020/01/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E4%B8%8E%E5%8D%8F%E4%BD%9C/D:%5C%E8%B5%84%E6%96%99%5CJava%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8BJMM2.png"></p>
 <h4 id="内存执行步骤"><a href="#内存执行步骤" class="headerlink" title="内存执行步骤"></a>内存执行步骤</h4><ol>
 <li>工作内存通过read到主内存中读取共享资源</li>
 <li>共享资源通过load指令加载到工作内存中</li>
