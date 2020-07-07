@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-fill-left.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
+  <meta name="description" content="实现思想一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务功能特征 基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0 动态路由 Pre">
+<meta name="keywords" content="微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gateway网关">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;kawyang&#x2F;1a1a324a.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="实现思想一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务功能特征 基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0 动态路由 Pre">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-20T01:13:13.021Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/kawyang/1a1a324a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>gateway网关 | DSZ</title>
+  
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/kawyang/1a1a324a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>	
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          gateway网关
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-20 09:02:40 / 修改时间：09:13:13" itemprop="dateCreated datePublished" datetime="2019-11-20T09:02:40+08:00">2019-11-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Cloud-Alibaba/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring-Cloud-Alibaba</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/kawyang/1a1a324a.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/kawyang/1a1a324a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>实现思想</strong></p><p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p><p><strong>功能特征</strong></p><ul>
+<li>基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0</li>
+<li>动态路由</li>
+<li>Predicates 和 Filters 作用于特定路由</li>
+<li>集成 Hystrix 断路器</li>
+<li>集成 Spring Cloud DiscoveryClient</li>
+<li>易于编写的 Predicates 和 Filters</li>
+<li>限流</li>
+<li>路径重写</li>
+</ul><a id="more"></a>
+
+
+
+<p><strong>具体拦截与分配代码</strong></p>
+<h1 id="采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）"><a href="#采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）" class="headerlink" title="采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）"></a>采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：<span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC5zcHJpbmcuaW8vc3ByaW5nLWNsb3VkLWdhdGV3YXkvMi4wLngvc2luZ2xlL3NwcmluZy1jbG91ZC1nYXRld2F5Lmh0bWwjZ2F0ZXdheS1yb3V0ZS1maWx0ZXJz77yJ" title="https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）">https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）<i class="fa fa-external-link"></i></span></h1><ul>
+<li>id: BUSINESS-OAUTH2<h1 id="采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名"><a href="#采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名" class="headerlink" title="采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名"></a>采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名</h1>uri: lb://business-oauth2<h1 id="Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"><a href="#Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法" class="headerlink" title="Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"></a>Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法</h1>predicates:<h1 id="路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置"><a href="#路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置" class="headerlink" title="路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置"></a>路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置</h1><ul>
+<li>Path=/api/user/**<br>filters:<h1 id="前缀过滤，默认配置下，我们的请求路径是-http-localhost-8888-business-oauth2-这时会路由到指定的服务"><a href="#前缀过滤，默认配置下，我们的请求路径是-http-localhost-8888-business-oauth2-这时会路由到指定的服务" class="headerlink" title="前缀过滤，默认配置下，我们的请求路径是 http://localhost:8888/business-oauth2/** 这时会路由到指定的服务"></a>前缀过滤，默认配置下，我们的请求路径是 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4ODg4L2J1c2luZXNzLW9hdXRoMi8=" title="http://localhost:8888/business-oauth2/">http://localhost:8888/business-oauth2/<i class="fa fa-external-link"></i></span>** 这时会路由到指定的服务</h1><h1 id="此处配置去掉-1-个路径前缀，再配置上面的-Path-api-，就能按照-http-localhost-8888-api-的方式访问了"><a href="#此处配置去掉-1-个路径前缀，再配置上面的-Path-api-，就能按照-http-localhost-8888-api-的方式访问了" class="headerlink" title="此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/，就能按照 http://localhost:8888/api/ 的方式访问了"></a>此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/<strong>，就能按照 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4ODg4L2FwaS8=" title="http://localhost:8888/api/">http://localhost:8888/api/<i class="fa fa-external-link"></i></span></strong> 的方式访问了</h1></li>
+<li>StripPrefix=1</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码实现</strong></p>
+<p>创建一个项目名为<strong>gateway</strong></p>
+<ol>
+<li>添加pom依赖</li>
+</ol>
+<dependencies>
+    <!-- Spring Boot Begin -->
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-test</artifactid>
+        <scope>test</scope>
+    </dependency>
+    <!-- Spring Boot End -->
+    <!-- Spring Cloud Begin -->
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
+        <version>0.9.0.RELEASE</version>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-gateway</artifactid>
+    </dependency>
+    <!-- Spring Cloud End -->
+    <!-- Commons Begin -->
+    <dependency>
+        <groupid>javax.servlet</groupid>
+        <artifactid>javax.servlet-api</artifactid>
+    </dependency>
+    <!-- Commons Begin -->
+</dependencies>
+
+<pre><code>2.application.yml</code></pre><p>base:<br>  config:<br>    nacos:<br>      hostname: 106.54.8.126<br>      port: 8848<br>spring:<br>  application:<br>    # 应用名称<br>​    name: gateway<br>  main:<br>​    allow-bean-definition-overriding: true<br>  cloud:<br>    # 使用 Nacos 作为服务注册发现<br>​    nacos:<br>​      discovery:<br>​        server-addr: ${base.config.nacos.hostname}:${base.config.nacos.port}<br>    # 路由网关配置<br>​    gateway:<br>      # 设置与服务注册发现组件结合，这样可以采用服务名的路由策略<br>​      discovery:<br>​        locator:<br>​          enabled: true<br>      # 配置路由规则<br>​      routes:<br>        # 采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：<span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC5zcHJpbmcuaW8vc3ByaW5nLWNsb3VkLWdhdGV3YXkvMi4wLngvc2luZ2xlL3NwcmluZy1jbG91ZC1nYXRld2F5Lmh0bWwjZ2F0ZXdheS1yb3V0ZS1maWx0ZXJz77yJ" title="https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）">https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）<i class="fa fa-external-link"></i></span><br>        - id: BUSINESS-OAUTH2<br>          # 采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名<br>          uri: lb://business-oauth2<br>          # Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法<br>          predicates:<br>            # 路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置<br>            - Path=/api/user/**<br>          filters:<br>            # 前缀过滤，默认配置下，我们的请求路径是 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4ODg4L2J1c2luZXNzLW9hdXRoMi8=" title="http://localhost:8888/business-oauth2/">http://localhost:8888/business-oauth2/<i class="fa fa-external-link"></i></span>** 这时会路由到指定的服务<br>            # 此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/<strong>，就能按照 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4ODg4L2FwaS8=" title="http://localhost:8888/api/">http://localhost:8888/api/<i class="fa fa-external-link"></i></span></strong> 的方式访问了<br>            - StripPrefix=1<br>                - id: BUSINESS-PROFILE<br>          uri: lb://business-profile<br>          predicates:<br>            - Path=/api/profile/**<br>          filters:<br>            - StripPrefix=1<br>server:<br>      port: 8888</p>
+<h1 id="配置日志级别，方别调试"><a href="#配置日志级别，方别调试" class="headerlink" title="配置日志级别，方别调试"></a>配置日志级别，方别调试</h1><p>logging:<br>  level:<br>    org.springframework.cloud.gateway: debug</p>
+<p>3.GatewayApplication</p>
+<p>import org.springframework.boot.SpringApplication;<br>import org.springframework.boot.autoconfigure.SpringBootApplication;<br>import org.springframework.cloud.client.discovery.DiscoveryClient;<br>import org.springframework.cloud.client.discovery.EnableDiscoveryClient;<br>import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;<br>import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;<br>import org.springframework.cloud.gateway.route.RouteDefinitionLocator;<br>import org.springframework.context.annotation.Bean;<br>import org.springframework.http.HttpHeaders;<br>import org.springframework.http.HttpMethod;<br>import org.springframework.http.HttpStatus;<br>import org.springframework.http.codec.ServerCodecConfigurer;<br>import org.springframework.http.codec.support.DefaultServerCodecConfigurer;<br>import org.springframework.http.server.reactive.ServerHttpRequest;<br>import org.springframework.http.server.reactive.ServerHttpResponse;<br>import org.springframework.web.cors.reactive.CorsUtils;<br>import org.springframework.web.server.ServerWebExchange;<br>import org.springframework.web.server.WebFilter;<br>import org.springframework.web.server.WebFilterChain;<br>import reactor.core.publisher.Mono;<br>/**</p>
+<ul>
+<li>Spring Cloud Gateway</li>
+<li><p></p></li>
+<li>Description:</li>
+<li><p></p></li>
+<li></li>
+<li>@author Lusifer</li>
+<li>@version v1.0.0</li>
+<li>@date 2019-08-01 11:14:35</li>
+<li>@see</li>
+<li>/<br>@SpringBootApplication<br>@EnableDiscoveryClient<br>public class GatewayApplication {<br>  // —————————– 解决跨域 Begin —————————–<br>  private static final String ALL = “*”;<br>  private static final String MAX_AGE = “3600L”;<br>  @Bean<br>  public RouteDefinitionLocator discoveryClientRouteDefinitionLocator(DiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {<pre><code>return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);</code></pre>  }<br>  @Bean<br>  public ServerCodecConfigurer serverCodecConfigurer() {<pre><code>return new DefaultServerCodecConfigurer();</code></pre>  }<br>  @Bean<br>  public WebFilter corsFilter() {<pre><code>return (ServerWebExchange ctx, WebFilterChain chain) -&gt; {
+    ServerHttpRequest request = ctx.getRequest();
+    if (!CorsUtils.isCorsRequest(request)) {
+        return chain.filter(ctx);
+    }
+    HttpHeaders requestHeaders = request.getHeaders();
+    ServerHttpResponse response = ctx.getResponse();
+    HttpMethod requestMethod = requestHeaders.getAccessControlRequestMethod();
+    HttpHeaders headers = response.getHeaders();
+    headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, requestHeaders.getOrigin());
+    headers.addAll(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, requestHeaders.getAccessControlRequestHeaders());
+    if (requestMethod != null) {
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, requestMethod.name());
+    }
+    headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, &quot;true&quot;);
+    headers.add(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, ALL);
+    headers.add(HttpHeaders.ACCESS_CONTROL_MAX_AGE, MAX_AGE);
+    if (request.getMethod() == HttpMethod.OPTIONS) {
+        response.setStatusCode(HttpStatus.OK);
+        return Mono.empty();
+    }
+    return chain.filter(ctx);
+};</code></pre>  }<br>  // —————————– 解决跨域 End —————————–<br>  public static void main(String[] args) {<pre><code>SpringApplication.run(GatewayApplication.class, args);</code></pre>  }<br>}</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/kawyang/1a1a324a.html" title="gateway网关">http://yoursite.com/kawyang/1a1a324a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"><i class="fa fa-tag"></i> 微服务</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/kawyang/daddcf83.html" rel="next" title="nodejs设置全局路径后npm报错 已解决">
+                  <i class="fa fa-chevron-left"></i> nodejs设置全局路径后npm报错 已解决
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/kawyang/28231572.html" rel="prev" title="Spring security oAth2(1)">
+                  Spring security oAth2(1) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#采用自定义路由-ID（有固定用法，不同的-id-有不同的功能，详见：https-cloud-spring-io-spring-cloud-gateway-2-0-x-single-spring-cloud-gateway-html-gateway-route-filters）"><span class="nav-number">1.</span> <span class="nav-text">采用自定义路由 ID（有固定用法，不同的 id 有不同的功能，详见：https://cloud.spring.io/spring-cloud-gateway/2.0.x/single/spring-cloud-gateway.html#gateway-route-filters）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#采用-LoadBalanceClient-方式请求，以-lb-开头，后面的是注册在-Nacos-上的服务名"><span class="nav-number">2.</span> <span class="nav-text">采用 LoadBalanceClient 方式请求，以 lb:// 开头，后面的是注册在 Nacos 上的服务名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Predicate-翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法"><span class="nav-number">3.</span> <span class="nav-text">Predicate 翻译过来是“谓词”的意思，必须，主要作用是匹配用户的请求，有很多种用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路径匹配，以-api-开头，直接配置是不生效的，看-filters-配置"><span class="nav-number">4.</span> <span class="nav-text">路径匹配，以 api 开头，直接配置是不生效的，看 filters 配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前缀过滤，默认配置下，我们的请求路径是-http-localhost-8888-business-oauth2-这时会路由到指定的服务"><span class="nav-number">5.</span> <span class="nav-text">前缀过滤，默认配置下，我们的请求路径是 http://localhost:8888/business-oauth2/** 这时会路由到指定的服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#此处配置去掉-1-个路径前缀，再配置上面的-Path-api-，就能按照-http-localhost-8888-api-的方式访问了"><span class="nav-number">6.</span> <span class="nav-text">此处配置去掉 1 个路径前缀，再配置上面的 Path=/api/，就能按照 http://localhost:8888/api/ 的方式访问了</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置日志级别，方别调试"><span class="nav-number">7.</span> <span class="nav-text">配置日志级别，方别调试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Dsz."></i>
+  </span>
+ 
+</div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+<script pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/kawyang/1a1a324a.html',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+    </div>
+   <script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":115,"height":255},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
