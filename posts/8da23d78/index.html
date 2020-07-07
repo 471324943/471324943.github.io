@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-fill-left.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
+  <meta name="description" content="Spring-IOC篇前言​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring">
+<meta name="keywords" content="框架底层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单实践spring框架(手写spring)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="Spring-IOC篇前言​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591943034322.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591943073077.png">
+<meta property="og:updated_time" content="2020-07-07T03:52:38.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
+
+<link rel="canonical" href="http://yoursite.com/posts/8da23d78/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>简单实践spring框架(手写spring) | DSZ</title>
+  
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/8da23d78/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>	
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          简单实践spring框架(手写spring)
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-09 16:30:19" itemprop="dateCreated datePublished" datetime="2020-06-09T16:30:19+08:00">2020-06-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-07 11:52:38" itemprop="dateModified" datetime="2020-07-07T11:52:38+08:00">2020-07-07</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/8da23d78/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/8da23d78/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p><a id="more"></a>
+<h3 id="IOC注入流程"><a href="#IOC注入流程" class="headerlink" title="IOC注入流程"></a>IOC注入流程</h3><p>流程大致分为五步</p>
+<ol>
+<li>读取配置文件获取文件根路径</li>
+<li>通过根路径获取所有类</li>
+<li>为这些类创建对象</li>
+<li>扫描获取需要注入的对象</li>
+<li>通过反射为类注入对象</li>
+</ol>
+<h3 id="手动实现IOC"><a href="#手动实现IOC" class="headerlink" title="手动实现IOC"></a>手动实现IOC</h3><p><strong>既然知道了流程那么就话不多说来实现一下spring的ioc</strong></p>
+<p>首先需要做一些基础的准备工作也就是定义注解。</p>
+<p>需要用到的注解</p>
+<p>​        <strong>@Component,@Service,@Controller,@Repository,@Autowired</strong></p>
+<p>我这里为了简便就不进行@Component和@Repository的定义了</p>
+<p>@Service 在这里用注释简单介绍了一下参数的意思 后面将不在介绍</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简单参数介绍</span></span><br><span class="line"><span class="comment"> * ElementType.TYPE   在类上定义</span></span><br><span class="line"><span class="comment"> * ElementType.FIELD 在成员字段上定义</span></span><br><span class="line"><span class="comment"> * ElementType.METHOD 在方法上定义</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简单参数介绍</span></span><br><span class="line"><span class="comment"> * RetentionPolicy.SOURCE：注解只保留在源文件，当Java文件编译成class文件的时候，注解被遗弃；</span></span><br><span class="line"><span class="comment"> * RetentionPolicy.CLASS：注解被保留到class文件，但jvm加载class文件时候被遗弃，这是默认的生命周期；</span></span><br><span class="line"><span class="comment"> * RetentionPolicy.RUNTIME：注解不仅被保存到class文件中，jvm加载class文件之后，仍然存在；</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Service &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 控制器</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Controller &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Autowired</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * autowired</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Autowired &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义好注解以后就可以进行第一步操作了 </p>
+<p>​         读取配置文件获取文件根路径</p>
+<p>这一步的具体步骤就是去你的项目加载指定目录下去获取一个指定文件名的文件，也就是properties配置文件，然后解析这个配置文件获取里面的配置项为我们项目加载所用。</p>
+<p>首先我们需要一个类来进行固定配置名的约束</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.utils;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 固定配置项</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ConfigConstant</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * java源码地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String APP_BASE_PACKAGE = <span class="string">"dsz.framework.app.base_package"</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态资源路径</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String APP_ASSET_PATH = <span class="string">"dsz.framework.app.asset_path"</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置文件名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String CONFIG_FILE = <span class="string">"dsz.properties"</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要一个工具类来读取properties文件内容</p>
+<p>具体逻辑就是给定一个文件路径 然后读取该文件 把它读取至properties集合容器中</p>
+<blockquote>
+<p>需要添加一个日志包</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 日志框架 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 道具跑龙套</span></span><br><span class="line"><span class="comment"> * 配置文件工具类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">PropsUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 日志记录器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(PropsUtil<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 负载的道具</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName 文件名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Properties&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">loadProps</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        Properties  properties = <span class="keyword">null</span>;</span><br><span class="line">        InputStream is =  <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            is =  Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);</span><br><span class="line">            <span class="keyword">if</span> (is == <span class="keyword">null</span>)&#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> FileNotFoundException(fileName+<span class="string">"文件不存在，请检查路径?"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            properties = <span class="keyword">new</span> Properties();</span><br><span class="line">            properties.load(is);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            LOGGER.error(<span class="string">"读取文件错误！"</span>,e);</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (is != <span class="keyword">null</span>)&#123;</span><br><span class="line">                    is.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                LOGGER.error(<span class="string">"文件流关流失败！"</span>,e);</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                LOGGER.info(fileName+<span class="string">"文件读取成功，正在进行下一步！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> properties;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到字符串</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> String&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getString</span><span class="params">(Properties properties,String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getString(properties, key,<span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到字符串</span></span><br><span class="line"><span class="comment">     * 获取string类型的值 默认为空字符串</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value      价值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> String&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getString</span><span class="params">(Properties properties,String key,String value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (properties.containsKey(key))&#123;</span><br><span class="line">            value = properties.getProperty(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取布尔</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">getBoolean</span><span class="params">(Properties properties,String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getBoolean(properties, key,<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取布尔</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value      价值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">getBoolean</span><span class="params">(Properties properties,String key,<span class="keyword">boolean</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (properties.containsKey(key))&#123;</span><br><span class="line">            value = Boolean.parseBoolean(properties.getProperty(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到整数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(Properties properties,String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getInt(properties, key,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到整数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> properties 属性</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key        关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value      价值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(Properties properties,String key,<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (properties.containsKey(key))&#123;</span><br><span class="line">            value = Integer.parseInt(properties.getProperty(key));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再结合工具类和基本名称的定义获取到对应的内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.ConfigConstant;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.PropsUtil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置助手</span></span><br><span class="line"><span class="comment"> * 设计及其助手</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/05</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigHelper</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Properties PROPERTIES = PropsUtil.loadProps(ConfigConstant.CONFIG_FILE);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获得基础包</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> String&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getBasePackage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PropsUtil.getString(PROPERTIES,ConfigConstant.APP_BASE_PACKAGE);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到字符串</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key 关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> String&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getString</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PropsUtil.getString(PROPERTIES,key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取布尔</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key 关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">getBoolean</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PropsUtil.getBoolean(PROPERTIES,key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到整数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key 关键</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> int</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> PropsUtil.getInt(PROPERTIES,key);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就可以通过调用ConfigHelper的静态方法去获取对应配置属性了</p>
+<p>好了继续下一步</p>
+<p>​            通过根路径获取所有类</p>
+<blockquote>
+<p>添加工具包这样操作更加的简便</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 通用工具包 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--集合工具包--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>   </span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-collections4<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>具体逻辑是 获取类加载器 通过类加载器与设置好的根路径获取文件父包 进行扫描 如果为普通文件或者文件夹则进行递归扫描 如果为jar则开包获取所有.class文件 并获取出所有类对象并添加类对象至集合内</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.dszmr.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileFilter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.JarURLConnection;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarEntry;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarFile;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 加载class工具类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ClassUtil<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前线程类加载器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ClassLoader <span class="title">getClassLoader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Thread.currentThread().getContextClassLoader();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取指定类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> isInitialized</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; loadClass(String className,<span class="keyword">boolean</span> isInitialized)&#123;</span><br><span class="line">        Class&lt;?&gt; aClass = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            aClass = Class.forName(className, isInitialized, getClassLoader());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"这个类读取不到"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> aClass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取指定类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; loadClass(String className)&#123;</span><br><span class="line">        <span class="keyword">return</span> loadClass(className,<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有bean类的集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> packageName</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSet(String packageName)&#123;</span><br><span class="line">        <span class="comment">//创建集合</span></span><br><span class="line">        Set&lt;Class&lt;?&gt;&gt; classSet = <span class="keyword">new</span> HashSet&lt;Class&lt;?&gt;&gt;();</span><br><span class="line">        <span class="comment">//通过类加载器 获取包的根路径</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//获取类加载器</span></span><br><span class="line">            ClassLoader classLoader = getClassLoader();</span><br><span class="line">            <span class="comment">//把指定根路径包名替换成路径 也就是把.替换成\</span></span><br><span class="line">            String s = packageName.replaceAll(<span class="string">"\\."</span>, <span class="string">"\\\\"</span>);</span><br><span class="line">            <span class="comment">//通过类加载器去扫描该路径 获取出该路径下所有文件集合</span></span><br><span class="line">            Enumeration&lt;URL&gt; resources = classLoader.getResources(s);</span><br><span class="line">            <span class="comment">//循环迭代获取所有路径</span></span><br><span class="line">            <span class="keyword">while</span> (resources.hasMoreElements())&#123;</span><br><span class="line">                URL url = resources.nextElement();</span><br><span class="line">                <span class="keyword">if</span> (url!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//判断文件类型如果是普通文件</span></span><br><span class="line">                    String protocol = url.getProtocol();</span><br><span class="line">                    <span class="keyword">if</span> (protocol.equals(<span class="string">"file"</span>))&#123;</span><br><span class="line">                        String packagePath = url.getPath().replaceAll(<span class="string">"%20"</span>, <span class="string">" "</span>);</span><br><span class="line">                        <span class="comment">//递归扫描但前路径下所有文件</span></span><br><span class="line">                        addClass(classSet,packagePath,packageName);</span><br><span class="line">                        <span class="comment">//如果是jar包则开包进行扫描</span></span><br><span class="line">                    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (protocol.equals(<span class="string">"jar"</span>))&#123;</span><br><span class="line">                        <span class="comment">//获取jar路径连接对象</span></span><br><span class="line">                        JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();</span><br><span class="line">                        <span class="keyword">if</span> (jarURLConnection!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                            <span class="comment">//获取jar内所有文件</span></span><br><span class="line">                            JarFile jarFile = jarURLConnection.getJarFile();</span><br><span class="line">                            <span class="keyword">if</span> (jarFile!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                                <span class="comment">//迭代文件</span></span><br><span class="line">                                Enumeration&lt;JarEntry&gt; entries = jarFile.entries();</span><br><span class="line">                                <span class="keyword">while</span> (entries.hasMoreElements())&#123;</span><br><span class="line">                                    JarEntry jarEntry = entries.nextElement();</span><br><span class="line">                                    <span class="comment">//加载所有.class文件</span></span><br><span class="line">                                    String jarEntryName = jarEntry.getName();</span><br><span class="line">                                    <span class="keyword">if</span> (jarEntryName.endsWith(<span class="string">".class"</span>))&#123;</span><br><span class="line">                                        jarEntryName = jarEntryName.substring(<span class="number">0</span>,jarEntryName.indexOf(<span class="string">"."</span>)).replaceAll(<span class="string">"/"</span>,<span class="string">"."</span>);</span><br><span class="line">                                        doAddClass(classSet,jarEntryName);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"读取文件出现问题"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 递归遍历所有文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> classSet</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> packagePath</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> packageName</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet,String packagePath,String packageName)</span></span>&#123;</span><br><span class="line">       <span class="comment">//过滤文件 只读取class文件 或者文件夹</span></span><br><span class="line">        File[] files = <span class="keyword">new</span> File(packagePath).listFiles(<span class="keyword">new</span> FileFilter() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> pathname.isFile() ? pathname.getName().endsWith(<span class="string">".class"</span>) : pathname.isDirectory();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="comment">//是文件则添加进集合容器中</span></span><br><span class="line">            String fileName = file.getName();</span><br><span class="line">            <span class="keyword">if</span> (file.isFile())&#123;</span><br><span class="line">                <span class="comment">//编辑类路径全名添加至集合容器</span></span><br><span class="line">                String className = fileName.substring(<span class="number">0</span>, fileName.indexOf(<span class="string">"."</span>));</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isNotEmpty(packageName))&#123;</span><br><span class="line">                   className = packageName+<span class="string">"."</span>+className;</span><br><span class="line">                &#125;</span><br><span class="line">                doAddClass(classSet,className);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//是文件夹则进行再次递归读取</span></span><br><span class="line">                String subFilePath = fileName;</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isNotEmpty(packagePath))&#123;</span><br><span class="line">                    subFilePath = packagePath + <span class="string">"/"</span> + subFilePath;</span><br><span class="line">                &#125;</span><br><span class="line">                String subFileName = fileName;</span><br><span class="line">                <span class="keyword">if</span> (StringUtils.isNotEmpty(packageName))&#123;</span><br><span class="line">                    subFileName = packageName + <span class="string">"."</span>+subFileName;</span><br><span class="line">                &#125;</span><br><span class="line">                 addClass(classSet,subFilePath,subFileName);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 把文件添加至集合容器</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> classSet</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doAddClass</span><span class="params">(Set&lt;Class&lt;?&gt;&gt; classSet,String className)</span></span>&#123;</span><br><span class="line">        <span class="comment">//通过类路径获取类对象 将类对象添加至集合容器</span></span><br><span class="line">        Class&lt;?&gt; aClass = loadClass(className, <span class="keyword">false</span>);</span><br><span class="line">        classSet.add(aClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道spring只会加载被他的注解所修饰的类 而我们定义的工具类的功能是获取所有类 这样我们需要再次定义一个辅助类去筛选出需要注入和被注入的类</p>
+<p>具体逻辑为通过ConfigHelper去获取当前根类 再传入ClassUtil去获取所有类的集合 再定义方法进行各种筛选</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Controller;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Service;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.ClassUtil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Annotation;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 筛选类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassHelper</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类集</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Set&lt;Class&lt;?&gt;&gt; CLASS_SET ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//获取根路径包</span></span><br><span class="line">        String basePackage = ConfigHelper.getBasePackage();</span><br><span class="line">        <span class="comment">//调用工具类获取项目下的所有类</span></span><br><span class="line">        CLASS_SET = ClassUtil.getClassSet(basePackage);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSet()&#123;</span><br><span class="line">        <span class="keyword">return</span> CLASS_SET;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取被service修饰的类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getServiceClassSet()&#123;</span><br><span class="line">        HashSet&lt;Class&lt;?&gt;&gt; classHashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : CLASS_SET) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aClass.isAnnotationPresent(Service<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                classHashSet.add(aClass);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classHashSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取被controller修饰的类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getControllerClassSet()&#123;</span><br><span class="line">        HashSet&lt;Class&lt;?&gt;&gt; classHashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : CLASS_SET) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aClass.isAnnotationPresent(Controller<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                classHashSet.add(aClass);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classHashSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取所有bean类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getBeanClassSet()&#123;</span><br><span class="line">        HashSet&lt;Class&lt;?&gt;&gt; classHashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        classHashSet.addAll(getServiceClassSet());</span><br><span class="line">        classHashSet.addAll(getControllerClassSet());</span><br><span class="line">        <span class="keyword">return</span> classHashSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取但前类子类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> superClass 超类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSetBySuper(Class&lt;?&gt; superClass)&#123;</span><br><span class="line">        HashSet&lt;Class&lt;?&gt;&gt; classHashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : CLASS_SET) &#123;</span><br><span class="line">            <span class="keyword">if</span> (superClass.isAssignableFrom(aClass)&amp;&amp;!superClass.equals(aClass))&#123;</span><br><span class="line">                classHashSet.add(aClass);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classHashSet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取带有注释的类集合</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> annotationClass 注释类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Set&lt;Class&lt;?&gt;&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; getClassSetByAnnotation(Class&lt;? extends Annotation&gt; annotationClass)&#123;</span><br><span class="line">        HashSet&lt;Class&lt;?&gt;&gt; classHashSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : CLASS_SET) &#123;</span><br><span class="line">            <span class="keyword">if</span> (aClass.isAnnotationPresent(annotationClass))&#123;</span><br><span class="line">                classHashSet.add(aClass);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> classHashSet;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在获取到了所有对应的所有bean类  现在我们只需要将其进行反射为有对应注解的类进行注入属性</p>
+<p>既然要使用反射操作 为了避免代码重复 我们将反射的基本操作封装成一个工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 反射工具类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 日志记录器</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ReflectionUtil<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cls cls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Object&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newInstance</span><span class="params">(Class&lt;?&gt; cls)</span> </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            o = cls.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"创建类实例失败"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> className 类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Object&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">newInstance</span><span class="params">(String className)</span> </span>&#123;</span><br><span class="line">        Class&lt;?&gt; cls = ClassUtil.loadClass(className);</span><br><span class="line">        <span class="keyword">return</span> newInstance(cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj    obj</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> method 方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> args   arg游戏</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Object&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">invokeMethod</span><span class="params">(Object obj, Method method, Object... args)</span> </span>&#123;</span><br><span class="line">        Object o = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            o = method.invoke(obj, args);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"调用"</span> + obj + <span class="string">"方法失败"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置字段</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obj   obj</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> field 场</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value 价值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setField</span><span class="params">(Object obj, Field field, Object value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            field.set(obj, value);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"修改"</span> + obj + <span class="string">"属性失败"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring-IOC 最核心的地方可能就是那个存着所有bean的大map了 键为类对象 值为对应的对象想要可以直接通过类对象获取对象 大大简便了操作 既然classHelper为我们提供了所有的bean的类对象 那么定义出这个bean map 是不是就显得很简单了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.ReflectionUtil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * bean助手</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanHelper</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * bean工厂</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;Class&lt;?&gt;,Object&gt; BEAN_MAP = <span class="keyword">new</span> HashMap&lt;Class&lt;?&gt;,Object&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Set&lt;Class&lt;?&gt;&gt; beanClassSet = ClassHelper.getBeanClassSet();</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : beanClassSet) &#123;</span><br><span class="line">            Object o = ReflectionUtil.newInstance(aClass);</span><br><span class="line">            BEAN_MAP.put(aClass,o);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到bean映射</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Map&lt;Class&lt;?&gt;, Object&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Class&lt;?&gt;,Object&gt; getBeanMap()&#123;</span><br><span class="line">        <span class="keyword">return</span> BEAN_MAP;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到baen</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cls cls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> T&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getBaen</span><span class="params">(Class&lt;T&gt; cls)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!BEAN_MAP.containsKey(cls))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"你获取的"</span> + cls + <span class="string">"在Bean容器内不存在"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (T) BEAN_MAP.get(cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置bean</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cls cls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> o   o</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setBean</span><span class="params">(Class&lt;?&gt; cls,Object o)</span></span>&#123;</span><br><span class="line">        BEAN_MAP.put(cls,o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在把所有的bean都转载到了beanmap内 但是类上带有Autowired注解的还未进行注入操作</p>
+<p>定义IocHelper进行注入操作 逻辑为 获取所有bean 进行迭代遍历 获取对应的字段 获取字段上有Autowired注解的bean 然后为其进行注入对象属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.helper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.ReflectionUtil;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections4.MapUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.ArrayUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 国际奥委会助手</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">IocHelper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//取到beanMap</span></span><br><span class="line">        Map&lt;Class&lt;?&gt;, Object&gt; beanMap = BeanHelper.getBeanMap();</span><br><span class="line">        <span class="keyword">if</span> (MapUtils.isNotEmpty(beanMap))&#123;</span><br><span class="line">            <span class="comment">//进行迭代</span></span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;Class&lt;?&gt;, Object&gt; classObjectEntry : beanMap.entrySet()) &#123;</span><br><span class="line">                Class&lt;?&gt; cls = classObjectEntry.getKey();</span><br><span class="line">                Object o = classObjectEntry.getValue();</span><br><span class="line">                <span class="comment">//获取所有字段 遍历</span></span><br><span class="line">                Field[] fields = cls.getDeclaredFields();</span><br><span class="line">                <span class="keyword">if</span> (ArrayUtils.isNotEmpty(fields))&#123;</span><br><span class="line">                <span class="keyword">for</span> (Field field : fields) &#123;</span><br><span class="line">                    <span class="comment">//判断字段上是否有Autowired注解</span></span><br><span class="line">                    <span class="keyword">if</span> (field.isAnnotationPresent(Autowired<span class="class">.<span class="keyword">class</span>))</span>&#123;</span><br><span class="line">                        <span class="comment">//获取其子类 类对象</span></span><br><span class="line">                        Class&lt;?&gt; superClass = findImplementClass(field.getType());</span><br><span class="line">                        <span class="comment">//从bean工厂获取对象</span></span><br><span class="line">                        Object obj = beanMap.get(superClass);</span><br><span class="line">                        <span class="keyword">if</span> (obj !=<span class="keyword">null</span>)&#123;</span><br><span class="line">                            <span class="comment">//反射写入字段中</span></span><br><span class="line">                            ReflectionUtil.setField(o,field,obj);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 找到实现类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> cls cls</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> &#123;<span class="doctag">@link</span> Class&lt;?&gt;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Class&lt;?&gt; findImplementClass(Class&lt;?&gt; cls)&#123;</span><br><span class="line">        Set&lt;Class&lt;?&gt;&gt; classSetBySuper = ClassHelper.getClassSetBySuper(cls);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isNotEmpty(classSetBySuper))&#123;</span><br><span class="line">            cls = classSetBySuper.iterator().next();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cls;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到了这一步一个简单的拥有ioc功能的框架就搭建成功了</p>
+<p>我们可以定义测试类进行一个简单的测试</p>
+<p>在此之前我们需要让tomcat在加载的时候会去加载我们ioc容器</p>
+<p>所以我们需要定义一个初始化加载类 然后继承HTTPServlet 利用servlet的init方法进行初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.load;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.helper.BeanHelper;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.helper.ClassHelper;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.helper.IocHelper;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.utils.ClassUtil;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 辅助装载机</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">HelperLoader</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Class&lt;?&gt;[] classes = &#123;</span><br><span class="line">                ClassHelper<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line"><span class="class">                <span class="title">BeanHelper</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">                <span class="title">IocHelper</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">        &#125;</span>;</span><br><span class="line">        <span class="keyword">for</span> (Class&lt;?&gt; aClass : classes) &#123;</span><br><span class="line">            ClassUtil.loadClass(aClass.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为要使用到servlet所以需要添加servlet相关依赖</p>
+<blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Servlet --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.servlet;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.load.HelperLoader;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/*"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Initservlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        HelperLoader.init();</span><br><span class="line">        <span class="keyword">super</span>.init();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在定义完毕了 我们还需要在但前包下创建一个项目 然后依赖我们定义的spring-ioc项目进行测试</p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>这是完成的框架项目结构</p>
+<p><img alt="1591942979103" data-src="1591942979103.png"></p>
+<p>这是定义的测试项目 的项目结构</p>
+<p><img alt="1591943034322" data-src="1591943034322.png"></p>
+<p>他俩存在于一个文件夹下</p>
+<p><img alt="1591943073077" data-src="1591943073077.png"></p>
+<h3 id="测试项目"><a href="#测试项目" class="headerlink" title="测试项目"></a>测试项目</h3><p>在框架的同一级目录下创建一个maven项目</p>
+<p>pom依赖中依赖框架</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.dszmr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dsz-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写dsz.properties 这个文件是在开始的时候指定的</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">dsz.framework.app.base_package</span>=<span class="string">cn.dszmr</span></span><br><span class="line"><span class="meta">dsz.framework.app.asset_path</span>=<span class="string">/asset/</span></span><br></pre></td></tr></table></figure>
+
+<p>Usercontroller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Controller;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.helper.BeanHelper;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.helper.IocHelper;</span><br><span class="line"><span class="keyword">import</span> cn.dszmr.service.UserService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        UserController baen = BeanHelper.getBaen(<span class="keyword">this</span>.getClass());</span><br><span class="line">        baen.test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        userService.helloWord();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>UserService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.dszmr.annotation.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">helloWord</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"调用成功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>由于框架未全部完成只能实习一小部分功能  获取装载好的bean也只能到容器中获取</p>
+<p>下一篇MVC篇将完善功能</p>
+<p><strong>启动测试</strong></p>
+<p>打开idea中的maven工具 compile 编译一下框架</p>
+<p>配置测试项目的tomcat启动即可</p>
+<p>访问 <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2Rzei90ZXN0" title="http://localhost:8080/dsz/test">http://localhost:8080/dsz/test<i class="fa fa-external-link"></i></span></p>
+<p>控制台打印 调用成功 </p>
+<p>下一篇MVC篇  敬请期待！</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/posts/8da23d78/" title="简单实践spring框架(手写spring)">http://yoursite.com/posts/8da23d78/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%A1%86%E6%9E%B6%E5%BA%95%E5%B1%82/" rel="tag"><i class="fa fa-tag"></i> 框架底层</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/f1b411ee/" rel="next" title="JAVA类加载器">
+                  <i class="fa fa-chevron-left"></i> JAVA类加载器
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/1abfeb89/" rel="prev" title="浅析设计模式之单例设计模式">
+                  浅析设计模式之单例设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-IOC篇"><span class="nav-number">1.</span> <span class="nav-text">Spring-IOC篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.0.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IOC注入流程"><span class="nav-number">1.0.2.</span> <span class="nav-text">IOC注入流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动实现IOC"><span class="nav-number">1.0.3.</span> <span class="nav-text">手动实现IOC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目结构"><span class="nav-number">1.0.4.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试项目"><span class="nav-number">1.0.5.</span> <span class="nav-text">测试项目</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Dsz."></i>
+  </span>
+ 
+</div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+<script pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/8da23d78/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+    </div>
+   <script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":115,"height":255},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

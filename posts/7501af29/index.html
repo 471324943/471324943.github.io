@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-fill-left.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
+  <meta name="description" content="创建服务消费者spring-cloud-demo-consumer 修改pom添加依赖                    org.springframework.boot         spring-boot-starter-web                   org.springframework.boot         spring-boot-starter-actuator">
+<meta name="keywords" content="微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3，Nacos Feign 客户端">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="创建服务消费者spring-cloud-demo-consumer 修改pom添加依赖                    org.springframework.boot         spring-boot-starter-web                   org.springframework.boot         spring-boot-starter-actuator">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard4.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard5.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard6.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard7.png">
+<meta property="og:updated_time" content="2020-07-07T03:52:38.037Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;7501af29&#x2F;clipboard.png">
+
+<link rel="canonical" href="http://yoursite.com/posts/7501af29/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>3，Nacos Feign 客户端 | DSZ</title>
+  
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/7501af29/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>	
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          3，Nacos Feign 客户端
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-19 16:15:07" itemprop="dateCreated datePublished" datetime="2019-11-19T16:15:07+08:00">2019-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-07 11:52:38" itemprop="dateModified" datetime="2020-07-07T11:52:38+08:00">2020-07-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Cloud-Alibaba/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring-Cloud-Alibaba</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/7501af29/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/7501af29/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol>
+<li>修改pom添加依赖</li>
+</ol><dependencies>
+    <!-- Spring Boot Begin -->
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-web</artifactid>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.boot</groupid>
+        <artifactid>spring-boot-starter-actuator</artifactid>
+    </dependency>
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-openfeign</artifactid>
+    </dependency>
+    <!-- Spring Boot End -->
+    <!-- Spring Cloud Begin -->
+    <dependency>
+        <groupid>org.springframework.cloud</groupid>
+        <artifactid>spring-cloud-starter-alibaba-nacos-discovery</artifactid>
+    </dependency>
+    <!-- Spring Cloud End -->
+</dependencies><a id="more"></a>
+
+
+
+
+
+<p>2.创建并修改 application.yml </p>
+<p>spring:<br>  application:<br>    # 服务名<br>​    name: service-consumer<br>  cloud:<br>​    nacos:<br>​      discovery:<br>        # 服务注册中心<br>​        server-addr: 192.168.141.132:8848<br>server:</p>
+<h1 id="服务端口"><a href="#服务端口" class="headerlink" title="服务端口"></a>服务端口</h1><p>  port: 8080<br>management:</p>
+<h1 id="端点检查（健康检查）"><a href="#端点检查（健康检查）" class="headerlink" title="端点检查（健康检查）"></a>端点检查（健康检查）</h1><p>  endpoints:<br>    web:<br>      exposure:<br>        include: “*”</p>
+<p>3.创建启动类</p>
+<p>import org.springframework.boot.SpringApplication; import org.springframework.boot.autoconfigure.SpringBootApplication; import org.springframework.cloud.client.discovery.EnableDiscoveryClient; @SpringBootApplication @EnableDiscoveryClient @EnableFeignClients public class ConsumerApplication {     public static void main(String[] args) {         SpringApplication.run(ConsumerApplication.class, args);     } } </p>
+<p>4.启动查看nacos</p>
+<p><img alt="img" data-src="clipboard.png"></p>
+<p>服务注册成功!</p>
+<p><strong>使用feign客户端请求provider服务提供者获得服务</strong></p>
+<ol>
+<li>在consumer创建好目录结构</li>
+</ol>
+<p><img alt="img" data-src="clipboard1.png"></p>
+<ol>
+<li>在service处添加</li>
+</ol>
+<p>@FeignClient(“service-provider”)这个注解的意思是向名为service-provider的服务发起请求</p>
+<p>@GetMapping(“/dsz”) 此注解的意思是向 /dsz 的路径发起get请求</p>
+<p>import org.springframework.cloud.openfeign.FeignClient; import org.springframework.web.bind.annotation.GetMapping; import org.springframework.web.bind.annotation.PathVariable;  import java.util.List;  @FeignClient(“service-provider”) public interface EchoService {     @GetMapping(“/dsz”)     List<string> getList(); } </string></p>
+<p>3.在controller处添加</p>
+<p>@RestController public class TestEchoController {       @Autowired     private EchoService echoService;          @GetMapping(value = “/feign/list”)     public List echo() {         return echoService.getList();     } } </p>
+<p>4.修改provider项目的controller 创建一个集合并输出</p>
+<p>@RestController public class EchoController {      @GetMapping(value = “dsz”)     public List<string> ok(){         ArrayList<string> strings = new ArrayList&lt;&gt;();         strings.add(“dsz1”);         strings.add(“dsz2”);         strings.add(“dsz3”);         strings.add(“dsz4”);         strings.add(“dsz5”);         return strings;     } } </string></string></p>
+<p>5.启动项目</p>
+<p><img alt="img" data-src="clipboard2.png"></p>
+<p>请求成功</p>
+<p>这一个小demo的意思就是通过服务消费者的service，去请求服务提供者 ，</p>
+<p>获取数据，然后服务消费者进行输出展示最终结果</p>
+<p><img alt="img" data-src="clipboard3.png"></p>
+<p><strong>feign负载均衡</strong></p>
+<p>修改idea 配置</p>
+<p><img alt="img" data-src="clipboard4.png"></p>
+<p><img alt="img" data-src="clipboard5.png"></p>
+<p>启动一台服务提供者provider后</p>
+<p>修改端口号 再启动一台</p>
+<p>在controller处创建变量提取配置文件端口号 通过端口号的变换 来确定是否实现负载均衡</p>
+<ol>
+<li>修改controller  添加  </li>
+</ol>
+<p>@Value(“${server.port}”) private String port;  @GetMapping(value = “/echo/{string}”) public String echo(@PathVariable String string) {     return string+”  您好，负载均衡已经开启 现在是端口为”+port+”的服务器为您提供服务！”; } </p>
+<p>2.修改服务消费者consumer service 添加如下配置</p>
+<p>@GetMapping(value = “/echo/{string}”) String echo(@PathVariable(“string”) String string); </p>
+<p>3.修改controller添加</p>
+<p>@GetMapping(value = “/feign/echo/{str}”) public String echo(@PathVariable String str) {     return echoService.echo(str); } </p>
+<p>4.浏览器请求  <span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo4MDgwL2ZlaWduL2VjaG8vZHN6" title="http://localhost:8080/feign/echo/dsz">http://localhost:8080/feign/echo/dsz<i class="fa fa-external-link"></i></span></p>
+<p><img alt="img" data-src="clipboard6.png"></p>
+<p>5.刷新浏览器</p>
+<p><img alt="img" data-src="clipboard7.png"></p>
+<p>负载均衡成功！</p>
+<p><strong>附：扩展阅读</strong></p>
+<p><strong>常见负载均衡策略</strong></p>
+<p>负载主机可以提供很多种负载均衡方法，也就是我们常说的调度方法或算法</p>
+<p><strong>轮循</strong></p>
+<p><strong>Round Robin：</strong> 这种方法会将收到的请求循环分配到服务器集群中的每台机器，即有效服务器。如果使用这种方式，所有的标记进入虚拟服务的服务器应该有相近的资源容量 以及负载形同的应用程序。如果所有的服务器有相同或者相近的性能那么选择这种方式会使服务器负载形同。基于这个前提，轮循调度是一个简单而有效的分配请求 的方式。然而对于服务器不同的情况，选择这种方式就意味着能力比较弱的服务器也会在下一轮循环中接受轮循，即使这个服务器已经不能再处理当前这个请求了。 这可能导致能力较弱的服务器超载。</p>
+<p><strong>加权轮循</strong></p>
+<p><strong>Weighted Round Robin：</strong> 这种算法解决了简单轮循调度算法的缺点：传入的请求按顺序被分配到集群中服务器，但是会考虑提前为每台服务器分配的权重。管理员只是简单的通过服务 器的处理能力来定义各台服务器的权重。例如，能力最强的服务器 A 给的权重是 100，同时能力最低的服务器给的权重是 50。这意味着在服务器 B 接收到第一个 请求之前前，服务器 A 会连续的接受到 2 个请求，以此类推。</p>
+<p><strong>最少连接数</strong></p>
+<p><strong>Least Connection：</strong> 以上两种方法都没有考虑的是系统不能识别在给定的时间里保持了多少连接。因此可能发生，服务器 B 服务器收到的连接比服务器 A 少但是它已经超载，因为 服务器 B 上的用户打开连接持续的时间更长。这就是说连接数即服务器的负载是累加的。这种潜在的问题可以通过 “最少连接数” 算法来避免：传入的请求是根据每 台服务器当前所打开的连接数来分配的。即活跃连接数最少的服务器会自动接收下一个传入的请求。接本上和简单轮询的原则相同：所有拥有虚拟服务的服务器资源 容量应该相近。值得注意的是，在流量率低的配置环境中，各服务器的流量并不是相同的，会优先考虑第一台服务器。这是因为，如果所有的服务器是相同的，那么 第一个服务器优先，直到第一台服务器有连续的活跃流量，否则总是会优先选择第一台服务器。</p>
+<p><strong>最少连接数慢启动时间</strong></p>
+<p><strong>Least Connection Slow Start Time：</strong> 对最少连接数和带权重的最小连接数调度方法来说，当一个服务器刚加入线上环境是，可以为其配置一个时间段，在这段时间内连接数是有限制的而且是缓慢 增加的。这为服务器提供了一个‘过渡时间’以保证这个服务器不会因为刚启动后因为分配的连接数过多而超载。这个值在 L7 配置界面设置。</p>
+<p><strong>加权最少连接</strong></p>
+<p><strong>Weighted Least Connection：</strong> 如果服务器的资源容量各不相同，那么 “加权最少连接” 方法更合适：由管理员根据服务器情况定制的权重所决定的活跃连接数一般提供了一种对服务器非常 平衡的利用，因为他它借鉴了最少连接和权重两者的优势。通常，这是一个非常公平的分配方式，因为它使用了连接数和服务器权重比例；集群中比例最低的服务器 自动接收下一个请求。但是请注意，在低流量情况中使用这种方法时，请参考 “最小连接数” 方法中的注意事项。</p>
+<p><strong>基于代理的自适应负载均衡</strong></p>
+<p><strong>Agent Based Adaptive Balancing：</strong> 除了上述方法之外，负载主机包含一个自适用逻辑用来定时监测服务器状态和该服务器的权重。对于非常强大的 “基于代理的自适应负载均衡” 方法来说，负 载主机以这种方式来定时检测所有服务器负载情况：每台服务器都必须提供一个包含文件，这个文件包含一个 0~99 的数字用来标明改服务器的实际负载情况 (0 = 空前，99 = 超载，101 = 失败，102 = 管理员禁用)，而服务器同构 http get 方法来获取这个文件；同时对集群中服务器来说，以二进制文件形式提供自身负载情况也是该服务器工作之一，然而，并没有限制服务器如何计算自身的负载 情况。根据服务器整体负载情况，有两种策略可以选择：在常规的操作中，调度算法通过收集的服务器负载值和分配给该服务器的连接数的比例计算出一个权重比 例。因此，如果一个服务器负载过大，权重会通过系统透明的作重新调整。和加权轮循调度方法一样，不正确的分配可以被记录下来使得可以有效的为不同服务器分 配不同的权重。然而，在流量非常低的环境下，服务器报上来的负载值将不能建立一个有代表性的样本；那么基于这些值来分配负载的话将导致失控以及指令震荡。 因此，在这种情况下更合理的做法是基于静态的权重比来计算负载分配。当所有服务器的负载低于管理员定义的下限时，负载主机就会自动切换为加权轮循方式来分 配请求；如果负载大于管理员定义的下限，那么负载主机又会切换回自适应方式。</p>
+<p><strong>固定权重</strong></p>
+<p><strong>Fixed Weighted：</strong> 最高权重只有在其他服务器的权重值都很低时才使用。然而，如果最高权重的服务器下降，则下一个最高优先级的服务器将为客户端服务。这种方式中每个真实服务器的权重需要基于服务器优先级来配置。</p>
+<p><strong>加权响应</strong></p>
+<p><strong>Weighted Response：</strong> 流量的调度是通过加权轮循方式。加权轮循中所使用的权重是根据服务器有效性检测的响应时间来计算。每个有效性检测都会被计时，用来标记它响应成功花 了多长时间。但是需要注意的是，这种方式假定服务器心跳检测是基于机器的快慢，但是这种假设也许不总是能够成立。所有服务器在虚拟服务上的响应时间的总和 加在一起，通过这个值来计算单个服务物理服务器的权重；这个权重值大约每 15 秒计算一次。</p>
+<p><strong>源 IP 哈希</strong></p>
+<p><strong>Source IP Hash：</strong> 这种方式通过生成请求源 IP 的哈希值，并通过这个哈希值来找到正确的真实服务器。这意味着对于同一主机来说他对应的服务器总是相同。使用这种方式，你不需要保存任何源 IP。但是需要注意，这种方式可能导致服务器负载不平衡。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/posts/7501af29/" title="3，Nacos Feign 客户端">http://yoursite.com/posts/7501af29/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"><i class="fa fa-tag"></i> 微服务</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/9eeb3ef5/" rel="next" title="2，服务注册与发现Nacos">
+                  <i class="fa fa-chevron-left"></i> 2，服务注册与发现Nacos
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/d7a54cc5/" rel="prev" title="4，Nacos分布式配置中心">
+                  4，Nacos分布式配置中心 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端口"><span class="nav-number">1.</span> <span class="nav-text">服务端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#端点检查（健康检查）"><span class="nav-number">2.</span> <span class="nav-text">端点检查（健康检查）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Dsz."></i>
+  </span>
+ 
+</div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+<script pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/7501af29/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+    </div>
+   <script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":115,"height":255},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>

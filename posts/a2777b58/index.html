@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="DSZ" type="application/atom+xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-fill-left.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.5.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "9f27dba1"
+    });
+  daovoice('update');
+  </script>
+
+  <meta name="description" content="一. 什么是哈希表其他数据结构数组：​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。线性链表：​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap底层学习">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;a2777b58&#x2F;index.html">
+<meta property="og:site_name" content="DSZ">
+<meta property="og:description" content="一. 什么是哈希表其他数据结构数组：​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。线性链表：​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200227144714446.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200227145910227.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200227153620930.png">
+<meta property="og:updated_time" content="2020-07-07T03:52:38.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200227144714446.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/posts/a2777b58/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>HashMap底层学习 | DSZ</title>
+  
+
+
+  <script pjax>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?895fe3569ca62ef46b482bd4f34feee7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">DSZ</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">与其临渊羡鱼， 不如退而结网。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/a2777b58/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/dsz.jpg">
+      <meta itemprop="name" content="DSZ">
+      <meta itemprop="description" content="机会是留给有准备的人的。">
+    </span>	
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DSZ">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          HashMap底层学习
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-21 09:12:26" itemprop="dateCreated datePublished" datetime="2020-04-21T09:12:26+08:00">2020-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-07 11:52:38" itemprop="dateModified" datetime="2020-07-07T11:52:38+08:00">2020-07-07</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/a2777b58/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/a2777b58/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p><p><strong>数组：</strong></p><p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p><p><strong>线性链表：</strong></p><p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p><a id="more"></a>
+
+
+
+
+<p><strong>二叉树</strong>：<br>        对一棵相对平衡的有序二叉树，对其进行插入，查找，删除等操作，平均复杂度均为二次方倍数。</p>
+<blockquote>
+<p><strong>哈希表：</strong></p>
+</blockquote>
+<p>​        相比上述几种数据结构，在哈希表中进行添加，删除，查找等操作，性能十分之高，不考虑哈希冲突的情况下，仅需一次定位即可完成，就是无论多少数据哈希表也只需要一次计算便可得到元素位置。</p>
+<p>​        哈希表的底层结构是数组，正是利用了数组根据下标查找某个元素，一次定位就可以达到这种特性，哈希表将要存储的关键字计算出哈希值然后再让哈希值对应着数组某个位置进行插入。</p>
+<p><img alt="img" data-src="https://img-blog.csdnimg.cn/20200227144714446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70"></p>
+<p><strong>哈希冲突</strong></p>
+<p>​        两个不同的元素有可能会计算出同样的哈希值，指向同一地址的，这种情况被称为哈希冲突，那么哈希冲突如何解决呢？哈希冲突的解决方案有多种:开放定址法（发生冲突，继续寻找下一块未被占用的存储地址），再散列函数法，链地址法，而HashMap即是采用了链地址法，也就是数组+链表的方式。</p>
+<h3 id="二、HashMap实现原理"><a href="#二、HashMap实现原理" class="headerlink" title="二、HashMap实现原理"></a>二、HashMap实现原理</h3><p>HashMap的主干是一个Entry数组。Entry是HashMap的基本组成单元，每一个Entry包含一个key-value键值对。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//HashMap的主干数组，可以看到就是一个Entry数组，初始值为空数组&#123;&#125;，主干数组的长度一定是2的次幂。</span></span><br><span class="line"><span class="comment">//至于为什么这么做，后面会有详细分析。</span></span><br><span class="line"><span class="keyword">transient</span> Entry&lt;K,V&gt;[] table = (Entry&lt;K,V&gt;[]) EMPTY_TABLE;</span><br></pre></td></tr></table></figure>
+
+<p>Entry是HashMap中的一个静态内部类。代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">       <span class="keyword">final</span> K key;</span><br><span class="line">       V value;</span><br><span class="line">       Entry&lt;K,V&gt; next;<span class="comment">//存储指向下一个Entry的引用，单链表结构</span></span><br><span class="line">       <span class="keyword">int</span> hash;<span class="comment">//对key的hashcode值进行hash运算后得到的值，存储在Entry，避免重复计算</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * Creates new entry.</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       Entry(<span class="keyword">int</span> h, K k, V v, Entry&lt;K,V&gt; n) &#123;</span><br><span class="line">           value = v;</span><br><span class="line">           next = n;</span><br><span class="line">           key = k;</span><br><span class="line">           hash = h;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>简单来说，HashMap由数组+链表组成的，数组是HashMap的主体，链表则是主要为了解决哈希冲突而存在的，如果定位到的数组位置不含链表（当前entry的next指向null）,那么对于查找，添加等操作很快，仅需一次寻址即可；如果存在链表则需要先获取但前hash对应的数组位置，然后获取数组下的链表，对链表进行遍历比较找到对应的元素。对于添加则是先计算出key的hash值然后在判断但前hash值对应位置是否有无链表，如果有链表则获取遍历链表，再判断有无但前元素对应的key有则覆盖，无则添加到链表尾端。</strong></p>
+<p><img alt="img" data-src="https://img-blog.csdnimg.cn/20200227145910227.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70"></p>
+<p>put操作的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果table数组为空数组&#123;&#125;，进行数组填充（为table分配实际内存空间），入参为threshold，此时threshold为initialCapacity 默认是1&lt;&lt;4(24=16)</span></span><br><span class="line">        <span class="keyword">if</span> (table == EMPTY_TABLE) &#123;</span><br><span class="line">            inflateTable(threshold);</span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//如果key为null，存储位置为table[0]或table[0]的冲突链上</span></span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> putForNullKey(value);</span><br><span class="line">        <span class="keyword">int</span> hash = hash(key);<span class="comment">//对key的hashcode进一步计算，确保散列均匀</span></span><br><span class="line">        <span class="keyword">int</span> i = indexFor(hash, table.length);<span class="comment">//获取在table中的实际位置</span></span><br><span class="line">        <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="keyword">null</span>; e = e.next) &#123;</span><br><span class="line">        <span class="comment">//如果该对应数据已存在，执行覆盖操作。用新value替换旧value，并返回旧value</span></span><br><span class="line">            Object k;</span><br><span class="line">            <span class="keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;</span><br><span class="line">                V oldValue = e.value;</span><br><span class="line">                e.value = value;</span><br><span class="line">                e.recordAccess(<span class="keyword">this</span>);</span><br><span class="line">                <span class="keyword">return</span> oldValue;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        modCount++;<span class="comment">//保证并发访问时，若HashMap内部结构发生变化，快速响应失败</span></span><br><span class="line">        addEntry(hash, key, value, i);<span class="comment">//新增一个entry</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">inflateTable这个方法用于为主干数组table在内存中分配存储空间，通过roundUpToPowerOf2(toSize)可以确保capacity为大于或等于toSize的最接近toSize的二次幂，比如toSize=13,则capacity=16;to_size=16,capacity=16;to_size=17,capacity=32.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">inflateTable</span><span class="params">(<span class="keyword">int</span> toSize)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> capacity = roundUpToPowerOf2(toSize);<span class="comment">//capacity一定是2的次幂</span></span><br><span class="line">        threshold = (<span class="keyword">int</span>) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">//此处为threshold赋值，取capacity*loadFactor和MAXIMUM_CAPACITY+1的最小值</span></span><br><span class="line">        <span class="comment">//capaticy一定不会超过MAXIMUM_CAPACITY，除非loadFactor大于1</span></span><br><span class="line">        table = <span class="keyword">new</span> Entry[capacity];</span><br><span class="line">        initHashSeedAsNeeded(capacity);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">roundUpToPowerOf2中的这段处理使得数组长度一定为2的次幂，Integer.highestOneBit是用来获取最左边的bit（其他bit位为0）所代表的数值.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">roundUpToPowerOf2</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// assert number &gt;= 0 : "number must be non-negative";</span></span><br><span class="line">        <span class="keyword">return</span> number &gt;= MAXIMUM_CAPACITY</span><br><span class="line">                ? MAXIMUM_CAPACITY</span><br><span class="line">                : (number &gt; <span class="number">1</span>) ? Integer.highestOneBit((number - <span class="number">1</span>) &lt;&lt; <span class="number">1</span>) : <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//这是一个神奇的函数，用了很多的异或，移位等运算，</span></span><br><span class="line"><span class="comment">//对key的hashcode进一步进行计算以及二进制位的调整等来保证最终获取的存储位置尽量分布均匀</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> h = hashSeed;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">0</span> != h &amp;&amp; k <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">            <span class="keyword">return</span> sun.misc.Hashing.stringHash32((String) k);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        h ^= k.hashCode();</span><br><span class="line"></span><br><span class="line">        h ^= (h &gt;&gt;&gt; <span class="number">20</span>) ^ (h &gt;&gt;&gt; <span class="number">12</span>);</span><br><span class="line">        <span class="keyword">return</span> h ^ (h &gt;&gt;&gt; <span class="number">7</span>) ^ (h &gt;&gt;&gt; <span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//返回数组下标 确定数组位置</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">indexFor</span><span class="params">(<span class="keyword">int</span> h, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h &amp; (length-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>最终存储位置确认流程</strong></p>
+<p>​    先获取key的hash值，然后通过hash方法运算计算出最适合集合的hash值, 在通过index for 方法以 h &amp; (length-1); 的方式确定key在数组中的位置，然后进行存储。如果元素为null则确立下标为0.</p>
+<p><img alt="img" data-src="https://img-blog.csdnimg.cn/20200227153620930.png"></p>
+<p><strong>为什么每次扩容都是2的次幂</strong></p>
+<p>因为便于计算下标位置，每次都为2的次方则每次扩容都是将二进制位往前移动了一位的意思，所以在技术存储位置时length-1 则是把除了首位的位置全部变成了1，这样在与hash值进行&amp;计算时更加的方便准确，分布也会更加均匀。减少碰撞几率，增加查询效率。</p>
+<p><strong>get方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">　　　　 <span class="comment">//如果key为null,则直接去table[0]处去检索即可。</span></span><br><span class="line">        <span class="keyword">if</span> (key == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> getForNullKey();</span><br><span class="line">        Entry&lt;K,V&gt; entry = getEntry(key);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span> == entry ? <span class="keyword">null</span> : entry.getValue();</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">//get方法通过key值返回对应value，如果key为null，直接去table[0]处检索。我们再看一下getEntry这个方法</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> Entry&lt;K,V&gt; <span class="title">getEntry</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//通过key的hashcode值计算hash值</span></span><br><span class="line">        <span class="keyword">int</span> hash = (key == <span class="keyword">null</span>) ? <span class="number">0</span> : hash(key);</span><br><span class="line">        <span class="comment">//indexFor (hash&amp;length-1) 获取最终数组索引，然后遍历链表，通过equals方法比对找出对应记录</span></span><br><span class="line">        <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)];</span><br><span class="line">             e != <span class="keyword">null</span>;</span><br><span class="line">             e = e.next) &#123;</span><br><span class="line">            Object k;</span><br><span class="line">            <span class="keyword">if</span> (e.hash == hash &amp;&amp; </span><br><span class="line">                ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                <span class="keyword">return</span> e;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，get方法的实现相对简单，key(hashcode)–&gt;hash–&gt;indexFor–&gt;最终索引位置，找到对应位置table[i]，再查看是否有链表，遍历链表，通过key的equals方法比对查找对应的记录。要注意的是，有人觉得上面在定位到数组位置之后然后遍历链表的时候，e.hash == hash这个判断没必要，仅通过equals判断就可以。其实不然，试想一下，如果传入的key对象重写了equals方法却没有重写hashCode，而恰巧此对象定位到这个数组位置，如果仅仅用equals判断可能是相等的，但其hashCode和当前对象不一致，这种情况，根据Object的hashCode的约定，不能返回当前对象，而应该返回null。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>大爷们 赏点吧！</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx.jpg" alt="DSZ 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/zfb.jpg" alt="DSZ 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>DSZ
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/posts/a2777b58/" title="HashMap底层学习">http://yoursite.com/posts/a2777b58/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+	  <div>
+		
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>Dsz感谢您的阅读-------------</div>
+    
+</div>
+		
+	  </div>
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/posts/4b6ca2da/" rel="next" title="spring-data-jpa入门">
+                  <i class="fa fa-chevron-left"></i> spring-data-jpa入门
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/posts/42bd15f0/" rel="prev" title="redis学习与提升">
+                  redis学习与提升 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-什么是哈希表"><span class="nav-number">1.</span> <span class="nav-text">一. 什么是哈希表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、HashMap实现原理"><span class="nav-number">2.</span> <span class="nav-text">二、HashMap实现原理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="DSZ"
+      src="/images/dsz.jpg">
+  <p class="site-author-name" itemprop="name">DSZ</p>
+  <div class="site-description" itemprop="description">机会是留给有准备的人的。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Dsz."></i>
+  </span>
+ 
+</div>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+<script>
+    var now = new Date(); 
+    function createtime() { 
+        var grt= new Date("08/10/2018 17:38:00");//在此处修改你的建站时间
+        now.setTime(now.getTime()+250); 
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+        document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+    } 
+setInterval("createtime()",250);
+</script>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="true"></script>
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+    <script defer src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@latest/three-waves.min.js"></script>
+
+
+  
+  <script pjax>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+<script pjax>
+if (document.querySelectorAll('div.pdf').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/pdfobject@2/pdfobject.min.js', () => {
+    document.querySelectorAll('div.pdf').forEach(element => {
+      PDFObject.embed(element.getAttribute('target'), element, {
+        pdfOpenParams: {
+          navpanes: 0,
+          toolbar: 0,
+          statusbar: 0,
+          pagemode: 'thumbs',
+          view: 'FitH'
+        },
+        PDFJS_URL: '/lib/pdf/web/viewer.html',
+        height: element.getAttribute('height') || '500px'
+      });
+    });
+  }, window.PDFObject);
+}
+</script>
+
+
+<script pjax>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+    <div id="pjax">
+
+  
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/a2777b58/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link s# Custom comment header';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'MhUfzoV0TzRvG7LvFeN6dOaE-gzGzoHsz',
+    appKey: '09Y61X733CKRgx6eY6iSjNBH',
+    placeholder: "Just go go",
+    avatar: 'wavatar',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-CN' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+    </div>
+   <script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":115,"height":255},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
+</html>
