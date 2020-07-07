@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -65,14 +78,14 @@
 <meta name="keywords" content="设计模式,Java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析设计模式之建造者设计模式">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;dd6ab62d&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;dd6ab62d&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="模式的定义与特点建造者（Builder）模式的定义：指将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的被称为建造者模式。它是将一个复杂的对象分解为多个简单的对象，然后一步一步构建而成。它将变与不变相分离，即产品的组成部分是不变的，但每一部分是可以灵活选择的。该模式的主要优点如下：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-07T03:52:38.068Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/posts/dd6ab62d/">
+<link rel="canonical" href="https://dszmr.cn/posts/dd6ab62d/">
 
 
 <script id="page-configurations">
@@ -246,7 +259,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/dd6ab62d/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/dd6ab62d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -372,7 +385,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/dd6ab62d/" title="浅析设计模式之建造者设计模式">http://yoursite.com/posts/dd6ab62d/</a>
+    <a href="https://dszmr.cn/posts/dd6ab62d/" title="浅析设计模式之建造者设计模式">https://dszmr.cn/posts/dd6ab62d/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -708,7 +721,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/dd6ab62d/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/dd6ab62d/',]
       });
       });
   </script>

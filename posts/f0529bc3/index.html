@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -65,14 +78,14 @@
 <meta name="keywords" content="设计模式,Java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析设计模式之桥接设计模式">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;f0529bc3&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;f0529bc3&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="桥接模式的定义与特点桥接（Bridge）模式的定义如下：将抽象与实现分离，使它们可以独立变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。桥接（Bridge）模式的优点是： 由于抽象与实现分离，所以扩展能力强； 其实现细节对客户透明。 缺点是：由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，这增加了系统的理解与设计难度。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-07T03:52:38.069Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/posts/f0529bc3/">
+<link rel="canonical" href="https://dszmr.cn/posts/f0529bc3/">
 
 
 <script id="page-configurations">
@@ -246,7 +259,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/f0529bc3/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/f0529bc3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -366,7 +379,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/f0529bc3/" title="浅析设计模式之桥接设计模式">http://yoursite.com/posts/f0529bc3/</a>
+    <a href="https://dszmr.cn/posts/f0529bc3/" title="浅析设计模式之桥接设计模式">https://dszmr.cn/posts/f0529bc3/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -702,7 +715,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/f0529bc3/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/f0529bc3/',]
       });
       });
   </script>

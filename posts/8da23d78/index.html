@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -65,18 +78,18 @@
 <meta name="keywords" content="框架底层">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单实践spring框架(手写spring)">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;8da23d78&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="Spring-IOC篇前言​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591943034322.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591943073077.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;8da23d78&#x2F;1591943034322.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;8da23d78&#x2F;1591943073077.png">
 <meta property="og:updated_time" content="2020-07-07T03:52:38.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;8da23d78&#x2F;1591942979103.png">
 
-<link rel="canonical" href="http://yoursite.com/posts/8da23d78/">
+<link rel="canonical" href="https://dszmr.cn/posts/8da23d78/">
 
 
 <script id="page-configurations">
@@ -250,7 +263,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/8da23d78/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/8da23d78/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -450,7 +463,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/8da23d78/" title="简单实践spring框架(手写spring)">http://yoursite.com/posts/8da23d78/</a>
+    <a href="https://dszmr.cn/posts/8da23d78/" title="简单实践spring框架(手写spring)">https://dszmr.cn/posts/8da23d78/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -785,7 +798,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/8da23d78/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/8da23d78/',]
       });
       });
   </script>

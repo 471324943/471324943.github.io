@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -65,22 +78,22 @@
 <meta name="keywords" content="微服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4，Nacos分布式配置中心">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="以服务消费者service-consumer为例 添加pom依赖      org.springframework.cloud     spring-cloud-starter-alibaba-nacos-config  2.打开nacos 打开 服务配置列表 点击新增配置3.添加服务Data ID 必须是唯一的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard2.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard3.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard4.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard5.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard6.png">
 <meta property="og:updated_time" content="2020-07-07T03:52:38.039Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;d7a54cc5&#x2F;clipboard.png">
 
-<link rel="canonical" href="http://yoursite.com/posts/d7a54cc5/">
+<link rel="canonical" href="https://dszmr.cn/posts/d7a54cc5/">
 
 
 <script id="page-configurations">
@@ -254,7 +267,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/d7a54cc5/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/d7a54cc5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -408,7 +421,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/d7a54cc5/" title="4，Nacos分布式配置中心">http://yoursite.com/posts/d7a54cc5/</a>
+    <a href="https://dszmr.cn/posts/d7a54cc5/" title="4，Nacos分布式配置中心">https://dszmr.cn/posts/d7a54cc5/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -742,7 +755,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/d7a54cc5/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/d7a54cc5/',]
       });
       });
   </script>

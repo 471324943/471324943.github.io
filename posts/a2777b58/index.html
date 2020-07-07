@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -64,7 +77,7 @@
   <meta name="description" content="一. 什么是哈希表其他数据结构数组：​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。线性链表：​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HashMap底层学习">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;a2777b58&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;a2777b58&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="一. 什么是哈希表其他数据结构数组：​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。线性链表：​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦">
 <meta property="og:locale" content="zh-CN">
@@ -75,7 +88,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200227144714446.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1BfRG9yYWVtb24=,size_16,color_FFFFFF,t_70">
 
-<link rel="canonical" href="http://yoursite.com/posts/a2777b58/">
+<link rel="canonical" href="https://dszmr.cn/posts/a2777b58/">
 
 
 <script id="page-configurations">
@@ -249,7 +262,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/a2777b58/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/a2777b58/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -376,7 +389,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/a2777b58/" title="HashMap底层学习">http://yoursite.com/posts/a2777b58/</a>
+    <a href="https://dszmr.cn/posts/a2777b58/" title="HashMap底层学习">https://dszmr.cn/posts/a2777b58/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -707,7 +720,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/a2777b58/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/a2777b58/',]
       });
       });
   </script>

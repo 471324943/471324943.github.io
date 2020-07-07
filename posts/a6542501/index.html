@@ -51,7 +51,20 @@
     sidebarPadding: 40
   };
 </script>
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
@@ -65,7 +78,7 @@
 <meta name="keywords" content="安全框架,spring全家桶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring security oAth2-实战(3)">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;posts&#x2F;a6542501&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;dszmr.cn&#x2F;posts&#x2F;a6542501&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="概述在 为什么需要 oAuth2 和 RBAC 基于角色的权限控制 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 spring-security-oauth2-resource 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。">
 <meta property="og:locale" content="zh-CN">
@@ -78,7 +91,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;www.qfdmy.com&#x2F;wp-content&#x2F;uploads&#x2F;2019&#x2F;08&#x2F;901ef32a4fa6cad.png">
 
-<link rel="canonical" href="http://yoursite.com/posts/a6542501/">
+<link rel="canonical" href="https://dszmr.cn/posts/a6542501/">
 
 
 <script id="page-configurations">
@@ -252,7 +265,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/a6542501/">
+    <link itemprop="mainEntityOfPage" href="https://dszmr.cn/posts/a6542501/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/dsz.jpg">
@@ -423,7 +436,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/posts/a6542501/" title="Spring security oAth2-实战(3)">http://yoursite.com/posts/a6542501/</a>
+    <a href="https://dszmr.cn/posts/a6542501/" title="Spring security oAth2-实战(3)">https://dszmr.cn/posts/a6542501/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC96aC1DTg=="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
@@ -759,7 +772,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
       quicklink({
         timeout: 3000,
         priority: true,
-        ignores: [uri => uri.includes('#'),uri => uri == 'http://yoursite.com/posts/a6542501/',]
+        ignores: [uri => uri.includes('#'),uri => uri == 'https://dszmr.cn/posts/a6542501/',]
       });
       });
   </script>
