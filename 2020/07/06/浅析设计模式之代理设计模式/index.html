@@ -62,14 +62,14 @@
   </script>
 
   <meta name="description" content="代理模式的定义与特点代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。代理模式的主要优点有： 代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用； 代理对象可以扩展目标对象的功能； 代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；">
-<meta name="keywords" content="-设计模式 -Java基础">
+<meta name="keywords" content="设计模式,Java基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析设计模式之代理设计模式">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;06&#x2F;%E6%B5%85%E6%9E%90%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&#x2F;index.html">
 <meta property="og:site_name" content="DSZ">
 <meta property="og:description" content="代理模式的定义与特点代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。代理模式的主要优点有： 代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用； 代理对象可以扩展目标对象的功能； 代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-06T03:57:46.555Z">
+<meta property="og:updated_time" content="2020-07-07T03:19:10.662Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/06/%E6%B5%85%E6%9E%90%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
@@ -126,6 +126,9 @@
   </style>
 </noscript>
 
+ 
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -172,12 +175,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">14</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">15</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">5</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">6</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -265,9 +268,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-06 09:18:34 / 修改时间：11:57:46" itemprop="dateCreated datePublished" datetime="2020-07-06T09:18:34+08:00">2020-07-06</time>
+              <time title="创建时间：2020-07-06 09:18:34" itemprop="dateCreated datePublished" datetime="2020-07-06T09:18:34+08:00">2020-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-07 11:19:10" itemprop="dateModified" datetime="2020-07-07T11:19:10+08:00">2020-07-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -371,7 +391,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Java%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> -设计模式 -Java基础</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+              <a href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tag"></i> Java基础</a>
           </div>
 
         
@@ -451,13 +472,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -718,5 +739,6 @@ NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
 </script>
 
     </div>
-</body>
+   <script src="/live2d-widget/autoload.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":115,"height":255},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script></body>
 </html>
