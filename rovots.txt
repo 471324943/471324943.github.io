@@ -1,2 +1,2 @@
-Sitemap: http://www.wangweikui.com/sitemap.xml
-Sitemap: http://www.wantweikui.com/baidusitemap.xml
+Sitemap: http://dszmr.cn/sitemap.xml
+Sitemap: http://dszmr.cn/baidusitemap.xml
