@@ -16,6 +16,8 @@
 <li>​     拿到handler对象中的请求方法后反射执行</li>
 <li>​     获取方法执行后的返回值 判断返回值类型如果是view则跳转jsp页面，如果是data则返回数据</li>
 </ol>
+<p><strong>执行流程图</strong></p>
+<p><img alt="img" data-src="https://img-blog.csdnimg.cn/20190630145911981.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdGlhbnhpYW5nX2thb2xh,size_16,color_FFFFFF,t_70"></p>
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p><strong>定义需要用到的基础类</strong></p>
 <p>注解</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 请求映射</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dsz</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020/06/09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">RequestMethod <span class="title">method</span><span class="params">()</span> <span class="keyword">default</span> RequestMethod.GET</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -72,8 +74,11 @@
 <p>看到hello word 成功打印 </p>
 <p>下一篇 AOP篇 敬请期待！</p>
 ]]></content>
+      <categories>
+        <category>框架底层</category>
+      </categories>
       <tags>
-        <tag>框架底层</tag>
+        <tag>spring 全家桶</tag>
       </tags>
   </entry>
   <entry>
@@ -551,8 +556,11 @@
 <p>控制台打印 调用成功 </p>
 <p>下一篇MVC篇  敬请期待！</p>
 ]]></content>
+      <categories>
+        <category>框架底层</category>
+      </categories>
       <tags>
-        <tag>框架底层</tag>
+        <tag>spring 全家桶</tag>
       </tags>
   </entry>
   <entry>
