@@ -1,4 +1,4 @@
-<div id="waifu">
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><div id="waifu">
 			<div id="waifu-tips"></div>
 			<canvas id="live2d" width="800" height="800"></canvas>
 			<div id="waifu-tool">

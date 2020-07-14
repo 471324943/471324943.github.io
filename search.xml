@@ -3,7 +3,7 @@
   <entry>
     <title>简单实践spring框架-手写Spring-MVC</title>
     <url>/posts/b874e66d/</url>
-    <content><![CDATA[<h2 id="Spring-MVC篇"><a href="#Spring-MVC篇" class="headerlink" title="Spring MVC篇"></a>Spring MVC篇</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        在上一篇中有说到spring ioc 的实现，这一篇就让我们来看看spring mvc的实现吧！</p><p>​    spring mvc 是基于servlet实现的一个框架，它很好对servlet进行了优化，把servlet那些繁琐的操作进行了一步操作，配合spring 使得代码变得更加简洁，操作变得更加的简单。他的主要实现逻辑就是通过 @Controller , @RequestMapping 注解去标注需要被执行的方法 ，而且每个方法都有每个方法独立的访问路径。这时当请求到达服务器时会被最外层的servlet 也就是DispatcherServlet 拦截下来，然后再通过请求携带的路径参数去判断，需要调用的方法是哪一个 ，然后再去调用对应的方法。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Spring-MVC篇"><a href="#Spring-MVC篇" class="headerlink" title="Spring MVC篇"></a>Spring MVC篇</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        在上一篇中有说到spring ioc 的实现，这一篇就让我们来看看spring mvc的实现吧！</p><p>​    spring mvc 是基于servlet实现的一个框架，它很好对servlet进行了优化，把servlet那些繁琐的操作进行了一步操作，配合spring 使得代码变得更加简洁，操作变得更加的简单。他的主要实现逻辑就是通过 @Controller , @RequestMapping 注解去标注需要被执行的方法 ，而且每个方法都有每个方法独立的访问路径。这时当请求到达服务器时会被最外层的servlet 也就是DispatcherServlet 拦截下来，然后再通过请求携带的路径参数去判断，需要调用的方法是哪一个 ，然后再去调用对应的方法。</p><a id="more"></a>
 
 <h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
 <li>调用ioc去获取那些被@Controller所修饰的类</li>
@@ -84,7 +84,7 @@
   <entry>
     <title>浅析设计模式之组合设计模式</title>
     <url>/posts/cb2ca9f4/</url>
-    <content><![CDATA[<h2 id="组合模式的定义与特点"><a href="#组合模式的定义与特点" class="headerlink" title="组合模式的定义与特点"></a>组合模式的定义与特点</h2><p><strong>组合（Composite）模式的定义：</strong>有时又叫作，它是一种将对象组合成树状的层次结构的模式，用来表示“部分-整体”的关系，使用户对单个对象和组合对象具有一致的访问性。</p><p><strong>组合模式的主要优点有：</strong></p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="组合模式的定义与特点"><a href="#组合模式的定义与特点" class="headerlink" title="组合模式的定义与特点"></a>组合模式的定义与特点</h2><p><strong>组合（Composite）模式的定义：</strong>有时又叫作，它是一种将对象组合成树状的层次结构的模式，用来表示“部分-整体”的关系，使用户对单个对象和组合对象具有一致的访问性。</p><p><strong>组合模式的主要优点有：</strong></p><ol>
 <li><p>组合模式使得客户端代码可以一致地处理单个对象和组合对象，无须关心自己处理的是单个对象，还是组合对象，这简化了客户端代码；</p>
 </li>
 <li><p>更容易在组合体内加入新的对象，客户端不会因为加入了新的对象而更改源代码，满足“开闭原则”；</p>
@@ -120,7 +120,7 @@
   <entry>
     <title>浅析设计模式之享元设计模式</title>
     <url>/posts/3a014e30/</url>
-    <content><![CDATA[<h2 id="享元模式的定义与特点"><a href="#享元模式的定义与特点" class="headerlink" title="享元模式的定义与特点"></a>享元模式的定义与特点</h2><p>享元（Flyweight）模式的定义：运用共享技术来有効地支持大量细粒度对象的复用。它通过共享已经存在的又橡来大幅度减少需要创建的对象数量、避免大量相似类的开销，从而提高系统资源的利用率。</p><p>享元模式的主要优点是：相同对象只要保存一份，这降低了系统中对象的数量，从而降低了系统中细粒度对象给内存带来的压力。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="享元模式的定义与特点"><a href="#享元模式的定义与特点" class="headerlink" title="享元模式的定义与特点"></a>享元模式的定义与特点</h2><p>享元（Flyweight）模式的定义：运用共享技术来有効地支持大量细粒度对象的复用。它通过共享已经存在的又橡来大幅度减少需要创建的对象数量、避免大量相似类的开销，从而提高系统资源的利用率。</p><p>享元模式的主要优点是：相同对象只要保存一份，这降低了系统中对象的数量，从而降低了系统中细粒度对象给内存带来的压力。</p><a id="more"></a>
 
 <p>其主要缺点是：</p>
 <ol>
@@ -149,7 +149,7 @@
   <entry>
     <title>浅析设计模式之外观设计模式</title>
     <url>/posts/76e6897c/</url>
-    <content><![CDATA[<h2 id="外观模式的定义与特点"><a href="#外观模式的定义与特点" class="headerlink" title="外观模式的定义与特点"></a>外观模式的定义与特点</h2><p><strong>外观（Facade）模式的定义：</strong>是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体的细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。</p><p><strong>外观（Facade）模式是“迪米特法则”的典型应用，它有以下主要优点。</strong></p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="外观模式的定义与特点"><a href="#外观模式的定义与特点" class="headerlink" title="外观模式的定义与特点"></a>外观模式的定义与特点</h2><p><strong>外观（Facade）模式的定义：</strong>是一种通过为多个复杂的子系统提供一个一致的接口，而使这些子系统更加容易被访问的模式。该模式对外有一个统一接口，外部应用程序不用关心内部子系统的具体的细节，这样会大大降低应用程序的复杂度，提高了程序的可维护性。</p><p><strong>外观（Facade）模式是“迪米特法则”的典型应用，它有以下主要优点。</strong></p><a id="more"></a>
 
 <ol>
 <li>降低了子系统与客户端之间的耦合度，使得子系统的变化不会影响调用它的客户类。</li>
@@ -185,7 +185,7 @@
   <entry>
     <title>浅析设计模式之装饰设计模式</title>
     <url>/posts/5580f791/</url>
-    <content><![CDATA[<h2 id="装饰模式的定义与特点"><a href="#装饰模式的定义与特点" class="headerlink" title="装饰模式的定义与特点"></a>装饰模式的定义与特点</h2><p><strong>装饰（Decorator）模式的定义：</strong>指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。</p><p><strong>装饰（Decorator）模式的主要优点有：</strong></p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="装饰模式的定义与特点"><a href="#装饰模式的定义与特点" class="headerlink" title="装饰模式的定义与特点"></a>装饰模式的定义与特点</h2><p><strong>装饰（Decorator）模式的定义：</strong>指在不改变现有对象结构的情况下，动态地给该对象增加一些职责（即增加其额外功能）的模式，它属于对象结构型模式。</p><p><strong>装饰（Decorator）模式的主要优点有：</strong></p><ul>
 <li>采用装饰模式扩展对象的功能比采用继承方式更加灵活。</li>
 <li>可以设计出多个不同的具体装饰类，创造出多个不同行为的组合。</li>
 </ul><a id="more"></a>
@@ -214,7 +214,7 @@
   <entry>
     <title>浅析设计模式之桥接设计模式</title>
     <url>/posts/f0529bc3/</url>
-    <content><![CDATA[<h2 id="桥接模式的定义与特点"><a href="#桥接模式的定义与特点" class="headerlink" title="桥接模式的定义与特点"></a>桥接模式的定义与特点</h2><p><strong>桥接（Bridge）模式的定义如下：</strong>将抽象与实现分离，使它们可以独立变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。<br><strong>桥接（Bridge）模式的优点是：</strong></p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="桥接模式的定义与特点"><a href="#桥接模式的定义与特点" class="headerlink" title="桥接模式的定义与特点"></a>桥接模式的定义与特点</h2><p><strong>桥接（Bridge）模式的定义如下：</strong>将抽象与实现分离，使它们可以独立变化。它是用组合关系代替继承关系来实现，从而降低了抽象和实现这两个可变维度的耦合度。<br><strong>桥接（Bridge）模式的优点是：</strong></p><ul>
 <li>由于抽象与实现分离，所以扩展能力强；</li>
 <li>其实现细节对客户透明。</li>
 </ul><p><strong>缺点是：</strong>由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，这增加了系统的理解与设计难度。</p><a id="more"></a>
@@ -242,7 +242,7 @@
   <entry>
     <title>浅析设计模式之适配器设计模式</title>
     <url>/posts/342dc42e/</url>
-    <content><![CDATA[<h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>适配器模式（Adapter）的定义如下：</strong>将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类能一起工作。<br>该模式的主要优点如下。</p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>适配器模式（Adapter）的定义如下：</strong>将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类能一起工作。<br>该模式的主要优点如下。</p><ul>
 <li>客户端通过适配器可以透明地调用目标接口。</li>
 <li>复用了现存的类，程序员不需要修改原有代码而重用现有的适配者类。</li>
 <li>将目标类和适配者类解耦，解决了目标类和适配者类接口不一致的问题。</li>
@@ -274,7 +274,7 @@
   <entry>
     <title>浅析设计模式之代理设计模式</title>
     <url>/posts/990c4abf/</url>
-    <content><![CDATA[<h2 id="代理模式的定义与特点"><a href="#代理模式的定义与特点" class="headerlink" title="代理模式的定义与特点"></a>代理模式的定义与特点</h2><p>代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。</p><p>代理模式的主要优点有：</p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="代理模式的定义与特点"><a href="#代理模式的定义与特点" class="headerlink" title="代理模式的定义与特点"></a>代理模式的定义与特点</h2><p>代理模式的定义：由于某些原因需要给某对象提供一个代理以控制对该对象的访问。这时，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。</p><p>代理模式的主要优点有：</p><ul>
 <li>代理模式在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；</li>
 <li>代理对象可以扩展目标对象的功能；</li>
 <li>代理模式能将客户端与目标对象分离，在一定程度上降低了系统的耦合度；</li>
@@ -306,7 +306,7 @@
   <entry>
     <title>浅析设计模式之建造者设计模式</title>
     <url>/posts/dd6ab62d/</url>
-    <content><![CDATA[<h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>建造者（Builder）模式的定义：</strong>指将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的被称为建造者模式。它是将一个复杂的对象分解为多个简单的对象，然后一步一步构建而成。它将变与不变相分离，即产品的组成部分是不变的，但每一部分是可以灵活选择的。</p><p><strong>该模式的主要优点如下：</strong></p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>建造者（Builder）模式的定义：</strong>指将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的被称为建造者模式。它是将一个复杂的对象分解为多个简单的对象，然后一步一步构建而成。它将变与不变相分离，即产品的组成部分是不变的，但每一部分是可以灵活选择的。</p><p><strong>该模式的主要优点如下：</strong></p><a id="more"></a>
 
 <ol>
 <li>各个具体的建造者相互独立，有利于系统的扩展。</li>
@@ -340,7 +340,7 @@
   <entry>
     <title>浅析设计模式之抽象工厂设计模式</title>
     <url>/posts/e2787a47/</url>
-    <content><![CDATA[<h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>抽象工厂（AbstractFactory）模式的定义：</strong>是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。</p><p>使用抽象工厂模式一般要满足以下条件。</p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>抽象工厂（AbstractFactory）模式的定义：</strong>是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且访问类无须指定所要产品的具体类就能得到同族的不同等级的产品的模式结构。</p><p>使用抽象工厂模式一般要满足以下条件。</p><ul>
 <li>可以在类的内部对产品族中相关联的多等级产品共同管理，而不必专门引入多个新的类来进行管理。</li>
 <li>当增加一个新的产品族时不需要修改原代码，满足开闭原则。</li>
 </ul><a id="more"></a>
@@ -369,7 +369,7 @@
   <entry>
     <title>浅析设计模式之工厂方法设计模式</title>
     <url>/posts/5fd6ffe3/</url>
-    <content><![CDATA[<h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>工厂方法（FactoryMethod）模式的定义：</strong>定义一个创建产品对象的工厂接口，将产品对象的实际创建工作推迟到具体子工厂类当中。这满足创建型模式中所要求的“创建与使用相分离”的特点。<br>如果要创建的产品不多，只要一个工厂类就可以完成，这种模式叫“简单工厂模式”，它不属于 GoF 的 23 种经典<span class="exturl" data-url="aHR0cDovL2MuYmlhbmNoZW5nLm5ldC9kZXNpZ25fcGF0dGVybi8=" title="http://c.biancheng.net/design_pattern/">设计模式<i class="fa fa-external-link"></i></span>，它的缺点是增加新产品时会违背“开闭原则”。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="模式的定义与特点"><a href="#模式的定义与特点" class="headerlink" title="模式的定义与特点"></a>模式的定义与特点</h2><p><strong>工厂方法（FactoryMethod）模式的定义：</strong>定义一个创建产品对象的工厂接口，将产品对象的实际创建工作推迟到具体子工厂类当中。这满足创建型模式中所要求的“创建与使用相分离”的特点。<br>如果要创建的产品不多，只要一个工厂类就可以完成，这种模式叫“简单工厂模式”，它不属于 GoF 的 23 种经典<span class="exturl" data-url="aHR0cDovL2MuYmlhbmNoZW5nLm5ldC9kZXNpZ25fcGF0dGVybi8=" title="http://c.biancheng.net/design_pattern/">设计模式<i class="fa fa-external-link"></i></span>，它的缺点是增加新产品时会违背“开闭原则”。</p><a id="more"></a>
 <p><strong>工厂方法模式的主要优点有：</strong></p>
 <ul>
 <li>用户只需要知道具体工厂的名称就可得到所要的产品，无须知道产品的具体创建过程；</li>
@@ -409,7 +409,7 @@
   <entry>
     <title>浅析设计模式之原型设计模式</title>
     <url>/posts/c909a911/</url>
-    <content><![CDATA[<h2 id="原型模式的定义与特点"><a href="#原型模式的定义与特点" class="headerlink" title="原型模式的定义与特点"></a>原型模式的定义与特点</h2><p><strong>原型（Prototype）模式的定义如下</strong>：用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在这里，原型实例指定了要创建的对象的种类。用这种方式创建对象非常高效，根本无须知道对象创建的细节。在有的时候需要重新创建个对象时，无疑使用原型模式会显得更加的便捷。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="原型模式的定义与特点"><a href="#原型模式的定义与特点" class="headerlink" title="原型模式的定义与特点"></a>原型模式的定义与特点</h2><p><strong>原型（Prototype）模式的定义如下</strong>：用一个已经创建的实例作为原型，通过复制该原型对象来创建一个和原型相同或相似的新对象。在这里，原型实例指定了要创建的对象的种类。用这种方式创建对象非常高效，根本无须知道对象创建的细节。在有的时候需要重新创建个对象时，无疑使用原型模式会显得更加的便捷。</p><a id="more"></a>
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.dszmr.sjms.yxms;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 原型模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Yuanxing</span> <span class="keyword">implements</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String label;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLabel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> label;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLabel</span><span class="params">(String label)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.label = label;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Yuanxing <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Yuanxing) <span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        Yuanxing yuanxing = <span class="keyword">new</span> Yuanxing();</span><br><span class="line">        yuanxing.setLabel(<span class="string">"dsz"</span>);</span><br><span class="line"></span><br><span class="line">        Yuanxing clone = yuanxing.clone();</span><br><span class="line"></span><br><span class="line">        String label = yuanxing.getLabel();</span><br><span class="line">        String label1 = clone.getLabel();</span><br><span class="line"></span><br><span class="line">        System.out.println(label.equals(label1)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(clone==yuanxing); <span class="comment">//false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
@@ -424,7 +424,7 @@
   <entry>
     <title>浅析设计模式之单例设计模式</title>
     <url>/posts/1abfeb89/</url>
-    <content><![CDATA[<h2 id="单例模式的定义与特点"><a href="#单例模式的定义与特点" class="headerlink" title="单例模式的定义与特点"></a>单例模式的定义与特点</h2><p><strong>单例（Singleton）模式的定义：</strong>指一个类只有一个实例，且该类能自行创建这个实例的一种模式。例如，Windows 中只能打开一个任务管理器，这样可以避免因打开多个任务管理器窗口而造成内存资源的浪费，或出现各个窗口显示内容的不一致等错误。<br>在计算机系统中，还有 Windows 的回收站、操作系统中的文件系统、多线程中的线程池、显卡的驱动程序对象、打印机的后台处理服务、应用程序的日志对象、数据库的连接池、网站的计数器、Web 应用的配置对象、应用程序中的对话框、系统中的缓存等常常被设计成单例。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="单例模式的定义与特点"><a href="#单例模式的定义与特点" class="headerlink" title="单例模式的定义与特点"></a>单例模式的定义与特点</h2><p><strong>单例（Singleton）模式的定义：</strong>指一个类只有一个实例，且该类能自行创建这个实例的一种模式。例如，Windows 中只能打开一个任务管理器，这样可以避免因打开多个任务管理器窗口而造成内存资源的浪费，或出现各个窗口显示内容的不一致等错误。<br>在计算机系统中，还有 Windows 的回收站、操作系统中的文件系统、多线程中的线程池、显卡的驱动程序对象、打印机的后台处理服务、应用程序的日志对象、数据库的连接池、网站的计数器、Web 应用的配置对象、应用程序中的对话框、系统中的缓存等常常被设计成单例。</p><a id="more"></a>
 <ol>
 <li>单例类只有一个实例对象；</li>
 <li>该单例对象必须由单例类自行创建；</li>
@@ -448,7 +448,7 @@
   <entry>
     <title>简单实践spring框架(手写spring)</title>
     <url>/posts/8da23d78/</url>
-    <content><![CDATA[<h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Spring-IOC篇"><a href="#Spring-IOC篇" class="headerlink" title="Spring-IOC篇"></a>Spring-IOC篇</h1><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    我们认识的Spring-IOC 无非就是在类上加一个    @Component,@Service,@Controller,@Repository这些注解，这样就代表了将这个类或者说对象交给了spring管理，由spring为我们创建对象，而我们只需要在其他的类的成员位置定义该对象的对象名并在其上面加上@Resource或者@Autowired注解，spring便会自动的把我们所需要的值注入进去了，我们直接调用即可。这看似简单的却又神奇的操作，你又有没有想过spring是怎么实现的呢？</p><a id="more"></a>
 <h3 id="IOC注入流程"><a href="#IOC注入流程" class="headerlink" title="IOC注入流程"></a>IOC注入流程</h3><p>流程大致分为五步</p>
 <ol>
 <li>读取配置文件获取文件根路径</li>
@@ -566,7 +566,7 @@
   <entry>
     <title>JAVA类加载器</title>
     <url>/posts/f1b411ee/</url>
-    <content><![CDATA[<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>​     当程序主动使用某个类时，如果该类还未被加载到内存中，则JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化</p><p><img alt="1590634636055" data-src="1590634636055.png"></p><h2 id="一、类加载过程"><a href="#一、类加载过程" class="headerlink" title="一、类加载过程"></a>一、类加载过程</h2><h3 id="1-加载"><a href="#1-加载" class="headerlink" title="1.加载"></a><strong>1.加载</strong></h3><p>​    加载指的是将类的class文件读入到内存，并为之创建一个java.lang.Class对象，也就是说，当程序中使用任何类时，系统都会为之建立一个java.lang.Class对象。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>​     当程序主动使用某个类时，如果该类还未被加载到内存中，则JVM会通过加载、连接、初始化3个步骤来对该类进行初始化。如果没有意外，JVM将会连续完成3个步骤，所以有时也把这个3个步骤统称为类加载或类初始化</p><p><img alt="1590634636055" data-src="1590634636055.png"></p><h2 id="一、类加载过程"><a href="#一、类加载过程" class="headerlink" title="一、类加载过程"></a>一、类加载过程</h2><h3 id="1-加载"><a href="#1-加载" class="headerlink" title="1.加载"></a><strong>1.加载</strong></h3><p>​    加载指的是将类的class文件读入到内存，并为之创建一个java.lang.Class对象，也就是说，当程序中使用任何类时，系统都会为之建立一个java.lang.Class对象。</p><a id="more"></a>
 
 
 <pre><code>类的加载由类加载器完成，类加载器通常由JVM提供，这些类加载器也是前面所有程序运行的基础，JVM提供的这些类加载器通常被称为系统类加载器。除此之外，开发者可以通过继承ClassLoader基类来创建自己的类加载器。
@@ -629,7 +629,7 @@
   <entry>
     <title>jvm虚拟机</title>
     <url>/posts/c9804b55/</url>
-    <content><![CDATA[<h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img alt="1590134776914" data-src="1590134776914.png"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img alt="1590134776914" data-src="1590134776914.png"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
 
 
 
@@ -647,7 +647,7 @@
   <entry>
     <title>sql优化相关之如何写出一条好sql</title>
     <url>/posts/785a1566/</url>
-    <content><![CDATA[<h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p><p>TPS = (事务提交+事务回滚）/运行时间</p><p>​                QPS:执行sql等待返回结果之间的等待时间</p><p>QPS=查询个数/运行时间</p><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="sql架构与存储引擎"><a href="#sql架构与存储引擎" class="headerlink" title="sql架构与存储引擎"></a>sql架构与存储引擎</h2><h3 id="Qps与Tps"><a href="#Qps与Tps" class="headerlink" title="Qps与Tps"></a>Qps与Tps</h3><p>​                TPS: 指服务器每秒处理的事务数 ，<strong>支持事务的存储引擎</strong>特有的一个性能指标 </p><p>TPS = (事务提交+事务回滚）/运行时间</p><p>​                QPS:执行sql等待返回结果之间的等待时间</p><p>QPS=查询个数/运行时间</p><h3 id="mysqlslap"><a href="#mysqlslap" class="headerlink" title="mysqlslap"></a>mysqlslap</h3><a id="more"></a>
 
 
 
@@ -1100,7 +1100,7 @@
   <entry>
     <title>Elastic-Stack相关</title>
     <url>/posts/878e527b/</url>
-    <content><![CDATA[<h1 id="安装Elastic-Stack"><a href="#安装Elastic-Stack" class="headerlink" title="安装Elastic Stack"></a>安装Elastic Stack</h1><p>准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡）</p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="安装Elastic-Stack"><a href="#安装Elastic-Stack" class="headerlink" title="安装Elastic Stack"></a>安装Elastic Stack</h1><p>准备一台虚拟机，（最好3G内存以上，不然会很卡，很卡很卡）</p><ol>
 <li>准备docker环境</li>
 </ol><h6 id="安装docker环境"><a href="#安装docker环境" class="headerlink" title="安装docker环境"></a>安装docker环境</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 安装docker </span></span><br><span class="line">yum install -y docker</span><br></pre></td></tr></table></figure><h6 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h6><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">// 输入命令行 </span><br><span class="line">sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 配置权限</span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">// 查看版本</span><br><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure><a id="more"></a>
 
@@ -1206,7 +1206,7 @@
   <entry>
     <title>RabbitMQ的入门</title>
     <url>/posts/3b8ce786/</url>
-    <content><![CDATA[<h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一，RabbitMQ的介绍与安装"><a href="#一，RabbitMQ的介绍与安装" class="headerlink" title="一，RabbitMQ的介绍与安装"></a>一，RabbitMQ的介绍与安装</h2><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>​            RabbitMQ是使用Erlang语言开发的开源消息队列系统，基于AMQP协议 来实现。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布 /订阅）、可靠性、安全。AMQP协议更多用在企业系统内，对数据_致 性、稳定性和可靠性要求很髙的场景，对性能和吞吐量的要求还在其次。</p><a id="more"></a>
 <p><strong>与其他mq的比较</strong></p>
 <pre><code>activiMq老牌消息中间件，api全面，但是吞吐量不大
 
@@ -1645,7 +1645,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>redis学习与提升</title>
     <url>/posts/42bd15f0/</url>
-    <content><![CDATA[<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string   基本数据</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap  对象</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist  列表</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset 去重 </p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><h3 id="五种常用的基本数据类型"><a href="#五种常用的基本数据类型" class="headerlink" title="五种常用的基本数据类型"></a>五种常用的基本数据类型</h3><p>​        <strong>string</strong>:字符串类型  –》string   基本数据</p><p>​        <strong>hash</strong>:对应hash表类型  –》hashmap  对象</p><p>​        <strong>list</strong>:对应有序列表类型 –》 linkedlist  列表</p><p>​        <strong>set</strong>:对应不可重复类型–》hashset 去重 </p><a id="more"></a>
 
 
 
@@ -1784,7 +1784,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>HashMap底层学习</title>
     <url>/posts/a2777b58/</url>
-    <content><![CDATA[<h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p><p><strong>数组：</strong></p><p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p><p><strong>线性链表：</strong></p><p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="一-什么是哈希表"><a href="#一-什么是哈希表" class="headerlink" title="一. 什么是哈希表"></a>一. 什么是哈希表</h3><p><strong><em>其他数据结构</em></strong></p><p><strong>数组：</strong></p><p>​        采用一段连续的存储单元来存储数据。对于指定下标的查找，比较简单，通过给定一个数据进行查找需要遍历数组进行对比，比较麻烦，对于一般的删除插入操作，涉及到了数组元素的移动，也比较麻烦。</p><p><strong>线性链表：</strong></p><p>​        链表的新增修改删除，只需处理结点间的引用即可，比较简单，但是查询需要遍历整个链表进行逐一比较查询，比较麻烦</p><a id="more"></a>
 
 
 
@@ -1823,7 +1823,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>spring-data-jpa入门</title>
     <url>/posts/4b6ca2da/</url>
-    <content><![CDATA[<blockquote>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote>
 <p>SpringData JPA是spring基于ORM框架、JPA规范的基础上封装的一套JPA应用框架，可以使开发者使用极简的代码实现对数据库的访问和操作。它提供了包括增删改查等在内的基本功能，且易于扩展。</p>
 </blockquote><h3 id="1-springdata-jpa、jpa和hibernate三者关系"><a href="#1-springdata-jpa、jpa和hibernate三者关系" class="headerlink" title="1 springdata jpa、jpa和hibernate三者关系"></a>1 springdata jpa、jpa和hibernate三者关系</h3><p>通俗来讲springdata jpa是对jpa规范的一层封装，hibernate实现了jpa规范。spring data jpa 内部封装了hibernate 是使用hibernate进行数据库交互的。</p><a id="more"></a>
 
@@ -2119,7 +2119,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>面试题</title>
     <url>/posts/5205ee75/</url>
-    <content><![CDATA[<h3 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a>Java 基础</h3><h4 id="1-JDK-和-JRE-有什么区别？"><a href="#1-JDK-和-JRE-有什么区别？" class="headerlink" title="1. JDK 和 JRE 有什么区别？"></a>1. JDK 和 JRE 有什么区别？</h4><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a>Java 基础</h3><h4 id="1-JDK-和-JRE-有什么区别？"><a href="#1-JDK-和-JRE-有什么区别？" class="headerlink" title="1. JDK 和 JRE 有什么区别？"></a>1. JDK 和 JRE 有什么区别？</h4><ul>
 <li>JDK：Java Development Kit 的简称，Java 开发工具包，提供了 Java 的开发环境和运行环境。</li>
 <li>JRE：Java Runtime Environment 的简称，Java 运行环境，为 Java 的运行提供了所需环境。</li>
 </ul><p>具体来说 JDK 其实包含了 JRE，同时还包含了编译 Java 源码的编译器 Javac，还包含了很多 Java 程序调试和分析的工具。简单来说：如果你需要运行 Java 程序，只需安装 JRE 就可以了，如果你需要编写 Java 程序，需要安装 JDK。</p><a id="more"></a>
@@ -3893,7 +3893,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>并发编程-线程共享与协作</title>
     <url>/posts/e2044221/</url>
-    <content><![CDATA[<h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initFlag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (initFlag)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            initFlag = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直正在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="多核并发缓存架构和jmm模型"><a href="#多核并发缓存架构和jmm模型" class="headerlink" title="多核并发缓存架构和jmm模型"></a>多核并发缓存架构和jmm模型</h3><p>​    <strong>java线程内存模型</strong></p><p>​        java线程内存模型跟cpu缓存类似，是基于cpu缓存模型来建立的，Java线程内存模型是标准化的，屏蔽掉了底层不同的</p><p>编写案例：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XianChenTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initFlag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程1进来了"</span>);</span><br><span class="line">            <span class="keyword">while</span> (initFlag)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"线程1结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">        Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"线程2进来了"</span>);</span><br><span class="line">            initFlag = <span class="keyword">false</span>;</span><br><span class="line">            System.out.println(<span class="string">"线程2结束了"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果</span></span><br><span class="line"><span class="comment">线程1进来了</span></span><br><span class="line"><span class="comment">线程2进来了</span></span><br><span class="line"><span class="comment">线程2结束了</span></span><br><span class="line"><span class="comment">循环还是一直正在进行中</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
 
@@ -3984,7 +3984,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>spring-cloud-Netflix 基本配置</title>
     <url>/posts/c0e48c42/</url>
-    <content><![CDATA[<h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><strong>pom</strong></p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h2><p><strong>pom</strong></p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
 <p><strong>yml</strong></p>
@@ -4095,7 +4095,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>redis+spring-data-redis 的简单使用</title>
     <url>/posts/bbccbdd3/</url>
-    <content><![CDATA[<h3 id="一、为什么使用"><a href="#一、为什么使用" class="headerlink" title="一、为什么使用"></a>一、为什么使用</h3><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="一、为什么使用"><a href="#一、为什么使用" class="headerlink" title="一、为什么使用"></a>一、为什么使用</h3><ol>
 <li>解决应用服务器的cpu和内存压力</li>
 <li>减少io的读操作，减轻io的压力</li>
 <li>关系型数据库的扩展性不强，难以改变表结构</li>
@@ -4153,7 +4153,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>mybatis-plus 使用</title>
     <url>/posts/8b8e6788/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
 <li><strong>无侵入</strong>：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑</li>
 <li><strong>损耗小</strong>：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作</li>
 <li><strong>强大的 CRUD 操作</strong>：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求</li>
@@ -4592,7 +4592,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2-实战(3)</title>
     <url>/posts/a6542501/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p><p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在 <strong>为什么需要 oAuth2</strong> 和 <strong>RBAC 基于角色的权限控制</strong> 章节，我们介绍过资源的概念，简单点说就是需要被访问的业务数据或是静态资源文件都可以被称作资源。</p><p>为了让大家更好的理解资源服务器的概念，我们单独创建一个名为 <code>spring-security-oauth2-resource</code> 资源服务器的项目，该项目的主要目的就是对数据表的 CRUD 操作，而这些操作就是对资源的操作了。</p><a id="more"></a>
 
 <p><strong>操作流程</strong></p>
 <p><img alt="img" data-src="http://www.qfdmy.com/wp-content/uploads/2019/08/901ef32a4fa6cad.png"></p>
@@ -4671,7 +4671,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2(2)</title>
     <url>/posts/30e46b1/</url>
-    <content><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本章节 <strong>基于 JDBC 存储令牌</strong> 的模式用于演示最基本的操作，帮助大家快速理解 oAuth2 认证服务器中 “认证”、”授权”、”访问令牌” 的基本概念</p><h3 id="对于上篇文章需要修改的点"><a href="#对于上篇文章需要修改的点" class="headerlink" title="对于上篇文章需要修改的点"></a>对于上篇文章需要修改的点</h3><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本章节 <strong>基于 JDBC 存储令牌</strong> 的模式用于演示最基本的操作，帮助大家快速理解 oAuth2 认证服务器中 “认证”、”授权”、”访问令牌” 的基本概念</p><h3 id="对于上篇文章需要修改的点"><a href="#对于上篇文章需要修改的点" class="headerlink" title="对于上篇文章需要修改的点"></a>对于上篇文章需要修改的点</h3><ul>
 <li><p>初始化 oAuth2 相关表</p>
 </li>
 <li><p>在数据库中配置客户端</p>
@@ -4818,7 +4818,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>Spring security oAth2(1)</title>
     <url>/posts/28231572/</url>
-    <content><![CDATA[<h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p><p>​            认证：判断该用户是否有权限登录该系统</p><p>​            授权：判断该用户是否有权限访问该功能</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="一、Spring-security框架简介"><a href="#一、Spring-security框架简介" class="headerlink" title="一、Spring security框架简介"></a>一、Spring security框架简介</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p>​           一个能够为基于Spring的企业应用系统提供声明式的安全访问控制解决方式的安全框架（简单说是对访问权限进行控制），主要核心功能为 认证和授权</p><p>​            认证：判断该用户是否有权限登录该系统</p><p>​            授权：判断该用户是否有权限访问该功能</p><a id="more"></a>
 
 
 <p>spring security的所有的架构也是基于这两个核心功能去实现的。</p>
@@ -4967,7 +4967,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>gateway网关</title>
     <url>/posts/1a1a324a/</url>
-    <content><![CDATA[<p><strong>实现思想</strong></p><p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p><p><strong>功能特征</strong></p><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>实现思想</strong></p><p>一个微服务项目有着很多的服务，但是服务与服务之间的域名肯定不相同那么每一次请求服务时，对于域名的修改就显得极为麻烦了，所以在微服务生态中就有了网关，网关统一请求路径也就是每一个请求都会经过网关，当请求到达gateway时在通过动态路由分配到各个对应的服务</p><p><strong>功能特征</strong></p><ul>
 <li>基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0</li>
 <li>动态路由</li>
 <li>Predicates 和 Filters 作用于特定路由</li>
@@ -5073,7 +5073,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>nodejs设置全局路径后npm报错 已解决</title>
     <url>/posts/daddcf83/</url>
-    <content><![CDATA[<p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img alt="大大大" data-src="%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>]]></content>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>nodejs 在 npm config set prefix “path of npm_global” 设置全局路径后一直出现如下错误</p><p><img alt="大大大" data-src="%E5%A4%A7%E5%A4%A7%E5%A4%A7.bmp"></p><p>解决办法：</p><p>​                <strong>删除c盘用户目录下的.cnpm文件即可解决</strong></p>]]></content>
       <categories>
         <category>bug记录</category>
       </categories>
@@ -5085,7 +5085,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>4，Nacos分布式配置中心</title>
     <url>/posts/d7a54cc5/</url>
-    <content><![CDATA[<p><strong>以服务消费者service-consumer为例</strong></p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>以服务消费者service-consumer为例</strong></p><ol>
 <li>添加pom依赖</li>
 </ol><p><dependency>     <groupid>org.springframework.cloud</groupid>     <artifactid>spring-cloud-starter-alibaba-nacos-config</artifactid> </dependency> </p><p>2.打开nacos 打开 服务配置列表 点击新增配置</p><p><img alt="img" data-src="clipboard.png"></p><p>3.添加服务</p><p>Data ID 必须是唯一的  </p><a id="more"></a>
 
@@ -5146,7 +5146,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>3，Nacos Feign 客户端</title>
     <url>/posts/7501af29/</url>
-    <content><![CDATA[<p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>创建服务消费者spring-cloud-demo-consumer</strong></p><ol>
 <li>修改pom添加依赖</li>
 </ol><dependencies>
     <!-- Spring Boot Begin -->
@@ -5257,7 +5257,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>2，服务注册与发现Nacos</title>
     <url>/posts/9eeb3ef5/</url>
-    <content><![CDATA[<p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p><p><strong>部署操作步骤</strong></p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Nacos需要部署 所以想自己部署的同学请移步docker学习</p><p><strong>部署操作步骤</strong></p><ol>
 <li><strong>Clone 项目</strong></li>
 </ol><p>git clone <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25hY29zLWdyb3VwL25hY29zLWRvY2tlci5naXQ=" title="https://github.com/nacos-group/nacos-docker.git">https://github.com/nacos-group/nacos-docker.git<i class="fa fa-external-link"></i></span> cd nacos-docker </p><ol>
 <li><strong>单机模式</strong></li>
@@ -5330,7 +5330,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>1，统一依赖管理</title>
     <url>/posts/undefined/</url>
-    <content><![CDATA[<p><strong>创建一个普通spring-boot工程</strong></p><p><img alt="img" data-src="clipboard.png"></p><p><strong>修改pom文件</strong></p><ol>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>创建一个普通spring-boot工程</strong></p><p><img alt="img" data-src="clipboard.png"></p><p><strong>修改pom文件</strong></p><ol>
 <li>修改pom文件默认打包方式为pom</li>
 </ol><p><packaging>pom</packaging> </p><ol>
 <li>添加统一版本管理</li>
@@ -5569,7 +5569,7 @@ key = {&quot;#.#&quot;}))</code></pre>public void listen(String msg){<pre><code>
   <entry>
     <title>5，sentinel服务熔断</title>
     <url>/posts/24421a25/</url>
-    <content><![CDATA[<p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMUx4ZGFnQlBpNDVJbXNzTkZ4SWxnbUE=" title="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA<i class="fa fa-external-link"></i></span> 密码：t9so </p><p><img alt="img" data-src="clipboard.png"></p><p>点击启动文件启动项目</p><p>访问<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo5NTI3Lw==" title="http://localhost:9527/">http://localhost:9527<i class="fa fa-external-link"></i></span></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>sentinel是阿里巴巴开源，应对高并发场景的解决方案</p><p>下载解压</p><p>链接：<span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMUx4ZGFnQlBpNDVJbXNzTkZ4SWxnbUE=" title="https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA">https://pan.baidu.com/s/1LxdagBPi45ImssNFxIlgmA<i class="fa fa-external-link"></i></span> 密码：t9so </p><p><img alt="img" data-src="clipboard.png"></p><p>点击启动文件启动项目</p><p>访问<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo5NTI3Lw==" title="http://localhost:9527/">http://localhost:9527<i class="fa fa-external-link"></i></span></p><p>账号 密码 都是 sentinel</p><p>修改服务消费者 consuner </p><a id="more"></a>
 
 
 
