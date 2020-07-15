@@ -1,2 +1,3 @@
 Sitemap: http://dszmr.cn/sitemap.xml
 Sitemap: http://dszmr.cn/baidusitemap.xml
+Sitemap: http://dszmr.cn/atom.xml
