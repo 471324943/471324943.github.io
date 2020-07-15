@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>简单实践spring框架-手写Spring-AOP</title>
+    <title>简单实践spring框架-手写Spring-AOP</title>
     <url>/posts/d96b2536/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Spring-AOP篇"><a href="#Spring-AOP篇" class="headerlink" title="Spring-AOP篇"></a>Spring-AOP篇</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Spring-AOP是spring的两大功能，其很巧妙的运用了代理模式的方法，来对类进行加强，而不需要去修改代码，很好的契合了开闭原则。他的实现逻辑是先加载AspectProxy的子类，然后去判断子类是否标有@Aspect注解，如果有该注解则去获取该注解里的参数，判断是目标类是那些类，然后通过代理工厂创建出代理对象，拿到该对象去替换本来存在与bean工厂中的类。然后再次对该类进行调用时，调用的就是代理对象了，然后cglib会拦截该代理对象方法的每次掉用，这样就可以控制去执行其他方法，或者进行其他逻辑操作。</p><a id="more"></a>
 <h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><ol>
@@ -48,7 +48,7 @@
 <p>控制台打印</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">++++++++++++开始执行++++++++++++</span><br><span class="line">该接口执行时长为:3ms</span><br><span class="line">++++++++++++执行完毕++++++++++++</span><br></pre></td></tr></table></figure>
 
-<p>下一篇 手写spring之database</p>
+<p>下一篇 database篇</p>
 <p>敬请期待！</p>
 ]]></content>
       <categories>
@@ -130,7 +130,7 @@
 <p>编译项目  启动项目</p>
 <p>访问 <span class="exturl" data-url="aHR0cHM6Ly9sb2NhbGhvc3Q6ODA4MC9kc3ovdGVzdA==" title="https://localhost:8080/dsz/test">https://localhost:8080/dsz/test<i class="fa fa-external-link"></i></span></p>
 <p>看到hello word 成功打印 </p>
-<p>下一篇 AOP篇 敬请期待！</p>
+<p>下一篇 <a href="/posts/d96b2536/">AOP篇</a></p>
 ]]></content>
       <categories>
         <category>框架底层</category>
