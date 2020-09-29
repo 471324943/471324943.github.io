@@ -1,6 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>stream常用方法</title>
+    <url>/posts/177e20f8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote>
+<p>Java8中有两大最为重要的改变，第一个是Lambda表达式，另外一个则是Stream API。</p>
+</blockquote><ul>
+<li><p>流是Java8引入的全新概念，它用来处理集合中的数据。</p>
+</li>
+<li><p>众所周知，集合操作非常麻烦，若要对集合进行筛选、投影，需要写大量的代码，而流是以声明的形式操作集合，它就像SQL语句，我们只需告诉流需要对集合进行什么操作，它就会自动进行操作，并将执行结果交给你，无需我们自己手写代码。</p>
+</li>
+<li><p>在项目中使用Stream API可以大大提高效率以及代码的可读性，使我们对数据进行处理的时候事半功倍。</p>
+</li>
+</ul><a id="more"></a>
+
+<h6 id="这篇博文以实战角度出发，讲解平时开发中常用API的用法以及一些注意的地方。"><a href="#这篇博文以实战角度出发，讲解平时开发中常用API的用法以及一些注意的地方。" class="headerlink" title="这篇博文以实战角度出发，讲解平时开发中常用API的用法以及一些注意的地方。"></a>这篇博文以实战角度出发，讲解平时开发中常用API的用法以及一些注意的地方。</h6><ul>
+<li>首先创建一个对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">	<span class="keyword">private</span> Status status;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">enum</span> Status &#123;</span><br><span class="line">		FREE, BUSY, VOCATION;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age, <span class="keyword">double</span> salary)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">		<span class="keyword">this</span>.salary = salary;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age, <span class="keyword">double</span> salary, Status status)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">		<span class="keyword">this</span>.salary = salary;</span><br><span class="line">		<span class="keyword">this</span>.status = status;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//省略get，set等。。。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>随便初始化一些数据</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;Employee&gt; empList = Arrays.asList(<span class="keyword">new</span> Employee(<span class="number">102</span>, <span class="string">"李四"</span>, <span class="number">59</span>, <span class="number">6666.66</span>, Status.BUSY),</span><br><span class="line">		<span class="keyword">new</span> Employee(<span class="number">101</span>, <span class="string">"张三"</span>, <span class="number">18</span>, <span class="number">9999.99</span>, Status.FREE), <span class="keyword">new</span> Employee(<span class="number">103</span>, <span class="string">"王五"</span>, <span class="number">28</span>, <span class="number">3333.33</span>, Status.VOCATION),</span><br><span class="line">		<span class="keyword">new</span> Employee(<span class="number">104</span>, <span class="string">"赵六"</span>, <span class="number">8</span>, <span class="number">7777.77</span>, Status.BUSY), <span class="keyword">new</span> Employee(<span class="number">104</span>, <span class="string">"赵六"</span>, <span class="number">8</span>, <span class="number">7777.77</span>, Status.FREE),</span><br><span class="line">		<span class="keyword">new</span> Employee(<span class="number">104</span>, <span class="string">"赵六"</span>, <span class="number">8</span>, <span class="number">7777.77</span>, Status.FREE), <span class="keyword">new</span> Employee(<span class="number">105</span>, <span class="string">"田七"</span>, <span class="number">38</span>, <span class="number">5555.55</span>, Status.BUSY));</span><br></pre></td></tr></table></figure>
+
+<h6 id="中间操作"><a href="#中间操作" class="headerlink" title="中间操作"></a>中间操作</h6><ul>
+<li>根据条件筛选<code>filter</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 接收Lambda, 从流中排除某些元素。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().filter((e) -&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> e.getSalary() &gt;= <span class="number">5000</span>;</span><br><span class="line">	&#125;).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>跳过流的前n个元素<code>skip</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 跳过元素，返回一个扔掉了前n个元素的流。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSkip</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().filter((e) -&gt; e.getSalary() &gt;= <span class="number">5000</span>).skip(<span class="number">2</span>).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>去除重复元素<code>distinct</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 筛选，通过流所生成元素的 hashCode() 和 equals() 去除重复元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testDistinct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().distinct().forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>截取流的前n个元素<code>limit</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 截断流，使其元素不超过给定数量。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testLimit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().filter((e) -&gt; &#123;</span><br><span class="line">		<span class="keyword">return</span> e.getSalary() &gt;= <span class="number">5000</span>;</span><br><span class="line">	&#125;).limit(<span class="number">3</span>).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>映射<code>map</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 接收一个函数作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().map(e -&gt; e.getName()).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">	empList.stream().map(e -&gt; &#123;</span><br><span class="line">		empList.forEach(i -&gt; &#123;</span><br><span class="line">			i.setName(i.getName() + <span class="string">"111"</span>);</span><br><span class="line">		&#125;);</span><br><span class="line">		<span class="keyword">return</span> e;</span><br><span class="line">	&#125;).collect(Collectors.toList());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自然排序<code>sorted</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 产生一个新流，其中按自然顺序排序</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSorted</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().map(Employee::getName).sorted().forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自定义排序<code>sorted(Comparator comp)</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 产生一个新流，其中按自然顺序排序</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testSortedComparator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	empList.stream().sorted((x, y) -&gt; &#123;</span><br><span class="line">		<span class="keyword">if</span> (x.getAge() == y.getAge()) &#123;</span><br><span class="line">			<span class="keyword">return</span> x.getName().compareTo(y.getName());</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> Integer.compare(x.getAge(), y.getAge());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;).forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="最终操作"><a href="#最终操作" class="headerlink" title="最终操作"></a>最终操作</h6><ul>
+<li>是否匹配任一元素<code>anyMatch</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 检查是否至少匹配一个元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testAnyMatch</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> b = empList.stream().anyMatch((e) -&gt; e.getStatus().equals(Status.BUSY));</span><br><span class="line">	System.out.println(<span class="string">"boolean is : "</span> + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>是否匹配所有元素<code>allMatch</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 检查是否匹配所有元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testAllMatch</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> b = empList.stream().allMatch((e) -&gt; e.getStatus().equals(Status.BUSY));</span><br><span class="line">	System.out.println(<span class="string">"boolean is : "</span> + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>是否未匹配所有元素<code>noneMatch</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 检查是否没有匹配的元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testNoneMatch</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> b = empList.stream().noneMatch((e) -&gt; e.getStatus().equals(Status.BUSY));</span><br><span class="line">	System.out.println(<span class="string">"boolean is : "</span> + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回第一个元素<code>findFirst</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回第一个元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFindFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Employee&gt; op = empList.stream().sorted((e1, e2) -&gt; Double.compare(e1.getSalary(), e2.getSalary()))</span><br><span class="line">			.findFirst();</span><br><span class="line">	<span class="keyword">if</span> (op.isPresent()) &#123;</span><br><span class="line">		System.out.println(<span class="string">"first employee name is : "</span> + op.get().getName().toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回流中任意元素<code>findAny</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回当前流中的任意元素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFindAny</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Employee&gt; op = empList.stream().sorted((e1, e2) -&gt; Double.compare(e1.getSalary(), e2.getSalary()))</span><br><span class="line">			.findAny();</span><br><span class="line">	<span class="keyword">if</span> (op.isPresent()) &#123;</span><br><span class="line">		System.out.println(<span class="string">"any employee name is : "</span> + op.get().getName().toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回流的总数<code>count</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回流中元素的总个数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">long</span> count = empList.stream().filter((e) -&gt; e.getStatus().equals(Status.FREE)).count();</span><br><span class="line">	System.out.println(<span class="string">"Count is : "</span> + count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回流中的最大值<code>max</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回流中最大值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testMax</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Double&gt; op = empList.stream().map(Employee::getSalary).max(Double::compare);</span><br><span class="line"></span><br><span class="line">	System.out.println(op.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>返回流中的最小值<code>min</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回流中最小值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testMin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Employee&gt; op2 = empList.stream().min((e1, e2) -&gt; Double.compare(e1.getSalary(), e2.getSalary()));</span><br><span class="line"></span><br><span class="line">	System.out.println(op2.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>归约<code>reduce</code><br>归约是将集合中的所有元素经过指定运算，折叠成一个元素输出</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以将流中元素反复结合起来，得到一个值。返回T</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testReduce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Double&gt; op = empList.stream().map(Employee::getSalary).reduce(Double::sum);</span><br><span class="line"></span><br><span class="line">	System.out.println(op.get());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以将流中元素反复结合起来，得到一个值，返回Optional&lt; T&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testReduce1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Integer&gt; sum = empList.stream().map(Employee::getName).flatMap(Java8Stream::filterCharacter)</span><br><span class="line">			.map((ch) -&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (ch.equals(<span class="string">'六'</span>))</span><br><span class="line">					<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;).reduce(Integer::sum);</span><br><span class="line"></span><br><span class="line">	System.out.println(sum.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将元素收集到list里<code>Collectors.toList()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把流中的元素收集到list里。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsToList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	List&lt;String&gt; list = empList.stream().map(Employee::getName).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">	list.forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将元素收集到set里<code>Collectors.toSet()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把流中的元素收集到set里。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsToSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Set&lt;String&gt; list = empList.stream().map(Employee::getName).collect(Collectors.toSet());</span><br><span class="line"></span><br><span class="line">	list.forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把流中的元素收集到新创建的集合里<code>Collectors.toCollection(HashSet::new)</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把流中的元素收集到新创建的集合里。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsToCollection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	HashSet&lt;String&gt; hs = empList.stream().map(Employee::getName).collect(Collectors.toCollection(HashSet::<span class="keyword">new</span>));</span><br><span class="line"></span><br><span class="line">	hs.forEach(System.out::println);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据比较器选择最大值<code>Collectors.maxBy()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据比较器选择最大值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsMaxBy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Double&gt; max = empList.stream().map(Employee::getSalary).collect(Collectors.maxBy(Double::compare));</span><br><span class="line"></span><br><span class="line">	System.out.println(max.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>根据比较器选择最小值<code>Collectors.minBy()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据比较器选择最小值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsMinBy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Optional&lt;Double&gt; max = empList.stream().map(Employee::getSalary).collect(Collectors.minBy(Double::compare));</span><br><span class="line"></span><br><span class="line">	System.out.println(max.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对流中元素的某个字段求和<code>Collectors.summingDouble()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对流中元素的整数属性求和。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsSummingDouble</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Double sum = empList.stream().collect(Collectors.summingDouble(Employee::getSalary));</span><br><span class="line"></span><br><span class="line">	System.out.println(sum);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对流中元素的某个字段求平均值<code>Collectors.averagingDouble()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 计算流中元素Integer属性的平均值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsAveragingDouble</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Double avg = empList.stream().collect(Collectors.averagingDouble(Employee::getSalary));</span><br><span class="line"></span><br><span class="line">	System.out.println(avg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分组，类似sql的group by <code>Collectors.groupingBy</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 分组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsGroupingBy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Map&lt;Status, List&lt;Employee&gt;&gt; map = empList.stream().collect(Collectors.groupingBy(Employee::getStatus));</span><br><span class="line"></span><br><span class="line">	System.out.println(map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多级分组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 多级分组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCollectorsGroupingBy1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Map&lt;Status, Map&lt;String, List&lt;Employee&gt;&gt;&gt; map = empList.stream()</span><br><span class="line">			.collect(Collectors.groupingBy(Employee::getStatus, Collectors.groupingBy((e) -&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (e.getAge() &gt;= <span class="number">60</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="string">"老年"</span>;</span><br><span class="line">				<span class="keyword">else</span> <span class="keyword">if</span> (e.getAge() &gt;= <span class="number">35</span>)</span><br><span class="line">					<span class="keyword">return</span> <span class="string">"中年"</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="keyword">return</span> <span class="string">"成年"</span>;</span><br><span class="line">			&#125;)));</span><br><span class="line"></span><br><span class="line">	System.out.println(map);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字符串拼接<code>Collectors.joining()</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 字符串拼接</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">testCollectorsJoining</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String str = empList.stream().map(Employee::getName).collect(Collectors.joining(<span class="string">","</span>, <span class="string">"----"</span>, <span class="string">"----"</span>));</span><br><span class="line"></span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Stream&lt;Character&gt; <span class="title">filterCharacter</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		List&lt;Character&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">		<span class="keyword">for</span> (Character ch : str.toCharArray()) &#123;</span><br><span class="line">			list.add(ch);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> list.stream();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>简单实践spring框架-手写Spring-AOP</title>
     <url>/posts/d96b2536/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Spring-AOP篇"><a href="#Spring-AOP篇" class="headerlink" title="Spring-AOP篇"></a>Spring-AOP篇</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​    Spring-AOP是spring的两大功能，其很巧妙的运用了代理模式的方法，来对类进行加强，而不需要去修改代码，很好的契合了开闭原则。他的实现逻辑是先加载AspectProxy的子类，然后去判断子类是否标有@Aspect注解，如果有该注解则去获取该注解里的参数，判断是目标类是那些类，然后通过代理工厂创建出代理对象，拿到该对象去替换本来存在与bean工厂中的类。然后再次对该类进行调用时，调用的就是代理对象了，然后cglib会拦截该代理对象方法的每次掉用，这样就可以控制去执行其他方法，或者进行其他逻辑操作。</p><a id="more"></a>
@@ -688,7 +845,7 @@
   <entry>
     <title>jvm虚拟机</title>
     <url>/posts/c9804b55/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img alt="1590134776914" data-src="1590134776914.png"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈针 ： 一个方法对应一个栈针</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="jvm架构解析"><a href="#jvm架构解析" class="headerlink" title="jvm架构解析"></a>jvm架构解析</h2><p>程序加载步骤   class  &gt;&gt; 类装载子系统 &gt;&gt; 运行时数据区(内存模型)  &gt;&gt; 字节码执行引擎</p><p><img alt="1590134776914" data-src="1590134776914.png"></p><p>栈： 一个线程对应一块栈内存区域</p><p>栈帧 ： 一个线程内一个方法对应一个栈帧</p><p>操作数栈：一个临时的运行空间  用于程序运算</p><p>局部变量 表：存储局部变量 内部是集合的一个存储结构</p><a id="more"></a>
 
 
 
