@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://dszmr.cn/posts/3b8ce786/</loc>
+    
+    <lastmod>2021-03-04T02:28:33.415Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://dszmr.cn/posts/5205ee75/</loc>
     
     <lastmod>2021-02-26T08:47:24.632Z</lastmod>
@@ -233,13 +240,6 @@
   </url>
   
   <url>
-    <loc>https://dszmr.cn/posts/3b8ce786/</loc>
-    
-    <lastmod>2020-07-07T03:52:38.047Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://dszmr.cn/posts/f1b411ee/</loc>
     
     <lastmod>2020-07-07T03:52:38.045Z</lastmod>
@@ -282,7 +282,7 @@
   </url>
   
   <url>
-    <loc>https://dszmr.cn/live2d-widget/demo/login.html</loc>
+    <loc>https://dszmr.cn/live2d-widget/README.html</loc>
     
     <lastmod>2020-06-23T16:06:10.000Z</lastmod>
     
@@ -296,14 +296,14 @@
   </url>
   
   <url>
-    <loc>https://dszmr.cn/live2d-widget/README.html</loc>
+    <loc>https://dszmr.cn/live2d-widget/demo/demo.html</loc>
     
     <lastmod>2020-06-23T16:06:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://dszmr.cn/live2d-widget/demo/demo.html</loc>
+    <loc>https://dszmr.cn/live2d-widget/demo/login.html</loc>
     
     <lastmod>2020-06-23T16:06:10.000Z</lastmod>
     
